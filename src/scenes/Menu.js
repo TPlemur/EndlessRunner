@@ -6,6 +6,7 @@ class Menu extends Phaser.Scene{
     constructor(){
         super("menuScene");
     }
+    
     preload(){
         //load things here
     }

@@ -2,7 +2,7 @@
 //declairs global variables and creates the phaser game object
 //Thomas, jacqueline, Danny, Quinn
 
-
+console.log('is anyone there?');
 //config for the phaser game
 let config= {
     type: Phaser.CANVAS,
