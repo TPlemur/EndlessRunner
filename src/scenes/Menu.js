@@ -26,19 +26,19 @@ class Menu extends Phaser.Scene{
         this.pulse = false;
 
         //Initialize Background Music that loops also any sound effects
-        this.titleEffect = this.sound.add('titleSound');
-        var effectConfig ={
-            volume: 0.5,
-            delay: 0.83,
-        }
-        this.titleEffect.play(effectConfig);
-
         this.menuBGMusic = this.sound.add('menuBGMusic');
         var musicConfig ={
             volume: 0.5,
             loop: true,
         }
         this.menuBGMusic.play(musicConfig);
+
+        this.titleEffect = this.sound.add('titleSound');
+        var effectConfig ={
+            volume: 1,
+            delay: 0.83,
+        }
+        this.titleEffect.play(effectConfig);
 
         //Sets Cursor to a .cur file
         this.input.setDefaultCursor('url(./assets/menu/spaceshipCursor.cur), pointer'); //Temporary Adding Source Here: http://www.rw-designer.com/licenses
