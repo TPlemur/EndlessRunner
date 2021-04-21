@@ -9,7 +9,7 @@ class Orbiter extends Phaser.GameObjects.Sprite {
         //vars
         this.movmentSpeed = 1;
         this.isOrbiting = true;
-        this.isClockwise = false;
+        this.isClockwise = true;
         this.switchkey = switchKey
         this.angle = angle;
         this.rad = rad;
@@ -22,7 +22,7 @@ class Orbiter extends Phaser.GameObjects.Sprite {
         
         if(this.isOrbiting){
             //defines the relationship between speed and the radious
-            this.period += 2/this.rad; 
+            this.period += .5/this.rad; 
             //causes the motion
             this.orbit();
         }
@@ -45,14 +45,29 @@ class Orbiter extends Phaser.GameObjects.Sprite {
         if(this.isClockwise){
             this.x = this.originX +  Math.cos(this.period)*this.rad;
             this.y = this.originY +  Math.sin(this.period)*this.rad;
-            this.angle -= 1;
+
+            let radSlope = ((this.originY-this.y)/(this.originX-this.x));//slope of radious to orbiter
+            if(this.y-this.originY<0){
+                this.angle = 180-(Math.atan(1/radSlope)*(180/Math.PI)+90);
+            }
+            else{
+                this.angle =180- (Math.atan(1/radSlope)*(180/Math.PI)+270);
+            }
         }
         else{
             this.x = this.originX -  Math.sin(this.period)*this.rad;
             this.y = this.originY -  Math.cos(this.period)*this.rad;
-            this.angle += 1;
-        }
 
+            //update the angle
+            let radSlope = ((this.originY-this.y)/(this.originX-this.x));//slope of radious to orbiter
+            if(this.y-this.originY<0){
+                this.angle = 360-(Math.atan(1/radSlope)*(180/Math.PI)+90);
+            }
+            else{
+                this.angle =360- (Math.atan(1/radSlope)*(180/Math.PI)+270);
+            }
+        
+        }
     }
 
     //move an orbiter to a new origin without stoping orbit
@@ -62,6 +77,11 @@ class Orbiter extends Phaser.GameObjects.Sprite {
     
     //launch the orbiter straight allong the current path
     shoot(){
+        //find tangent line
+        (this.originX,this.originY) // center of circle
+        let radSlope = ((this.originY-this.y)/(this.originX-this.x))//slope of radious to orbiter
+        this.tanSlope = 1/this.radSlope //slope of the tangent
+
 
     }
 
