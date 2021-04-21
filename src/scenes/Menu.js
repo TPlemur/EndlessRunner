@@ -15,6 +15,10 @@ class Menu extends Phaser.Scene{
     }
 
     create(){
+        //Sets Cursor to a .cur file
+        //Temporary Credit Location: http://www.rw-designer.com/licenses
+        this.input.setDefaultCursor('url(./assets/spaceshipCursor.cur), pointer');
+
         //Set background that is tileable
         this.menuBackground = this.add.tileSprite(0, 0, game.config.width, game.config.height, "menuBG").setOrigin(0,0).setScrollFactor(0);
         this.menuBackgroundStars = this.add.tileSprite(0, 0, game.config.width, game.config.height, "menuBGStars").setOrigin(0,0).setScrollFactor(0);
@@ -27,8 +31,7 @@ class Menu extends Phaser.Scene{
         this.launchBtn = this.add.sprite(screenCenterX, screenCenterY + 250, 'launchButton').setInteractive().setScale(2); //Initialize the button
         this.launchBtn.on('pointerover', () => this.actionOnHover(this.launchBtn, this.emitter)); //What happens when you hover over
         this.launchBtn.on('pointerout', () => this.actionOnHoverOut(this.launchBtn, this.emitter)); //What happens when you hover out
-        this.launchBtn.on('pointerdown', () => this.actionOnClick(this)); //What happens when you click
-        
+        this.launchBtn.on('pointerdown', () => this.actionOnClick(this)); //What happens when you click    
     }
 
     update(){
