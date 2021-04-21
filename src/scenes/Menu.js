@@ -10,12 +10,14 @@ class Menu extends Phaser.Scene{
         this.load.image('menuBG', './assets/menuBackground.png');
         this.load.image('launchButton', './assets/menuLaunchButton.png');
         this.load.image('rocketParticle', './assets/rocketParticle.png');
+        this.load.image('menuBGStars', './assets/menuBackgroundStars.png');
         this.load.audio('launchButtonSound', './assets/menuLaunchButtonSound.wav'); //Temporarily Adding Source Here: https://freesound.org/people/pan14/sounds/263129/
     }
 
     create(){
         //Set background that is tileable
         this.menuBackground = this.add.tileSprite(0, 0, game.config.width, game.config.height, "menuBG").setOrigin(0,0).setScrollFactor(0);
+        this.menuBackgroundStars = this.add.tileSprite(0, 0, game.config.width, game.config.height, "menuBGStars").setOrigin(0,0).setScrollFactor(0);
 
         //Initialize Particles and Emitter
         this.rocketParticles = this.add.particles('rocketParticle').setScale(1);
@@ -34,6 +36,8 @@ class Menu extends Phaser.Scene{
         //Adds Parallax Effect, /20 is to slow down the amount the background moves
         this.menuBackground.tilePositionX = this.game.input.mousePointer.x / 20;
         this.menuBackground.tilePositionY = this.game.input.mousePointer.y / 20;
+        this.menuBackgroundStars.tilePositionX = this.game.input.mousePointer.x / 35;
+        this.menuBackgroundStars.tilePositionY = this.game.input.mousePointer.y / 35;
     }
 
     actionOnClick(menuScene){
