@@ -7,7 +7,7 @@ class Credits extends Phaser.Scene {
     }
 
     preload(){
-        this.load.image('backButton', './assets/creditsBackButton.png');
+        this.load.image('backButton', './assets/menu/creditsBackButton.png');
     }
 
     create(){
