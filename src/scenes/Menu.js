@@ -50,12 +50,12 @@ class Menu extends Phaser.Scene{
         this.launchBtn = this.add.sprite(screenCenterX, screenCenterY + 50, 'launchButton').setInteractive().setScale(3); //Initialize the button
         this.launchBtn.on('pointerover', () => this.actionOnHover(this.launchBtn, this.rocketEmitter)); //What happens when you hover over
         this.launchBtn.on('pointerout', () => this.actionOnHoverOut(this.launchBtn, this.rocketEmitter)); //What happens when you hover out
-        this.launchBtn.on('pointerdown', () => this.actionOnClick(this.launchBtn, this)); //What happens when you click   
+        this.launchBtn.on('pointerdown', () => this.actionOnClick(this.launchBtn, this, this.menuBGMusic)); //What happens when you click   
         
         this.creditsBtn = this.add.sprite(screenCenterX, screenCenterY + 350, 'creditsButton').setInteractive().setScale(3);
         this.creditsBtn.on('pointerover', () => this.actionOnHover(this.creditsBtn, this.rocketEmitter)); 
         this.creditsBtn.on('pointerout', () => this.actionOnHoverOut(this.creditsBtn, this.rocketEmitter)); 
-        this.creditsBtn.on('pointerdown', () => this.actionOnClick(this.creditsBtn, this));  
+        this.creditsBtn.on('pointerdown', () => this.actionOnClick(this.creditsBtn, this, this.menuBGMusic));  
     }
 
     update(){
@@ -66,9 +66,10 @@ class Menu extends Phaser.Scene{
         this.pulseTitle();
     }
 
-    actionOnClick(button, menuScene){
-        //Plays Sound effect
+    actionOnClick(button, menuScene, bgMusic){
+        //Plays Sound effect and Stop background music
         menuScene.sound.play('launchButtonSound');
+        bgMusic.stop();
 
         //Depending on which button is pushed, a scene will run
         if(button == this.launchBtn){
