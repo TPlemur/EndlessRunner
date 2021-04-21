@@ -15,8 +15,9 @@ class Menu extends Phaser.Scene{
         this.load.image('title', './assets/menu/menuTitle.png');
 
         //Load Audio
+        this.load.audio('menuBGMusic', './assets/menu/menuMusic.wav'); //Temporarily Adding Source Here: https://freesound.org/people/szegvari/sounds/560736/
         this.load.audio('launchButtonSound', './assets/menu/menuLaunchButtonSound.wav'); //Temporarily Adding Source Here: https://freesound.org/people/pan14/sounds/263129/
-        this.load.audio('menuBGMusic', './assets/menu/menuMusic.wav'); // Temporarily Adding Source Here: https://freesound.org/people/szegvari/sounds/560736/
+        this.load.audio('titleSound', './assets/menu/titleSound.wav'); //Temporarily Adding Source Here: https://freesound.org/people/qubodup/sounds/171255/
     }
 
     create(){
@@ -24,13 +25,20 @@ class Menu extends Phaser.Scene{
         this.stopped = false;
         this.pulse = false;
 
-        //Initialize Background Music that loops
+        //Initialize Background Music that loops also any sound effects
         this.menuBGMusic = this.sound.add('menuBGMusic');
         var musicConfig ={
             volume: 0.5,
             loop: true,
         }
         this.menuBGMusic.play(musicConfig);
+
+        this.titleEffect = this.sound.add('titleSound');
+        var effectConfig ={
+            volume: 0.5,
+            delay: 0.83,
+        }
+        this.titleEffect.play(effectConfig);
 
         //Sets Cursor to a .cur file
         this.input.setDefaultCursor('url(./assets/menu/spaceshipCursor.cur), pointer'); //Temporary Adding Source Here: http://www.rw-designer.com/licenses
