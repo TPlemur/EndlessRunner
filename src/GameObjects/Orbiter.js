@@ -8,9 +8,10 @@ class Orbiter extends Phaser.GameObjects.Sprite {
         scene.add.existing(this)
 
         //vars
-        this.movmentSpeed = 1;
+        this.movmentSpeed = 0.01;
         this.isOrbiting = true;
         this.isClockwise = false;
+        this.shootup;
         this.switchkey = switchKey
         this.angle = angle;
         this.rad = rad;
@@ -21,43 +22,45 @@ class Orbiter extends Phaser.GameObjects.Sprite {
     }
 
     update(){
-        
+        //defines the relationship between speed and the radious
+        this.period += 50*this.movmentSpeed/this.rad; 
+
+        //move appropreatly
         if(this.isOrbiting){
-            //defines the relationship between speed and the radious
-            this.period += .5/this.rad; 
-            //causes the motion
             this.orbit();
+        }
+        else{
+            this.shoot();
         }
     }
 
-    //start orbiting around Ox,Oy with radious rad and initial position x,y
-    setOrbit(x,y,Ox,Oy,cwise){
+    //start orbiting around Ox,Oy from current position
+    setOrbit(Ox,Oy){
         //update the class variables
         this.originX = Ox;
-        this.originY = Oy;
-        this.x = x;
-        this.y = y;
-        this.rad = Math.sqrt((x-Ox)*(x-Ox)+(y-Oy)*(y-Oy));
+        this.originY = Oy;;
+        this.rad = Math.sqrt(Math.pow(this.x-Ox,2)+Math.pow(this.y-Oy,2)); //defining the radious as the distance between the origin and the orbiter
         this.isOrbiting = true;
-        this.isClockwise = cwise;
+        if(this.y>Oy){this.isClockwise = true;} //rocket always progressses to the right so if it is above the origin it should move clockwise
+        else{this.isClockwise = false;}
     }
 
     //continue orbiting with the current parameters
     orbit(){
         //slope of the tangent at the orbiter (found by inverting the slope of the radious)
         let tanSlope = 1/((this.originY-this.y)/(this.originX-this.x));
-        this.tanAngle = Math.atan(tanSlope)*(180/Math.PI); //converting the slope to an angle
+        this.tanAngle = Math.atan(tanSlope)*(180/Math.PI); //converting the slope to an angle in degrees
         if(this.isClockwise){
             //update the position
             this.x = this.originX +  Math.cos(this.period)*this.rad;
             this.y = this.originY +  Math.sin(this.period)*this.rad;
 
             //update the angle
-            if(this.y-this.originY<0){
-                this.angle = 360-tanAngle;
+            if(this.y-this.originY<0){//if/else used to fix atan having a period of 180 dgrees not 360
+                this.angle = 360-this.tanAngle;//constant sprite rotation offset
             }
             else{
-                this.angle = 180-tanAngle;
+                this.angle = 180-this.tanAngle;//constant sprite rotation offset
             }
         }
         else{
@@ -66,11 +69,11 @@ class Orbiter extends Phaser.GameObjects.Sprite {
             this.y = this.originY -  Math.cos(this.period)*this.rad;
 
             //update the angle
-            if(this.y-this.originY<0){
-                this.angle = 180-tanAngle;
+            if(this.y-this.originY<0){//if/else used to fix atan having a period of 180 dgrees not 360
+                this.angle = 180-this.tanAngle;//constant sprite rotation offset
             }
             else{
-                this.angle = 360-tanAngle;
+                this.angle = 360-this.tanAngle;//constant sprite rotation offset
             }
         
         }
@@ -80,16 +83,36 @@ class Orbiter extends Phaser.GameObjects.Sprite {
     translate(x,y){
 
     }
-    
-    //launch the orbiter straight allong the current path
-    shoot(){
-        //find tangent line
-        (this.originX,this.originY) // center of circle
-        let radSlope = ((this.originY-this.y)/(this.originX-this.x))//slope of radious to orbiter
-        this.tanSlope = 1/this.radSlope //slope of the tangent
-
-
+    startShoot(){
+        this.isOrbiting = false;
+        if(this.y>this.originY){this.shootup = true}
+        else(this.shootup = false)
     }
 
-
+    //launch the orbiter straight allong the current path
+    shoot(){
+        let xupdate =Math.cos(this.tanAngle*Math.PI/180)*this.movmentSpeed*this.rad
+        let yupdate =Math.sin(this.tanAngle*Math.PI/180)*this.movmentSpeed*this.rad  
+        console.log(xupdate);
+        if (this.isClockwise){
+            if(this.shootup){
+                this.x -= xupdate
+                this.y += yupdate
+            }
+            else{
+                this.x += xupdate
+                this.y -= yupdate            
+            }
+        }
+        else{
+            if(this.shootup){
+                this.x += xupdate
+                this.y -= yupdate
+            }
+            else{
+                this.x -= xupdate
+                this.y += yupdate            
+            }
+        }
+    }
 }

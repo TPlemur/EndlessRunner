@@ -13,6 +13,7 @@ class Play extends Phaser.Scene {
 
     create(){
 
+
         //define Keys
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
@@ -37,6 +38,10 @@ class Play extends Phaser.Scene {
             'orbiter',keySPACE
 
         )
+        this.orbirter.x = 300;
+        this.orbirter.y = 300;
+        this.orbirter.setOrbit(400,400);
+
 
     }
 
@@ -44,6 +49,16 @@ class Play extends Phaser.Scene {
 
         //update the orbiter
         this.orbirter.update();
+
+        if(Phaser.Input.Keyboard.JustDown(keySPACE)){
+            if(this.orbirter.isOrbiting){
+                this.orbirter.startShoot();
+            }
+            else{
+                this.orbirter.setOrbit(game.input.mousePointer.x,game.input.mousePointer.y);
+            }
+        }
+
         
         
     }
