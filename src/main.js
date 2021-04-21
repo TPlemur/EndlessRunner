@@ -2,14 +2,26 @@
 //declairs global variables and creates the phaser game object
 //Thomas, jacqueline, Danny, Quinn
 
-console.log('is anyone there?');
 //config for the phaser game
+const screenWidth = 1920;
+const screenHeight = 1080;
+
 let config= {
     type: Phaser.CANVAS,
-    width: 640,
-    height:480,
+    width: screenWidth,
+    height: screenHeight,  
+    
+    //keeps aspect ratio to 16:9 (1920x1080)
+    scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH
+    },
     scene: [Menu, Play],
 }
 
 //define game object
 let game = new Phaser.Game(config);
+
+//define screen variables
+let screenCenterX = screenWidth / 2;
+let screenCenterY = screenHeight / 2;

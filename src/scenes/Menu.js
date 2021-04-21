@@ -1,6 +1,4 @@
 //Menu.js
-//creates and populates the menu
-
 
 class Menu extends Phaser.Scene{
     constructor(){
@@ -9,31 +7,54 @@ class Menu extends Phaser.Scene{
     
     preload(){
         //load things here
+        this.load.image('menuBG', './assets/menuBackground.png');
+        this.load.image('launchButton', './assets/menuLaunchButton.png');
+        this.load.image('rocketParticle', './assets/rocketParticle.png');
+        this.load.audio('launchButtonSound', './assets/menuLaunchButtonSound.wav'); //Temporarily Adding Source Here: https://freesound.org/people/pan14/sounds/263129/
     }
 
     create(){
-        //initialize window here
+        //Set background that is tileable
+        this.menuBackground = this.add.tileSprite(0, 0, game.config.width, game.config.height, "menuBG").setOrigin(0,0).setScrollFactor(0);
 
-        //text configuration
-        let textConfig = {
-            fontFamily: 'Courier',
-            fontSize: '28px',
-            backgroundColor: '#F3B141',
-            color: '#843605',
-            align: 'right',
-            padding: {
-                top: 5,
-                bottom: 5,
-            },
-            fixedWidth: 0
-        }
-
-        this.add.text(100,100,'ping',textConfig);
-
+        //Initialize Particles and Emitter
+        this.rocketParticles = this.add.particles('rocketParticle').setScale(1);
+        this.emitter = this.rocketParticles.createEmitter().setPosition(-1000,0);
+        
+        //Buttons
+        this.launchBtn = this.add.sprite(screenCenterX, screenCenterY + 250, 'launchButton').setInteractive().setScale(2); //Initialize the button
+        this.launchBtn.on('pointerover', () => this.actionOnHover(this.launchBtn, this.emitter)); //What happens when you hover over
+        this.launchBtn.on('pointerout', () => this.actionOnHoverOut(this.launchBtn, this.emitter)); //What happens when you hover out
+        this.launchBtn.on('pointerdown', this.actionOnClick); //What happens when you click
     }
 
     update(){
-        //change stuff here
+        //Adds Parallax Effect, /20 is to slow down the amount the background moves
+        this.menuBackground.tilePositionX = this.game.input.mousePointer.x / 20;
+        this.menuBackground.tilePositionY = this.game.input.mousePointer.y / 20;
     }
 
+    actionOnClick(){
+        //Plays Sound effect and changes Scene to Play.js
+        game.sound.play('launchButtonSound');
+        game.scene.start("playScene");   
+    }
+
+    actionOnHover(button, emitter){
+        //Start Particles
+        emitter.setPosition(button.x, button.y);
+        emitter.setBlendMode(Phaser.BlendModes.ADD);  
+        emitter.setSpeed(190).setScale(0.1).setLifespan(1100);
+         
+        //Scale Button
+        button.setScale(1.8); 
+    }
+
+    actionOnHoverOut(button, emitter){
+        //Stop Particles
+        emitter.setPosition(button.x, button.y).setSpeed(0); 
+
+        //Scale Button
+        button.setScale(2);
+    }
 }
