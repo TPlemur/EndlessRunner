@@ -7,11 +7,14 @@ class Play extends Phaser.Scene {
     }
 
     preload(){
-        //load things here
+        //loading assets
+        this.load.image('orbiter','assets/orbitPlaceholder.png');
     }
 
     create(){
-        //initialize here
+
+        //define Keys
+        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
         //text configuration
         let textConfig = {
@@ -27,12 +30,21 @@ class Play extends Phaser.Scene {
             fixedWidth: 0
         }
 
-        this.add.text(100,100,'pong',textConfig);
-        console.log('is anyone there?');
+        //place orbiter
+        this.orbirter = new Orbiter(this,
+            200,200,200,200, //placed at origin of orbit
+            100,0, //radious, angle
+            'orbiter',keySPACE
+
+        )
+
     }
 
     update(){
-        //run game here
+
+        //update the orbiter
+        this.orbirter.update();
+        
     }
 
 

@@ -13,3 +13,6 @@ let config= {
 
 //define game object
 let game = new Phaser.Game(config);
+
+//define keys
+let keySPACE;

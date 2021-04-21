@@ -34,7 +34,7 @@ class Menu extends Phaser.Scene{
 
     update(){
         //go to the play scene immediatly (remove once menu is implemented)
-        //this.scene.start('playScene');
+        this.scene.start('playScene');
     }
 
 }
