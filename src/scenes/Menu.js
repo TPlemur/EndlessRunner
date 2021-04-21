@@ -4,7 +4,7 @@ class Menu extends Phaser.Scene{
     constructor(){
         super("menuScene");
     }
-    
+
     preload(){
         //load things here
         this.load.image('menuBG', './assets/menuBackground.png');

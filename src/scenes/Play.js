@@ -27,7 +27,7 @@ class Play extends Phaser.Scene {
             fixedWidth: 0
         }
 
-        this.add.text(100,100,'ping',textConfig);
+        this.add.text(100,100,'pong',textConfig);
         console.log('is anyone there?');
     }
 
