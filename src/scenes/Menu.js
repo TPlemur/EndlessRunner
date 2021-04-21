@@ -6,9 +6,10 @@ class Menu extends Phaser.Scene{
     }
 
     preload(){
-        //load things here
+        //Load files
         this.load.image('menuBG', './assets/menuBackground.png');
         this.load.image('launchButton', './assets/menuLaunchButton.png');
+        this.load.image('creditsButton', './assets/menuCreditsButton.png');
         this.load.image('rocketParticle', './assets/rocketParticle.png');
         this.load.image('menuBGStars', './assets/menuBackgroundStars.png');
         this.load.audio('launchButtonSound', './assets/menuLaunchButtonSound.wav'); //Temporarily Adding Source Here: https://freesound.org/people/pan14/sounds/263129/
@@ -16,8 +17,7 @@ class Menu extends Phaser.Scene{
 
     create(){
         //Sets Cursor to a .cur file
-        //Temporary Credit Location: http://www.rw-designer.com/licenses
-        this.input.setDefaultCursor('url(./assets/spaceshipCursor.cur), pointer');
+        this.input.setDefaultCursor('url(./assets/spaceshipCursor.cur), pointer'); //Temporary Adding Source Here: http://www.rw-designer.com/licenses
 
         //Set background that is tileable
         this.menuBackground = this.add.tileSprite(0, 0, game.config.width, game.config.height, "menuBG").setOrigin(0,0).setScrollFactor(0);
@@ -28,10 +28,15 @@ class Menu extends Phaser.Scene{
         this.emitter = this.rocketParticles.createEmitter().setPosition(-1000,0);
         
         //Buttons
-        this.launchBtn = this.add.sprite(screenCenterX, screenCenterY + 250, 'launchButton').setInteractive().setScale(2); //Initialize the button
+        this.launchBtn = this.add.sprite(screenCenterX, screenCenterY + 200, 'launchButton').setInteractive().setScale(2); //Initialize the button
         this.launchBtn.on('pointerover', () => this.actionOnHover(this.launchBtn, this.emitter)); //What happens when you hover over
         this.launchBtn.on('pointerout', () => this.actionOnHoverOut(this.launchBtn, this.emitter)); //What happens when you hover out
-        this.launchBtn.on('pointerdown', () => this.actionOnClick(this)); //What happens when you click    
+        this.launchBtn.on('pointerdown', () => this.actionOnClick(this.launchBtn, this)); //What happens when you click   
+        
+        this.creditsBtn = this.add.sprite(screenCenterX, screenCenterY + 400, 'creditsButton').setInteractive().setScale(2);
+        this.creditsBtn.on('pointerover', () => this.actionOnHover(this.creditsBtn, this.emitter)); 
+        this.creditsBtn.on('pointerout', () => this.actionOnHoverOut(this.creditsBtn, this.emitter)); 
+        this.creditsBtn.on('pointerdown', () => this.actionOnClick(this.creditsBtn, this));  
     }
 
     update(){
@@ -43,10 +48,17 @@ class Menu extends Phaser.Scene{
         this.menuBackgroundStars.tilePositionY = this.game.input.mousePointer.y / 35;
     }
 
-    actionOnClick(menuScene){
-        //Plays Sound effect and changes Scene to Play.js
+    actionOnClick(button, menuScene){
+        //Plays Sound effect
         menuScene.sound.play('launchButtonSound');
-        menuScene.scene.start("playScene");   
+
+        //Depending on which button is pushed, a scene will run
+        if(button == this.launchBtn){
+            menuScene.scene.start("playScene"); 
+        }
+        else if(button == this.creditsBtn){
+            menuScene.scene.start("creditsScene"); 
+        }
     }
 
     actionOnHover(button, emitter){
