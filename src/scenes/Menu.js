@@ -6,7 +6,7 @@ class Menu extends Phaser.Scene{
     constructor(){
         super("menuScene");
     }
-    
+
     preload(){
         //load things here
     }
@@ -33,7 +33,8 @@ class Menu extends Phaser.Scene{
     }
 
     update(){
-        //change stuff here
+        //go to the play scene immediatly (remove once menu is implemented)
+        //this.scene.start('playScene');
     }
 
 }
