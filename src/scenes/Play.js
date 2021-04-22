@@ -2,17 +2,17 @@
 //Creates and populates the main space of play
 
 class Play extends Phaser.Scene {
-    constructor(){
+    constructor() {
         super("playScene")
     }
 
-    preload(){
+    preload() {
         //loading assets
         this.load.image('orbiter','assets/orbitPlaceholder.png');
-        this.load.image('testPlanert','assets/planet Placeholder.png');
+        this.load.image('testPlanert','assets/planet.png');
     }
 
-    create(){
+    create() {
 
         //define Keys
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -31,15 +31,17 @@ class Play extends Phaser.Scene {
             fixedWidth: 0
         }
 
+        this.testPlanet = new Planet(this,500,500,'testPlanert');
+        this.testPlanet.setSize(100);
+
         //place orbiter in a random place
         this.orbirter = new Orbiter(this,
             500,500,500,500, //placed at origin of orbit
-            100,0, //radious, angle
+            this.testPlanet.radius*1.5,0, //radious, angle
             'orbiter',keySPACE
         )
 
         //testing translation stuff below
-        this.testPlanet = this.add.sprite(500,500,'testPlanert').setOrigin(0.5);
         this.translatFlag =false;
         this.translateTicks = 60*2; //tps*seconds
         this.translateX = (900-500)/this.translateTicks //target-position
