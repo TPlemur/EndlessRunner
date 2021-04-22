@@ -23,7 +23,13 @@ class Orbiter extends Phaser.GameObjects.Sprite {
 
     update(){
         //defines the relationship between speed and the radious
-        this.period += 50*this.movmentSpeed/this.rad; 
+        if(this.isClockwise){
+            this.period += 50*this.movmentSpeed/this.rad; 
+        }
+        else{
+            this.period -= 50*this.movmentSpeed/this.rad; 
+        }
+
 
         //move appropreatly
         if(this.isOrbiting){
@@ -38,11 +44,14 @@ class Orbiter extends Phaser.GameObjects.Sprite {
     setOrbit(Ox,Oy){
         //update the class variables
         this.originX = Ox;
-        this.originY = Oy;;
+        this.originY = Oy;
         this.rad = Math.sqrt(Math.pow(this.x-Ox,2)+Math.pow(this.y-Oy,2)); //defining the radious as the distance between the origin and the orbiter
         this.isOrbiting = true;
-        if(this.y>Oy){this.isClockwise = true;} //rocket always progressses to the right so if it is above the origin it should move clockwise
+        if(this.y<Oy){this.isClockwise = true;} //rocket always progressses to the right so if it is above the origin it should move clockwise
         else{this.isClockwise = false;}
+        //set the period to the correct angle
+        this.period = Math.atan2((this.y-this.originY),(this.x-this.originX));
+        console.log(this.period)
     }
 
     //continue orbiting with the current parameters
@@ -50,32 +59,16 @@ class Orbiter extends Phaser.GameObjects.Sprite {
         //slope of the tangent at the orbiter (found by inverting the slope of the radious)
         let tanSlope = 1/((this.originY-this.y)/(this.originX-this.x));
         this.tanAngle = Math.atan(tanSlope)*(180/Math.PI); //converting the slope to an angle in degrees
-        if(this.isClockwise){
-            //update the position
-            this.x = this.originX +  Math.cos(this.period)*this.rad;
-            this.y = this.originY +  Math.sin(this.period)*this.rad;
+        //update the position
+        this.x = this.originX +  Math.cos(this.period)*this.rad;
+        this.y = this.originY +  Math.sin(this.period)*this.rad;
 
-            //update the angle
-            if(this.y-this.originY<0){//if/else used to fix atan having a period of 180 dgrees not 360
-                this.angle = 360-this.tanAngle;//constant sprite rotation offset
-            }
-            else{
-                this.angle = 180-this.tanAngle;//constant sprite rotation offset
-            }
+        //set the start location of the rotation to the current location
+        if(this.isClockwise){
+            this.angle = this.period*(180/Math.PI) + 90;
         }
         else{
-            //update the position
-            this.x = this.originX -  Math.sin(this.period)*this.rad;
-            this.y = this.originY -  Math.cos(this.period)*this.rad;
-
-            //update the angle
-            if(this.y-this.originY<0){//if/else used to fix atan having a period of 180 dgrees not 360
-                this.angle = 180-this.tanAngle;//constant sprite rotation offset
-            }
-            else{
-                this.angle = 360-this.tanAngle;//constant sprite rotation offset
-            }
-        
+            this.angle = this.period*(180/Math.PI)-90;
         }
     }
 
@@ -83,7 +76,7 @@ class Orbiter extends Phaser.GameObjects.Sprite {
     translate(x,y){
 
     }
-    startShoot(){
+    setShoot(){
         this.isOrbiting = false;
         if(this.y>this.originY){this.shootup = true}
         else(this.shootup = false)
@@ -93,7 +86,6 @@ class Orbiter extends Phaser.GameObjects.Sprite {
     shoot(){
         let xupdate =Math.cos(this.tanAngle*Math.PI/180)*this.movmentSpeed*this.rad
         let yupdate =Math.sin(this.tanAngle*Math.PI/180)*this.movmentSpeed*this.rad  
-        console.log(xupdate);
         if (this.isClockwise){
             if(this.shootup){
                 this.x -= xupdate
