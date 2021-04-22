@@ -65,5 +65,12 @@ class Orbiter extends Phaser.GameObjects.Sprite {
 
     }
 
+    //checks if orbiter will collide with planet
+    checkCollision(planet) {
+        if (Math.hypot(this.x-planet.x,this.y-planet.y) <= planet.radius) {
+            return true;
+        }
+        return false;
+    }
 
 }

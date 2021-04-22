@@ -2,16 +2,17 @@
 //Creates and populates the main space of play
 
 class Play extends Phaser.Scene {
-    constructor(){
+    constructor() {
         super("playScene")
     }
 
-    preload(){
+    preload() {
         //loading assets
-        this.load.image('orbiter','assets/orbitPlaceholder.png');
+        this.load.image('orbiter', 'assets/orbitPlaceholder.png');
+        this.load.image('planet', 'assets/planet.png');
     }
 
-    create(){
+    create() {
 
         //define Keys
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -32,19 +33,28 @@ class Play extends Phaser.Scene {
 
         //place orbiter
         this.orbirter = new Orbiter(this,
-            200,200,200,200, //placed at origin of orbit
-            100,0, //radious, angle
-            'orbiter',keySPACE
+            200, 200, 200, 200, //placed at origin of orbit
+            100, 0, //radious, angle
+            'orbiter', keySPACE
 
         )
 
+        //test planet
+        this.testPlanet = new Planet(
+            this,
+            400,
+            400,
+            'planet'
+        ).setSize(100)
+
+        //this.testPlanet.bringToTop()
     }
 
-    update(){
+    update() {
 
         //update the orbiter
         this.orbirter.update();
-        
+
     }
 
 
