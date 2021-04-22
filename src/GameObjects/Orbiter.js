@@ -8,7 +8,7 @@ class Orbiter extends Phaser.GameObjects.Sprite {
         scene.add.existing(this)
 
         //vars
-        this.movmentSpeed = 0.01;
+        this.movmentSpeed = 0.05;
         this.isOrbiting = true;
         this.isClockwise = false;
         this.shootup;
@@ -26,7 +26,7 @@ class Orbiter extends Phaser.GameObjects.Sprite {
     }
 
     update(){
-        //defines the relationship between speed and the radious
+        //Increments the angle of the ship, defines speed of rotation
         if(this.isClockwise){
             this.period += 50*this.movmentSpeed/this.rad; 
         }
@@ -53,13 +53,14 @@ class Orbiter extends Phaser.GameObjects.Sprite {
         //update the class variables
         this.originX = Ox;
         this.originY = Oy;
-        this.rad = Math.sqrt(Math.pow(this.x-Ox,2)+Math.pow(this.y-Oy,2)); //defining the radious as the distance between the origin and the orbiter
+        //definine the radious as the distance between the origin and the orbiter
+        this.rad = Math.sqrt(Math.pow(this.x-Ox,2)+Math.pow(this.y-Oy,2)); 
         this.isOrbiting = true;
-        if(this.y<Oy){this.isClockwise = true;} //rocket always progressses to the right so if it is above the origin it should move clockwise
+        //make assumptions about the direction of the orbit
+        if(this.y<Oy){this.isClockwise = true;} //orbiter always progressses to the right so if it is above the origin it should move clockwise
         else{this.isClockwise = false;}
-        //set the period to the correct angle
+        //set the period to the correct angle for the current position
         this.period = Math.atan2((this.y-this.originY),(this.x-this.originX));
-        console.log(this.period)
     }
 
     //continue orbiting with the current parameters
@@ -67,11 +68,12 @@ class Orbiter extends Phaser.GameObjects.Sprite {
         //slope of the tangent at the orbiter (found by inverting the slope of the radious)
         let tanSlope = 1/((this.originY-this.y)/(this.originX-this.x));
         this.tanAngle = Math.atan(tanSlope)*(180/Math.PI); //converting the slope to an angle in degrees
+        
         //update the position
         this.x = this.originX +  Math.cos(this.period)*this.rad;
         this.y = this.originY +  Math.sin(this.period)*this.rad;
 
-        //set the start location of the rotation to the current location
+        //set the angle of the ship to be tangent to the orbit
         if(this.isClockwise){
             this.angle = this.period*(180/Math.PI) + 90;
         }
@@ -91,27 +93,33 @@ class Orbiter extends Phaser.GameObjects.Sprite {
         this.isTranslate = true;
     }
 
+    //contiune a tranlation until compleation 
     translate(){
+        //increment position
         this.originX += this.translateX
         this.originY += this.translateY
         this.x+= this.translateX
         this.y+= this.translateY
+        //decremnt number of remaining ticks, and unset the translate flag to stop the translation
         this.translateTicks -=1
         if(this.translateTicks===0){
             this.isTranslate = false;
         }
     }
 
+    //start liner motion in the direction the ship is currently pointing
     setShoot(){
         this.isOrbiting = false;
         if(this.y>this.originY){this.shootup = true}
         else(this.shootup = false)
     }
 
-    //launch the orbiter straight allong the current path
+    //maintain liner motion 
     shoot(){
+        //find the distance moved and the preportion x and y moved
         let xupdate =Math.cos(this.tanAngle*Math.PI/180)*this.movmentSpeed*this.rad
         let yupdate =Math.sin(this.tanAngle*Math.PI/180)*this.movmentSpeed*this.rad  
+        //find the approprate sign to attach to distance, and move the distance
         if (this.isClockwise){
             if(this.shootup){
                 this.x -= xupdate

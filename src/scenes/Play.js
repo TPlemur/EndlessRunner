@@ -14,8 +14,6 @@ class Play extends Phaser.Scene {
 
     create(){
 
-        this.testPlanet = this.add.sprite(500,500,'testPlanert').setOrigin(0.5);
-
         //define Keys
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
@@ -38,13 +36,21 @@ class Play extends Phaser.Scene {
             500,500,500,500, //placed at origin of orbit
             100,0, //radious, angle
             'orbiter',keySPACE
-
         )
-        //testing radial positioning
+
+        //testing translation stuff below
+        this.testPlanet = this.add.sprite(500,500,'testPlanert').setOrigin(0.5);
+        this.translatFlag =false;
+        this.translateTicks = 60*2; //tps*seconds
+        this.translateX = (900-500)/this.translateTicks //target-position
+
+        //translation test
         this.Clock = this.time.delayedCall(5000,()=>{
             this.orbirter.setTranslate(900,500,2);
-            this.testPlanet.x - 900;
+            this.translatFlag = true;
         });
+
+
 
     }
 
@@ -52,13 +58,25 @@ class Play extends Phaser.Scene {
         //update the orbiter
         this.orbirter.update();
 
-        //temparary: press space to toggle between liner and circualr motion, mouse position determines new origin
+
+        //Testing space: 
+        //press space to toggle between liner and circualr motion, mouse position determines new origin
         if(Phaser.Input.Keyboard.JustDown(keySPACE)){
             if(this.orbirter.isOrbiting){
                 this.orbirter.setShoot();
             }
             else{
                 this.orbirter.setOrbit(game.input.mousePointer.x,game.input.mousePointer.y);
+            }
+        }
+
+        //translate testplanet if flag
+        if(this.translatFlag){
+            console.log('ping')
+            this.testPlanet.x += this.translateX;
+            this.translateTicks -=1;
+            if(this.translateTicks===0){
+                this.translatFlag = false;
             }
         }
 
