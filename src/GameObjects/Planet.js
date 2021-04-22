@@ -5,11 +5,15 @@ let DENSITY_CONSTANT = 10;
 class Planet extends Phaser.GameObjects.Sprite {
     constructor(scene,x,y,texture,frame) {
         super(scene,x,y,texture,frame);
+        scene.add.existing(this);
         this.radius = this.displayWidth/2;
         this.rotation = (2*Math.PI*Math.random())-Math.PI;
         //why doesn't this work >:(
         this.tint = 0xFFFFFF*Math.random();
-        scene.add.existing(this)
+    }
+
+    update(){
+        
     }
 
     setSize(radius) {
@@ -26,6 +30,10 @@ class Planet extends Phaser.GameObjects.Sprite {
         //mass of planetary body will be determined by radius;
         //probably pretty janky, will have to work on more soon.
         return Math.sqrt(GRAVITY_CONSTANT*DENSITY_CONSTANT*Math.PI*Math.pow(this.radius,2)/shipHeight);
+    }
+
+    getRadius() {
+        return this.radius;
     }
 
 }
