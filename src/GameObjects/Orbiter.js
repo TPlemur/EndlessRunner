@@ -1,6 +1,12 @@
 //Orbiter.js
-//Defines the orbiter class, 
+//Defines the orbiter class, and implements its functionality
 //note: the rocket sprite should point to the right
+
+//functions desingend for outside use:
+//update()  required for functionality
+//setOrbit(x,y) orbit around x,y
+//setTranslate(x,y,time) translate origin to x,y over time
+//setShoot() move forward in a straight line
 
 class Orbiter extends Phaser.GameObjects.Sprite {
     constructor(scene,x,y,Ox,Oy,rad,angle,texture,switchKey,frame){
