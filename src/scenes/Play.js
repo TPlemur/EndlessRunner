@@ -74,7 +74,6 @@ class Play extends Phaser.Scene {
 
         //translate testplanet if flag
         if(this.translatFlag){
-            console.log('ping')
             this.testPlanet.x += this.translateX;
             this.translateTicks -=1;
             if(this.translateTicks===0){
