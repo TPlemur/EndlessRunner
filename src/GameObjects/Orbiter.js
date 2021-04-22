@@ -3,10 +3,13 @@
 //note: the rocket sprite should point to the right
 
 //functions desingend for outside use:
+
 //update()  required for functionality
 //setOrbit(x,y) orbit around x,y
 //setTranslate(x,y,time) translate origin to x,y over time
 //setShoot() move forward in a straight line
+//checkColision(planet) returns true on collision with planet
+//checkBounds() returns true if the orbiter leaves the screen
 
 class Orbiter extends Phaser.GameObjects.Sprite {
     constructor(scene,x,y,Ox,Oy,rad,angle,texture,switchKey,frame){
@@ -119,6 +122,17 @@ class Orbiter extends Phaser.GameObjects.Sprite {
         }
         return false;
     }
+    //checs if the orbiter is out of bounds
+    checkBounds(){
+        if(this.x<0 || this.x > screenWidth){
+            return true;
+        }
+        if(this.y<0 || this.y > screenHeight){
+            return true;
+        }
+        return false;
+    }
+
     //start liner motion in the direction the ship is currently pointing
     setShoot(){
         this.isOrbiting = false;
