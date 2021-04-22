@@ -34,10 +34,10 @@ class Orbiter extends Phaser.GameObjects.Sprite {
     update(){
         //Increments the angle of the ship, defines speed of rotation
         if(this.isClockwise){
-            this.period += 1*Math.sqrt(Math.pow(this.movmentSpeed,2))/this.rad;
+            this.period += this.movmentSpeed/this.rad;
         }
         else{
-            this.period -= 1*Math.sqrt(Math.pow(this.movmentSpeed,2))/this.rad; 
+            this.period -= this.movmentSpeed/this.rad; 
         }
         //move appropreatly
         if(this.isOrbiting){
