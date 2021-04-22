@@ -35,17 +35,15 @@ class Play extends Phaser.Scene {
 
         //place orbiter in a random place
         this.orbirter = new Orbiter(this,
-            200,200,200,200, //placed at origin of orbit
+            500,500,500,500, //placed at origin of orbit
             100,0, //radious, angle
             'orbiter',keySPACE
 
         )
         //testing radial positioning
         this.Clock = this.time.delayedCall(5000,()=>{
-            //this.orbirter.period = -Math.PI/2;
-            this.orbirter.x = 600;
-            this.orbirter.y = 600;
-            this.orbirter.setOrbit(500,500);
+            this.orbirter.setTranslate(900,500,2);
+            this.testPlanet.x - 900;
         });
 
     }

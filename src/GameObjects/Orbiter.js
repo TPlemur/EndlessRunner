@@ -19,6 +19,10 @@ class Orbiter extends Phaser.GameObjects.Sprite {
         this.originY = Oy;
         this.period = 0;
         this.tanAngle;
+        this.translateX
+        this.translateY
+        this.translateTicks
+        this.isTranslate = false;
     }
 
     update(){
@@ -30,13 +34,17 @@ class Orbiter extends Phaser.GameObjects.Sprite {
             this.period -= 50*this.movmentSpeed/this.rad; 
         }
 
-
         //move appropreatly
         if(this.isOrbiting){
             this.orbit();
         }
         else{
             this.shoot();
+        }
+
+        //translate if applicable
+        if(this.isTranslate){
+            this.translate()
         }
     }
 
@@ -72,10 +80,28 @@ class Orbiter extends Phaser.GameObjects.Sprite {
         }
     }
 
-    //move an orbiter to a new origin without stoping orbit
-    translate(x,y){
-
+    //starts moving the orbiter to origin x,y over time in seconds
+    setTranslate(x,y,time){
+        //number of ticks the move should happen over
+        this.translateTicks = time*60
+        //amount moved per tick
+        this.translateX = (x-this.originX)/this.translateTicks;
+        this.translateY = (y-this.originY)/this.translateTicks;
+        //set translate flag
+        this.isTranslate = true;
     }
+
+    translate(){
+        this.originX += this.translateX
+        this.originY += this.translateY
+        this.x+= this.translateX
+        this.y+= this.translateY
+        this.translateTicks -=1
+        if(this.translateTicks===0){
+            this.isTranslate = false;
+        }
+    }
+
     setShoot(){
         this.isOrbiting = false;
         if(this.y>this.originY){this.shootup = true}
