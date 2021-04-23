@@ -45,15 +45,10 @@ class Play extends Phaser.Scene {
             'orbiter',keySPACE
         )
 
-        //testing translation stuff below
-        this.translatFlag =false;
-        this.translateTicks = 60*2; //tps*seconds
-        this.translateX = (900-500)/this.translateTicks //target-position
-
         //translation test
-        this.Clock = this.time.delayedCall(5000,()=>{
+        this.Clock = this.time.delayedCall(2000,()=>{
             this.orbirter.setTranslate(900,500,2);
-            this.translatFlag = true;
+            this.testPlanet.setTranslate(900,500,2);
         });
 
 
@@ -90,15 +85,6 @@ class Play extends Phaser.Scene {
             }
             else{
                 this.orbirter.setOrbit(game.input.mousePointer.x,game.input.mousePointer.y);
-            }
-        }
-
-        //translate testplanet if flag
-        if(this.translatFlag){
-            this.testPlanet.x += this.translateX;
-            this.translateTicks -=1;
-            if(this.translateTicks===0){
-                this.translatFlag = false;
             }
         }
 
