@@ -23,7 +23,7 @@ let config= {
 let game = new Phaser.Game(config);
 
 //define keys
-let keySPACE;
+let keySPACE, keyESC;
 
 //define screen variables
 let screenCenterX = screenWidth / 2;

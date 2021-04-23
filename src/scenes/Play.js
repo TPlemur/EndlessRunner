@@ -16,11 +16,15 @@ class Play extends Phaser.Scene {
 
         //define Keys
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+
+        //flags & vars
+        this.gameRuningFlag = true;
 
         //text configuration
         let textConfig = {
             fontFamily: 'Courier',
-            fontSize: '28px',
+            fontSize: '200px',
             backgroundColor: '#F3B141',
             color: '#843605',
             align: 'right',
@@ -57,8 +61,26 @@ class Play extends Phaser.Scene {
     }
 
     update(){
-        //update the orbiter
-        this.orbirter.update();
+        //update the orbiter]
+        if(this.gameRuningFlag){
+            this.orbirter.update();
+        }
+        else{//if game ends go space to go to menu
+            if(Phaser.Input.Keyboard.JustDown(keySPACE)){
+                this.scene.start('playScene');
+            }
+            if(Phaser.Input.Keyboard.JustDown(keyESC)){
+                this.scene.start('menuScene')
+            }
+        }
+        console.log(this.orbirter.rad);
+
+        //check if game ends
+        if(this.orbirter.checkBounds() || this.orbirter.checkCollision(this.testPlanet)){
+            this.gameRuningFlag = false
+            //this.orbiter.explode() UNIMPLEMENTED
+            this.add.text(game.config.width/2, game.config.height/2,'GAME OVER', this.textConfig).setOrigin(0.5);
+        }
 
 
         //Testing space: 
