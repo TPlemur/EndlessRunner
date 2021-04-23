@@ -58,7 +58,7 @@ class Orbiter extends Phaser.GameObjects.Sprite {
 
     //start orbiting around Ox,Oy from current position
     setOrbit(Ox,Oy){
-        //update the class variables
+        //update the origin
         this.originX = Ox;
         this.originY = Oy;
         //definine the radious as the distance between the origin and the orbiter
@@ -94,7 +94,7 @@ class Orbiter extends Phaser.GameObjects.Sprite {
     //starts moving the orbiter to origin x,y over time in seconds
     setTranslate(x,y,time){
         //number of ticks the move should happen over
-        this.translateTicks = time*60
+        this.translateTicks = time*60//game tick rate is nominaly 60tps
         //amount moved per tick
         this.translateX = (x-this.originX)/this.translateTicks;
         this.translateY = (y-this.originY)/this.translateTicks;
