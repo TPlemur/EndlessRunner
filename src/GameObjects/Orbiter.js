@@ -91,29 +91,19 @@ class Orbiter extends Phaser.GameObjects.Sprite {
         }
     }
 
-    //starts moving the orbiter to origin x,y over time in seconds
     setTranslate(x,y,time){
-        //number of ticks the move should happen over
-        this.translateTicks = time*60//game tick rate is nominaly 60tps
-        //amount moved per tick
-        this.translateX = (x-this.originX)/this.translateTicks;
-        this.translateY = (y-this.originY)/this.translateTicks;
-        //set translate flag
-        this.isTranslate = true;
-    }
-
-    //contiune a tranlation until compleation 
-    translate(){
-        //increment position
-        this.originX += this.translateX
-        this.originY += this.translateY
-        this.x+= this.translateX
-        this.y+= this.translateY
-        //decremnt number of remaining ticks, and unset the translate flag to stop the translation
-        this.translateTicks -=1
-        if(this.translateTicks===0){
-            this.isTranslate = false;
-        }
+        this.scene.tweens.add({
+            targets: this,
+            originY: {from: this.originY, to: y},
+            ease:'Quad',
+            duration: time*1000,
+        });
+        this.scene.tweens.add({
+            targets: this,
+            originX: {from: this.originX, to: x},
+            ease:'Quad',
+            duration: time*1000,
+        });
     }
 
     //checks if orbiter will collide with planet

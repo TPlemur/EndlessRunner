@@ -36,4 +36,19 @@ class Planet extends Phaser.GameObjects.Sprite {
         return this.radius;
     }
 
+    setTranslate(tx,ty,time){
+        this.scene.tweens.add({
+            targets: this,
+            y: {from: this.y, to: ty},
+            ease:'Quad',
+            duration: time*1000,
+        });
+        this.scene.tweens.add({
+            targets: this,
+            x: {from: this.x, to: tx},
+            ease:'Quad',
+            duration: time*1000,
+        });
+    }
+
 }
