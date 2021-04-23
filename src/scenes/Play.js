@@ -73,7 +73,6 @@ class Play extends Phaser.Scene {
                 this.scene.start('menuScene')
             }
         }
-        console.log(this.orbirter.rad);
 
         //check if game ends
         if(this.orbirter.checkBounds() || this.orbirter.checkCollision(this.testPlanet)){
