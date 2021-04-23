@@ -25,6 +25,9 @@ let game = new Phaser.Game(config);
 //define keys
 let keySPACE, keyESC;
 
+//global variabl
+let globalSpeed = 1;
+
 //define screen variables
 let screenCenterX = screenWidth / 2;
 let screenCenterY = screenHeight / 2;

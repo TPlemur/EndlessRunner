@@ -69,7 +69,7 @@ class Orbiter extends Phaser.GameObjects.Sprite {
         else{this.isClockwise = false;}
         //set the period to the correct angle for the current position
         this.period = Math.atan2((this.y-this.originY),(this.x-this.originX));
-        this.movmentSpeed = 200/this.rad //adjust speed for orbit, bigger orbit = smaller speed, const is a random number
+        this.movmentSpeed = (200/this.rad)*globalSpeed //adjust speed for orbit, bigger orbit = smaller speed, const is a random number
     }
 
     //continue orbiting with the current parameters
