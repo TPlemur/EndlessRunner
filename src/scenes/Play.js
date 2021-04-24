@@ -76,14 +76,12 @@ class Play extends Phaser.Scene {
             this.add.text(game.config.width/2, game.config.height/2,'GAME OVER', this.textConfig).setOrigin(0.5);
         }
 
-
-        //Testing space: 
         //press space to toggle between liner and circualr motion, mouse position determines new origin
         if(Phaser.Input.Keyboard.JustDown(keySPACE)){
             if(this.orbirter.isOrbiting){
                 this.orbirter.setShoot();
             }
-            else{
+            else{ //remove to dissalow space switching back to orbital motion
                 this.orbirter.setOrbit(game.input.mousePointer.x,game.input.mousePointer.y);
             }
         }
