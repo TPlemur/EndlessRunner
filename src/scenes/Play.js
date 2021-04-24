@@ -59,7 +59,7 @@ class Play extends Phaser.Scene {
         //update the orbiter]
         if(this.gameRuningFlag){
             this.orbirter.update();
-        }
+        }        
         else{//if game ends go space to go to menu
             if(Phaser.Input.Keyboard.JustDown(keySPACE)){
                 this.scene.start('playScene');
@@ -69,25 +69,12 @@ class Play extends Phaser.Scene {
             }
         }
 
-        //check if game ends
+        //check if the game should end
         if(this.orbirter.checkBounds() || this.orbirter.checkCollision(this.testPlanet)){
             this.gameRuningFlag = false
             //this.orbiter.explode() UNIMPLEMENTED
             this.add.text(game.config.width/2, game.config.height/2,'GAME OVER', this.textConfig).setOrigin(0.5);
-        }
-
-        //press space to toggle between liner and circualr motion, mouse position determines new origin
-        if(Phaser.Input.Keyboard.JustDown(keySPACE)){
-            if(this.orbirter.isOrbiting){
-                this.orbirter.setShoot();
-            }
-            else{ //remove to dissalow space switching back to orbital motion
-                this.orbirter.setOrbit(game.input.mousePointer.x,game.input.mousePointer.y);
-            }
-        }
-
-        
-        
+        } 
     }
 
 

@@ -1,5 +1,6 @@
 //Orbiter.js
 //Defines the orbiter class, and implements its functionality
+
 //note: the rocket sprite should point to the right
 
 //functions desingend for outside use:
@@ -11,31 +12,35 @@
 //checkColision(planet) returns true on collision with planet
 //checkBounds() returns true if the orbiter leaves the screen
 
+
 class Orbiter extends Phaser.GameObjects.Sprite {
     constructor(scene,x,y,Ox,Oy,rad,angle,texture,switchKey,frame){
         super(scene,x,y,texture,frame)
         scene.add.existing(this)
 
         //vars
-        this.movmentSpeed = 1;
-        this.isOrbiting = true;
-        this.isClockwise = false;
-        this.shootup;
-        this.switchkey = switchKey
-        this.angle = angle;
-        this.rad = rad;
-        this.originX = Ox;
-        this.originY = Oy;
-        this.period = 0;
-        this.tanAngle;
-        this.translateX
-        this.translateY
-        this.translateTicks
-        this.isTranslate = false;
+        this.speedMulltiplier = 200;// a true magic number, changes the ratio between radious and speed to about correct
+        this.movmentSpeed = 1;      // used to set the speed of a rotation, and the following liner motion
+        this.isOrbiting = true;     // toggles between liner and circular motion
+        this.isClockwise = false;   // wether the ship rotates clockwise or counterclockwise
+        this.switchkey = switchKey; // used to switch the state of the orbiter
+        this.angle = angle;         // the angle of the sprite relative to the gameworld
+        this.rad = rad;             // the radious of the orbit
+        this.originX = Ox;          // x coordinate of the center of an orbit
+        this.originY = Oy;          // y coordinate of the center of an orbit
+        this.period = 0;            // incremented to create circular motion
+
+        //fixed vars
+        this.screenOrigin = 0;      // 0,0 is the top left corner of the window
+        this.quarterTurn = 90;      // rotates things 90 degrees
+        this.milisPerSec = 1000;    // converts between miliseconds and seconds
+        this.degRadConversion = 180/Math.PI // converts between degrees and radians
+
+
     }
 
     update(){
-        //Increments the angle of the ship, defines speed of rotation
+        //Increments the angle of the ship, defines speed and direction of rotation
         if(this.isClockwise){
             this.period += this.movmentSpeed/this.rad;
         }
@@ -50,9 +55,14 @@ class Orbiter extends Phaser.GameObjects.Sprite {
             this.shoot();
         }
 
-        //translate if applicable
-        if(this.isTranslate){
-            this.translate()
+        //listen for & switch movement modes
+        if(Phaser.Input.Keyboard.JustDown(this.switchkey)){
+            if(this.isOrbiting){
+                this.setShoot();
+            }
+            else{   //remove to dissalow space switching back to orbital motion
+                this.setOrbit(game.input.mousePointer.x,game.input.mousePointer.y);
+            }
         }
     }
 
@@ -69,40 +79,38 @@ class Orbiter extends Phaser.GameObjects.Sprite {
         else{this.isClockwise = false;}
         //set the period to the correct angle for the current position
         this.period = Math.atan2((this.y-this.originY),(this.x-this.originX));
-        this.movmentSpeed = (200/this.rad)*globalSpeed //adjust speed for orbit, bigger orbit = smaller speed, const is a random number
+        this.movmentSpeed = (this.speedMulltiplier/this.rad)*globalSpeed //adjust speed for orbit, bigger orbit = smaller speed, const is a random number
     }
 
     //continue orbiting with the current parameters
     orbit(){
-        //slope of the tangent at the orbiter (found by inverting the slope of the radious)
-        let tanSlope = 1/((this.originY-this.y)/(this.originX-this.x));
-        this.tanAngle = Math.atan(tanSlope)*(180/Math.PI); //converting the slope to an angle in degrees
-        
         //update the position
         this.x = this.originX +  Math.cos(this.period)*this.rad;
         this.y = this.originY +  Math.sin(this.period)*this.rad;
 
         //set the angle of the ship to be tangent to the orbit
         if(this.isClockwise){
-            this.angle = this.period*(180/Math.PI) + 90;
+            this.angle = this.period*(this.degRadConversion) + this.quarterTurn;
         }
         else{
-            this.angle = this.period*(180/Math.PI)-90;
+            this.angle = this.period*(this.degRadConversion) - this.quarterTurn;
         }
     }
 
+    //translate the origin from current postition to x,y over time
+    //only works while obriting
     setTranslate(x,y,time){
         this.scene.tweens.add({
             targets: this,
             originY: {from: this.originY, to: y},
             ease:'Quad',
-            duration: time*1000,
+            duration: time*this.milisPerSec,
         });
         this.scene.tweens.add({
             targets: this,
             originX: {from: this.originX, to: x},
             ease:'Quad',
-            duration: time*1000,
+            duration: time*this.milisPerSec,
         });
     }
 
@@ -115,10 +123,10 @@ class Orbiter extends Phaser.GameObjects.Sprite {
     }
     //checs if the orbiter is out of bounds
     checkBounds(){
-        if(this.x<0 || this.x > screenWidth){
+        if(this.x < this.screenOrigin || this.x > screenWidth){
             return true;
         }
-        if(this.y<0 || this.y > screenHeight){
+        if(this.y < this.screenOrigin || this.y > screenHeight){
             return true;
         }
         return false;
@@ -127,35 +135,12 @@ class Orbiter extends Phaser.GameObjects.Sprite {
     //start liner motion in the direction the ship is currently pointing
     setShoot(){
         this.isOrbiting = false;
-        if(this.y>this.originY){this.shootup = true}
-        else(this.shootup = false)
     }
 
     //maintain liner motion 
     shoot(){
-        //find the distance moved and the preportion x and y moved
-        let xupdate =Math.cos(this.tanAngle*Math.PI/180)*this.movmentSpeed
-        let yupdate =Math.sin(this.tanAngle*Math.PI/180)*this.movmentSpeed
-        //find the approprate sign to attach to distance, and move the distance
-        if (this.isClockwise){
-            if(this.shootup){
-                this.x -= xupdate
-                this.y += yupdate
-            }
-            else{
-                this.x += xupdate
-                this.y -= yupdate            
-            }
-        }
-        else{
-            if(this.shootup){
-                this.x += xupdate
-                this.y -= yupdate
-            }
-            else{
-                this.x -= xupdate
-                this.y += yupdate            
-            }
-        }
+        //Move the approprate distance and preportion
+        this.x += Math.cos(this.angle*(1/this.degRadConversion))*this.movmentSpeed
+        this.y += Math.sin(this.angle*1/this.degRadConversion)*this.movmentSpeed
     }
 }
