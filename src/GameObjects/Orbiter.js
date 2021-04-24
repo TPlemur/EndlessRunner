@@ -19,7 +19,7 @@ class Orbiter extends Phaser.GameObjects.Sprite {
         scene.add.existing(this)
 
         //vars
-        this.speedMulltiplier = 200;// a true magic number, changes the ratio between radious and speed to about correct
+        this.speedMulltiplier = 200;// a true magic number, changes the ratio between radius and speed to about correct
         this.movmentSpeed = 1;      // used to set the speed of a rotation, and the following liner motion
         this.isOrbiting = true;     // toggles between liner and circular motion
         this.isClockwise = false;   // wether the ship rotates clockwise or counterclockwise
