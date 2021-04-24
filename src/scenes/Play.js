@@ -14,6 +14,9 @@ class Play extends Phaser.Scene {
 
     create() {
 
+        //Fades in the Scene
+        this.cameras.main.fadeIn(250);
+
         //define Keys
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);

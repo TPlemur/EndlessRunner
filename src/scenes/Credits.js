@@ -11,6 +11,9 @@ class Credits extends Phaser.Scene {
     }
 
     create(){
+        //Fades in the Scene
+        this.cameras.main.fadeIn(500);
+
         this.backBtn = this.add.sprite(screenCenterX, screenCenterY + 350, 'backButton').setInteractive().setScale(2); //Initialize the button
         this.backBtn.on('pointerover', this.actionOnHover); //What happens when you hover over
         this.backBtn.on('pointerout', this.actionOnHoverOut); //What happens when you hover out

@@ -17,12 +17,17 @@ class Menu extends Phaser.Scene{
         //Load Audio
         this.load.audio('menuBGMusic', './assets/menu/menuMusic.wav'); //Temporarily Adding Source Here: https://freesound.org/people/szegvari/sounds/560736/
         this.load.audio('launchButtonSound', './assets/menu/menuLaunchButtonSound.wav'); //Temporarily Adding Source Here: https://freesound.org/people/pan14/sounds/263129/
+        this.load.audio('launchNoise', './assets/menu/launchNoise.wav'); //Temporarily Adding Source Here: https://freesound.org/people/MATRIXXX_/sounds/444855/
     }
 
     create(){
         //Variable Initilization
         this.stopped = false;
         this.pulse = false;
+        this.launchMe = false;
+
+        //Fades in the Scene
+        this.cameras.main.fadeIn(500);
 
         //Initialize Background Music that loops also any sound effects
         this.menuBGMusic = this.sound.add('menuBGMusic');
@@ -56,6 +61,10 @@ class Menu extends Phaser.Scene{
         this.creditsBtn.on('pointerover', () => this.actionOnHover(this.creditsBtn, this.rocketEmitter)); 
         this.creditsBtn.on('pointerout', () => this.actionOnHoverOut(this.creditsBtn, this.rocketEmitter)); 
         this.creditsBtn.on('pointerdown', () => this.actionOnClick(this.creditsBtn, this, this.menuBGMusic));  
+
+        // Black Screen used for Transitioning between Scenes
+        this.blackScreen = this.add.rectangle(screenCenterX, (screenCenterY + screenHeight) * 2, screenWidth, screenHeight * 3, 0x000000);
+        
     }
 
     update(){
@@ -64,6 +73,11 @@ class Menu extends Phaser.Scene{
 
         //Zooms in Title and Pulses it
         this.pulseTitle();
+
+        //Will Launch the Menu up like a rocket
+        if(this.launchMe == true){
+            this.launchMenu(this.blackScreen, this.title, this.launchBtn, this.creditsBtn, this);
+        }
     }
 
     actionOnClick(button, menuScene, bgMusic){
@@ -71,9 +85,13 @@ class Menu extends Phaser.Scene{
         menuScene.sound.play('launchButtonSound');
         bgMusic.stop();
 
-        //Depending on which button is pushed, a scene will run
+        //Depending on which button is pushed, a scene will run and the menu will launch
         if(button == this.launchBtn){
-            menuScene.scene.start("playScene"); 
+            //Play a Launching noise and Shake the screen
+            menuScene.sound.play('launchNoise');
+            menuScene.cameras.main.shake(1500);
+
+            this.launchMe = true;
         }
         else if(button == this.creditsBtn){
             menuScene.scene.start("creditsScene"); 
@@ -127,5 +145,21 @@ class Menu extends Phaser.Scene{
                 this.pulse = false;
             }
         }
+    }
+
+    launchMenu(blackScreen, title, launchButton, creditsButton, menuScene) {
+        //Moves elements up
+        blackScreen.y -= 20;
+        title.y -= 20;
+        launchButton.y -= 20;
+        creditsButton.y -= 20;
+
+        //Adds a delay to luanching the scene
+        this.time.addEvent({
+            delay: 1500,
+            callback: ()=>{
+                menuScene.scene.start("playScene"); 
+            },
+        })
     }
 }
