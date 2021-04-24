@@ -76,7 +76,7 @@ class Menu extends Phaser.Scene{
 
         //Will Launch the Menu up like a rocket
         if(this.launchMe == true){
-            this.launchMenu(this.blackScreen, this.title, this.launchBtn, this.creditsBtn, this);
+            this.launchMenu(this.blackScreen, this.title, this.launchBtn, this.creditsBtn, this, this.rocketEmitter);
         }
     }
 
@@ -102,7 +102,7 @@ class Menu extends Phaser.Scene{
         //Start Particles
         emitter.setPosition(button.x, button.y);
         emitter.setBlendMode(Phaser.BlendModes.ADD);  
-        emitter.setSpeed(190).setScale(0.1).setLifespan(1100);
+        emitter.setSpeed(190).setScale(0.1).setLifespan(800);
          
         //Scale Button
         button.setScale(2.8); 
@@ -147,12 +147,15 @@ class Menu extends Phaser.Scene{
         }
     }
 
-    launchMenu(blackScreen, title, launchButton, creditsButton, menuScene) {
+    launchMenu(blackScreen, title, launchButton, creditsButton, menuScene, emitter) {
         //Moves elements up
         blackScreen.y -= 20;
         title.y -= 20;
         launchButton.y -= 20;
         creditsButton.y -= 20;
+
+        //Get rid of the emitter to make it look more clean
+        emitter.setAlpha(0);
 
         //Adds a delay to luanching the scene
         this.time.addEvent({

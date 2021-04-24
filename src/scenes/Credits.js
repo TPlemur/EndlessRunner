@@ -1,4 +1,4 @@
-//Creddits.js
+//Credits.js
 //Credit Screen
 
 class Credits extends Phaser.Scene {

@@ -77,6 +77,9 @@ class Play extends Phaser.Scene {
             this.gameRuningFlag = false
             //this.orbiter.explode() UNIMPLEMENTED
             this.add.text(game.config.width/2, game.config.height/2,'GAME OVER', this.textConfig).setOrigin(0.5);
+
+            //When game ends jump to End Screen
+            this.scene.start('endScene');
         } 
     }
 
