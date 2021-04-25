@@ -41,10 +41,15 @@ class Credits extends Phaser.Scene {
         });
 
         //Black hole temp
+        this.blackHoleWaves = new Blackhole(this, screenCenterX - 3300, screenCenterY, 'blackHoleWaves').setScale(0.5);
         this.blackHole = new Blackhole(this, screenCenterX - 1100, screenCenterY, 'blackHole').setScale(0.2);
+        this.blackHoleWaves.setSpeed(0.2);
     }
 
     update(){
+        this.blackHoleWaves.update(1); // 1 represents Black Hole Waves
+        this.blackHole.update(0); // 0 represents Black Hole
+
         //Update Mouse flame location
         this.mouseFlameEmitter.setPosition(this.game.input.mousePointer.x + 60, this.game.input.mousePointer.y + 50);
         

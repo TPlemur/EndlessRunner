@@ -33,7 +33,7 @@ class Menu extends Phaser.Scene{
         //Initialize Background Music that loops also any sound effects
         this.menuBGMusic = this.sound.add('menuBGMusic');
         var musicConfig ={
-            volume: 0.5,
+            volume: 0, //Temporarily turning off audio
             loop: true,
         }
         this.menuBGMusic.play(musicConfig);
