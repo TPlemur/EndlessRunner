@@ -23,6 +23,7 @@ class Play extends Phaser.Scene {
 
         //flags & vars
         this.gameRuningFlag = true;
+        this.lastDist = 10000000; // var should be bigger than screen at start
 
         //text configuration
         let textConfig = {
@@ -38,21 +39,28 @@ class Play extends Phaser.Scene {
             fixedWidth: 0
         }
 
-        this.testPlanet = new Planet(this,500,500,'testPlanert');
-        this.testPlanet.setSize(100);
+        //creating all three planets that can be on screen at once
+        this.targetPlanet = new Planet(this,1000,500,'testPlanert');
+        this.orbitPlanet = new Planet(this,500,500,'testPlanert');
+        this.deadPlanet = new Planet(this,-200,500,'testPlanert');
 
-        //place orbiter in a random place
+        //setting size of new planets
+        this.targetPlanet.setSize(100);
+        this.orbitPlanet.setSize(100);
+        this.deadPlanet.setSize(100);
+
+        //place orbiter in the starting location
         this.orbirter = new Orbiter(this,
             500,500,500,500, //placed at origin of orbit
-            this.testPlanet.radius*1.5,0, //radious, angle
+            this.targetPlanet.radius*1.5,0, //radious, angle
             'orbiter',keySPACE
         )
 
         //translation test
-        this.Clock = this.time.delayedCall(2000,()=>{
-            this.orbirter.setTranslate(900,500,2);
-            this.testPlanet.setTranslate(900,500,2);
-        });
+        // this.Clock = this.time.delayedCall(2000,()=>{
+        //     this.orbirter.setTranslate(900,500,2);
+        //     this.testPlanet.setTranslate(900,500,2);
+        // });
 
 
 
@@ -72,8 +80,40 @@ class Play extends Phaser.Scene {
             }
         }
 
+
+        //capture system
+        if(!this.orbirter.isOrbiting && this.orbirter.checkDist(this.targetPlanet) > this.lastDist && this.lastDist<this.targetPlanet.captureRange){
+            
+            // reset lastDist for next capture
+            this.lastDist = 1000000; 
+            //set the orbiter to orbiting the new planet
+            this.orbirter.setOrbit(this.targetPlanet.x,this.targetPlanet.y);
+            
+            //rename the planets
+            Object.assign(this.deadPlanet,this.orbitPlanet);
+            Object.assign(this.orbitPlanet,this.targetPlanet);
+
+            //randomize target planet and place it off screen
+            //this.targetPlanet.randomize() //NOT IMPLEMENTED
+            this.targetPlanet.x = screenWidth + this.targetPlanet.radius;
+
+            //move everything to reset the world
+            this.deadPlanet.setTranslate(-200,this.deadPlanet.y,2);
+            this.targetPlanet.setTranslate(1000,this.targetPlanet.y,2);
+            this.orbitPlanet.setTranslate(500,this.orbitPlanet.y,2);
+            this.orbirter.setTranslate(500,500,2);
+            
+            
+        }
+        else{
+            this.lastDist = this.orbirter.checkDist(this.targetPlanet);
+        }
+
+
+
+
         //check if the game should end
-        if(this.orbirter.checkBounds() || this.orbirter.checkCollision(this.testPlanet)){
+        if(this.orbirter.checkBounds() || this.orbirter.checkCollision(this.targetPlanet)){
             this.gameRuningFlag = false
             //this.orbiter.explode() UNIMPLEMENTED
             this.add.text(game.config.width/2, game.config.height/2,'GAME OVER', this.textConfig).setOrigin(0.5);
