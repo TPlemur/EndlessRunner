@@ -89,16 +89,16 @@ class Play extends Phaser.Scene {
             //set the orbiter to orbiting the new planet
             this.orbirter.setOrbit(this.targetPlanet.x,this.targetPlanet.y);
             
-            //rename the planets
-            Object.assign(this.deadPlanet,this.orbitPlanet);
-            Object.assign(this.orbitPlanet,this.targetPlanet);
+            //reassign the planets
+            Object.assign(this.deadPlanet,this.orbitPlanet); //deadplanet is off the screen to the left, and replaces the old orbit planet
+            Object.assign(this.orbitPlanet,this.targetPlanet); // orbit planet is updated to be the planet the rocket is orbiting
 
             //randomize target planet and place it off screen
             //this.targetPlanet.randomize() //NOT IMPLEMENTED
             this.targetPlanet.x = screenWidth + this.targetPlanet.radius;
 
             //move everything to reset the world
-            this.deadPlanet.setTranslate(-200,this.deadPlanet.y,2);
+            this.deadPlanet.setTranslate(-this.deadPlanet.radius,this.deadPlanet.y,2);
             this.targetPlanet.setTranslate(1000,this.targetPlanet.y,2);
             this.orbitPlanet.setTranslate(500,this.orbitPlanet.y,2);
             this.orbirter.setTranslate(500,500,2);
