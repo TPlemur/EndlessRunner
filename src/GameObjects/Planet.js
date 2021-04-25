@@ -1,12 +1,14 @@
 // Class Planet
 let GRAVITY_CONSTANT = 10;
 let DENSITY_CONSTANT = 10;
+let ORBIT_MULTIPLIER = 1.5;
 
 class Planet extends Phaser.GameObjects.Sprite {
     constructor(scene,x,y,texture,frame) {
         super(scene,x,y,texture,frame);
         scene.add.existing(this);
         this.radius = this.displayWidth/2;
+        this.orbit_radius = this.radius*ORBIT_MULTIPLIER;
         this.rotation = (2*Math.PI*Math.random())-Math.PI;
         //why doesn't this work >:(
         this.tint = 0xFFFFFF*Math.random();
@@ -18,6 +20,7 @@ class Planet extends Phaser.GameObjects.Sprite {
 
     setSize(radius) {
         this.radius = radius;
+        this.orbit_radius = radius*ORBIT_MULTIPLIER;
         this.displayWidth = radius*2;
         this.displayHeight = radius*2;
     }
