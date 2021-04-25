@@ -31,6 +31,12 @@ class End extends Phaser.Scene {
             gravityY: 500,
             lifespan: 900
         });
+
+        //define Keys (potentialy temparary) used for navigation
+        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+        
+
     }
 
     update(){
@@ -38,6 +44,16 @@ class End extends Phaser.Scene {
         this.mouseFlameEmitter.setPosition(this.game.input.mousePointer.x + 60, this.game.input.mousePointer.y + 50);
 
         this.parallaxBackground();
+        console.log('hello');
+
+        //potentialy temparary navigation back to menu
+        if(Phaser.Input.Keyboard.JustDown(keySPACE)){
+            this.scene.start('playScene');
+        }
+        if(Phaser.Input.Keyboard.JustDown(keyESC)){
+            this.scene.start('menuScene')
+        }
+
     }
 
     parallaxBackground(){
