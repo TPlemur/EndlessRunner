@@ -44,7 +44,6 @@ class End extends Phaser.Scene {
         this.mouseFlameEmitter.setPosition(this.game.input.mousePointer.x + 60, this.game.input.mousePointer.y + 50);
 
         this.parallaxBackground();
-        console.log('hello');
 
         //potentialy temparary navigation back to menu
         if(Phaser.Input.Keyboard.JustDown(keySPACE)){
