@@ -52,16 +52,13 @@ class Play extends Phaser.Scene {
         //place orbiter in the starting location
         this.orbirter = new Orbiter(this,
             500,500,500,500, //placed at origin of orbit
-            this.targetPlanet.radius*1.5,0, //radious, angle
+            this.targetPlanet.captureRange,0, //radious, angle
             'orbiter',keySPACE
         )
 
-        //translation test
-        // this.Clock = this.time.delayedCall(2000,()=>{
-        //     this.orbirter.setTranslate(900,500,2);
-        //     this.testPlanet.setTranslate(900,500,2);
-        // });
-
+        //scale up orbiter by magic numbers
+        this.orbirter.displayWidth = 30;
+        this.orbirter.displayHeight = 30;
 
 
     }
@@ -93,6 +90,8 @@ class Play extends Phaser.Scene {
             //set the orbiter to orbiting the new planet
             this.orbirter.setOrbit(this.targetPlanet.x,this.targetPlanet.y);
             
+                //this copys planets and I don't know why
+
             //reassign the planets
             Object.assign(this.deadPlanet,this.orbitPlanet); //deadplanet is off the screen to the left, and replaces the old orbit planet
             Object.assign(this.orbitPlanet,this.targetPlanet); // orbit planet is updated to be the planet the rocket is orbiting
