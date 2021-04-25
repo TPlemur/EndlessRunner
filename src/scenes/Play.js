@@ -82,7 +82,11 @@ class Play extends Phaser.Scene {
 
 
         //capture system
-        if(!this.orbirter.isOrbiting && this.orbirter.checkDist(this.targetPlanet) > this.lastDist && this.lastDist<this.targetPlanet.captureRange){
+        //compares the current distance to the last distance
+        //if lastDist is greater the ship is one tick past tangent with a potential orbit, which is close enough to tanget for visual purposes
+        if(!this.orbirter.isOrbiting 
+            && this.orbirter.checkDist(this.targetPlanet) > this.lastDist 
+            && this.lastDist<this.targetPlanet.captureRange){
             
             // reset lastDist for next capture
             this.lastDist = 1000000; 
@@ -98,19 +102,16 @@ class Play extends Phaser.Scene {
             this.targetPlanet.x = screenWidth + this.targetPlanet.radius;
 
             //move everything to reset the world
-            this.deadPlanet.setTranslate(-this.deadPlanet.radius,this.deadPlanet.y,2);
-            this.targetPlanet.setTranslate(1000,this.targetPlanet.y,2);
-            this.orbitPlanet.setTranslate(500,this.orbitPlanet.y,2);
-            this.orbirter.setTranslate(500,500,2);
+            this.deadPlanet.setTranslate(-this.deadPlanet.radius,this.deadPlanet.y,2);  // magic numbers are to be replaced
+            this.targetPlanet.setTranslate(1000,this.targetPlanet.y,2);                 // magic numbers are to be replaced
+            this.orbitPlanet.setTranslate(500,this.orbitPlanet.y,2);                    // magic numbers are to be replaced
+            this.orbirter.setTranslate(500,500,2);                                      // magic numbers are to be replaced
             
             
         }
         else{
             this.lastDist = this.orbirter.checkDist(this.targetPlanet);
         }
-
-
-
 
         //check if the game should end
         if(this.orbirter.checkBounds() || this.orbirter.checkCollision(this.targetPlanet)){
