@@ -124,10 +124,7 @@ class Orbiter extends Phaser.GameObjects.Sprite {
     }
     //checs if the orbiter is out of bounds
     checkBounds(){
-        if(this.x < this.screenOrigin || this.x > screenWidth){
-            return true;
-        }
-        if(this.y < this.screenOrigin || this.y > screenHeight){
+        if(this.x < this.screenOrigin || this.x > screenWidth || this.y < this.screenOrigin || this.y > screenHeight){
             return true;
         }
         return false;
