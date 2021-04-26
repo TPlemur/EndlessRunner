@@ -17,11 +17,21 @@ class Planet extends Phaser.GameObjects.Sprite {
         
     }
 
+    //set the radius and update everything dependant on that
     setSize(radius) {
         this.radius = radius;
         this.displayWidth = radius*2;
         this.displayHeight = radius*2;
         this.captureRange = this.radius*2;
+    }
+
+    //set this planet to be visualy and mechanicly identical to another
+    copyPlanet(planet){
+        this.x = planet.x;
+        this.y = planet.y;
+        this.texture = planet.texture;
+        this.rotation = planet.rotation;
+        this.setSize(planet.radius);
     }
 
     //TODO: make function that compares ship velocity to max orbital velocity

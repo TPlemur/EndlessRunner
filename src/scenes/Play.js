@@ -90,11 +90,9 @@ class Play extends Phaser.Scene {
             //set the orbiter to orbiting the new planet
             this.orbirter.setOrbit(this.targetPlanet.x,this.targetPlanet.y);
             
-                //this copys planets and I don't know why
-
             //reassign the planets
-            Object.assign(this.deadPlanet,this.orbitPlanet); //deadplanet is off the screen to the left, and replaces the old orbit planet
-            Object.assign(this.orbitPlanet,this.targetPlanet); // orbit planet is updated to be the planet the rocket is orbiting
+            this.deadPlanet.copyPlanet(this.orbitPlanet);
+            this.orbitPlanet.copyPlanet(this.targetPlanet);
 
             //randomize target planet and place it off screen
             //this.targetPlanet.randomize() //NOT IMPLEMENTED
@@ -122,6 +120,4 @@ class Play extends Phaser.Scene {
             this.scene.start('endScene');
         } 
     }
-
-
 }
