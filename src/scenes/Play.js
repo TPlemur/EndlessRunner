@@ -13,9 +13,15 @@ class Play extends Phaser.Scene {
         this.load.image('blackHole', './assets/blackHole.png');
         this.load.image('blackHoleWaves', './assets/blackHoleWaves.png');
         this.load.image('boundingRing','assets/planets/dottedRing.png');
+        this.load.image('background','assets/background/BackgroundB1.png');
+        this.load.image('stars','assets/background/BackgroundS2.png');
     }
 
     create() {
+        //load background
+        this.add.sprite(0,0,'background').setOrigin(0,0);
+        this.bgStars = this.add.tileSprite(0,0,screenWidth,screenHeight,'stars').setOrigin(0,0)
+
 
         //Fades in the Scene
         this.cameras.main.fadeIn(250);
@@ -149,6 +155,13 @@ class Play extends Phaser.Scene {
                 this.minSize -=5
             }
 
+            //move the starfield background
+            this.tweens.add({
+                targets: this.bgStars,
+                tilePositionX: {from: this.bgStars.tilePositionX, to: this.bgStars.tilePositionX + screenWidth/3},
+                ease:'Quad',
+                duration: 2000,
+            });
 
             
         }
