@@ -15,13 +15,15 @@ class Play extends Phaser.Scene {
         this.load.image('boundingRing','assets/planets/dottedRing.png');
         this.load.image('background','assets/background/BackgroundB1.png');
         this.load.image('stars','assets/background/BackgroundS2.png');
+        this.load.atlas('planets','assets/planets/planets.png','assets/planets/planets.json')
     }
 
     create() {
         //load background
         this.add.sprite(0,0,'background').setOrigin(0,0);
-        this.bgStars = this.add.tileSprite(0,0,screenWidth,screenHeight,'stars').setOrigin(0,0)
+        this.bgStars = this.add.tileSprite(0,0,screenWidth,screenHeight,'stars').setOrigin(0,0);
 
+        this.add.image(500,500,'planets','planet5')
 
         //Fades in the Scene
         this.cameras.main.fadeIn(250);
@@ -48,12 +50,12 @@ class Play extends Phaser.Scene {
             },
             fixedWidth: 0
         }
-
         //creating all three planets that can be on screen at once
         this.targetPlanet = new Planet(this,5*screenWidth/6,screenHeight/2,'testPlanert');
         this.orbitPlanet = new Planet(this,screenWidth/2,screenHeight/2,'testPlanert');
         this.deadPlanet = new Planet(this,-200,500,'testPlanert');
         this.boundingRing = new Planet(this,5*screenWidth/6,screenHeight/2,'boundingRing');
+        this.boundingRing.tint = 0xFFFFFF;
 
         //setting size of new planets
         this.targetPlanet.setSize(100);
@@ -134,6 +136,12 @@ class Play extends Phaser.Scene {
             this.orbitPlanet.copyPlanet(this.targetPlanet);
 
             //randomize target planet and place it off screen
+            //randomize texture
+            let planNum = Math.floor(Math.random()*(22)+ 1) //22 is number of planets, list must index from 1
+            let tempString = 'planet' + String(planNum)
+            let tempImage = this.add.image(-500,-400,'planets',tempString)
+            this.targetPlanet.setTexture(tempImage.texture);
+
             this.targetPlanet.randomize(this.minSize)
             this.targetPlanet.x = screenWidth + this.targetPlanet.radius;
             //update the bounding ring
@@ -161,9 +169,7 @@ class Play extends Phaser.Scene {
                 tilePositionX: {from: this.bgStars.tilePositionX, to: this.bgStars.tilePositionX + screenWidth/3},
                 ease:'Quad',
                 duration: 2000,
-            });
-
-            
+            });            
         }
         else{
             this.lastDist = this.orbirter.checkDist(this.targetPlanet);

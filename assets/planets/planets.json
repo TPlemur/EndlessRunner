@@ -1,0 +1,481 @@
+{
+	"textures": [
+		{
+			"image": "planets.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 3744,
+				"h": 2501
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "Planet16.png",
+					"rotated": true,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 635,
+						"h": 635
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 6,
+						"w": 629,
+						"h": 624
+					},
+					"frame": {
+						"x": 0,
+						"y": 0,
+						"w": 629,
+						"h": 624
+					}
+				},
+				{
+					"filename": "Planet1.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 635,
+						"h": 635
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 6,
+						"w": 624,
+						"h": 624
+					},
+					"frame": {
+						"x": 0,
+						"y": 629,
+						"w": 624,
+						"h": 624
+					}
+				},
+				{
+					"filename": "Planet10.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 635,
+						"h": 635
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 6,
+						"w": 624,
+						"h": 624
+					},
+					"frame": {
+						"x": 0,
+						"y": 1253,
+						"w": 624,
+						"h": 624
+					}
+				},
+				{
+					"filename": "Planet11.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 635,
+						"h": 635
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 6,
+						"w": 624,
+						"h": 624
+					},
+					"frame": {
+						"x": 0,
+						"y": 1877,
+						"w": 624,
+						"h": 624
+					}
+				},
+				{
+					"filename": "Planet12.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 635,
+						"h": 635
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 6,
+						"w": 624,
+						"h": 624
+					},
+					"frame": {
+						"x": 624,
+						"y": 0,
+						"w": 624,
+						"h": 624
+					}
+				},
+				{
+					"filename": "Planet13.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 635,
+						"h": 635
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 6,
+						"w": 624,
+						"h": 624
+					},
+					"frame": {
+						"x": 624,
+						"y": 624,
+						"w": 624,
+						"h": 624
+					}
+				},
+				{
+					"filename": "Planet14.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 635,
+						"h": 635
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 6,
+						"w": 624,
+						"h": 624
+					},
+					"frame": {
+						"x": 624,
+						"y": 1248,
+						"w": 624,
+						"h": 624
+					}
+				},
+				{
+					"filename": "Planet15.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 635,
+						"h": 635
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 6,
+						"w": 624,
+						"h": 624
+					},
+					"frame": {
+						"x": 624,
+						"y": 1872,
+						"w": 624,
+						"h": 624
+					}
+				},
+				{
+					"filename": "Planet17.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 635,
+						"h": 635
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 6,
+						"w": 624,
+						"h": 624
+					},
+					"frame": {
+						"x": 1248,
+						"y": 0,
+						"w": 624,
+						"h": 624
+					}
+				},
+				{
+					"filename": "Planet18.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 635,
+						"h": 635
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 6,
+						"w": 624,
+						"h": 624
+					},
+					"frame": {
+						"x": 1872,
+						"y": 0,
+						"w": 624,
+						"h": 624
+					}
+				},
+				{
+					"filename": "Planet19.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 635,
+						"h": 635
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 6,
+						"w": 624,
+						"h": 624
+					},
+					"frame": {
+						"x": 2496,
+						"y": 0,
+						"w": 624,
+						"h": 624
+					}
+				},
+				{
+					"filename": "Planet2.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 635,
+						"h": 635
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 6,
+						"w": 624,
+						"h": 624
+					},
+					"frame": {
+						"x": 3120,
+						"y": 0,
+						"w": 624,
+						"h": 624
+					}
+				},
+				{
+					"filename": "Planet20.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 635,
+						"h": 635
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 6,
+						"w": 624,
+						"h": 624
+					},
+					"frame": {
+						"x": 1248,
+						"y": 624,
+						"w": 624,
+						"h": 624
+					}
+				},
+				{
+					"filename": "Planet21.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 635,
+						"h": 635
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 6,
+						"w": 624,
+						"h": 624
+					},
+					"frame": {
+						"x": 1248,
+						"y": 1248,
+						"w": 624,
+						"h": 624
+					}
+				},
+				{
+					"filename": "Planet22.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 635,
+						"h": 635
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 6,
+						"w": 624,
+						"h": 624
+					},
+					"frame": {
+						"x": 1248,
+						"y": 1872,
+						"w": 624,
+						"h": 624
+					}
+				},
+				{
+					"filename": "Planet3.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 635,
+						"h": 635
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 6,
+						"w": 624,
+						"h": 624
+					},
+					"frame": {
+						"x": 1872,
+						"y": 624,
+						"w": 624,
+						"h": 624
+					}
+				},
+				{
+					"filename": "Planet4.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 635,
+						"h": 635
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 6,
+						"w": 624,
+						"h": 624
+					},
+					"frame": {
+						"x": 2496,
+						"y": 624,
+						"w": 624,
+						"h": 624
+					}
+				},
+				{
+					"filename": "Planet5.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 635,
+						"h": 635
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 6,
+						"w": 624,
+						"h": 624
+					},
+					"frame": {
+						"x": 3120,
+						"y": 624,
+						"w": 624,
+						"h": 624
+					}
+				},
+				{
+					"filename": "Planet6.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 635,
+						"h": 635
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 6,
+						"w": 624,
+						"h": 624
+					},
+					"frame": {
+						"x": 1872,
+						"y": 1248,
+						"w": 624,
+						"h": 624
+					}
+				},
+				{
+					"filename": "Planet7.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 635,
+						"h": 635
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 6,
+						"w": 624,
+						"h": 624
+					},
+					"frame": {
+						"x": 1872,
+						"y": 1872,
+						"w": 624,
+						"h": 624
+					}
+				},
+				{
+					"filename": "Planet8.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 635,
+						"h": 635
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 6,
+						"w": 624,
+						"h": 624
+					},
+					"frame": {
+						"x": 2496,
+						"y": 1248,
+						"w": 624,
+						"h": 624
+					}
+				},
+				{
+					"filename": "Planet9.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 635,
+						"h": 635
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 6,
+						"w": 624,
+						"h": 624
+					},
+					"frame": {
+						"x": 3120,
+						"y": 1248,
+						"w": 624,
+						"h": 624
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "http://free-tex-packer.com",
+		"version": "0.6.6"
+	}
+}
