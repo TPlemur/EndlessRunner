@@ -31,6 +31,7 @@ let keySPACE, keyESC;
 
 //global variabl
 let globalSpeed = 1;
+let gameScore = 0;
 
 //define screen variables
 let screenCenterX = screenWidth / 2;

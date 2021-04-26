@@ -26,7 +26,9 @@ class Play extends Phaser.Scene {
 
         //flags & vars
         this.gameRuningFlag = true;
-        this.lastDist = 10000000; // var should be bigger than screen at start, but doesn't need to be anything specific
+        this.lastDist = screenHeight+screenWidth; // var should be bigger than screen at start, but doesn't need to be anything specific
+        this.minSize = 100; //smallest randomly generated radious for planets
+        gameScore = 0; //set the score to 0
 
         //text configuration
         this.textConfig = {
@@ -114,7 +116,7 @@ class Play extends Phaser.Scene {
             && this.lastDist<this.targetPlanet.captureRange){
             
             // reset lastDist for next capture
-            this.lastDist = 1000000; //just needs to be bigger thant the max screen width.
+            this.lastDist = screenWidth+screenHeight; //mostly just needs to be big
             //set the orbiter to orbiting the new planet
             this.orbirter.setOrbit(this.targetPlanet.x,this.targetPlanet.y);
             
@@ -126,13 +128,13 @@ class Play extends Phaser.Scene {
             this.orbitPlanet.copyPlanet(this.targetPlanet);
 
             //randomize target planet and place it off screen
-            this.targetPlanet.randomize()
+            this.targetPlanet.randomize(this.minSize)
             this.targetPlanet.x = screenWidth + this.targetPlanet.radius;
             //update the bounding ring
             this.boundingRing.x = this.targetPlanet.x;
             this.boundingRing.y = this.targetPlanet.y;
             this.boundingRing.setSize(this.targetPlanet.captureRange);
-            this.boundingRing.alpha -=0.05; // decrement the alpha of the ring
+            this.boundingRing.alpha -=0.1; // decrement the alpha of the ring for difficulty scaling
 
             //move everything to reset the world
             this.deadPlanet.setTranslate(-this.deadPlanet.radius,this.deadPlanet.y,2);  // magic numbers are to be replaced
@@ -141,6 +143,13 @@ class Play extends Phaser.Scene {
             this.orbirter.setTranslate(this.orbitPlanet.x-screenWidth/3,this.orbitPlanet.y,2);                                      // magic numbers are to be replaced
             this.boundingRing.setTranslate(this.targetPlanet.x-screenWidth/3,this.targetPlanet.y,2);                 // magic numbers need to be the same as target planet's
             
+            //increment socre and decrement min size of planets
+            gameScore +=1;
+            if(this.minSize>50){
+                this.minSize -=5
+            }
+
+
             
         }
         else{
