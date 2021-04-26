@@ -12,7 +12,7 @@ class Play extends Phaser.Scene {
         this.load.image('testPlanert','assets/planet.png');
         this.load.image('blackHole', './assets/blackHole.png');
         this.load.image('blackHoleWaves', './assets/blackHoleWaves.png');
-        this.load.image('boundingRing','assets/boundingRing.png');
+        this.load.image('boundingRing','assets/planets/dottedRing.png');
     }
 
     create() {
