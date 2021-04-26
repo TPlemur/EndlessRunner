@@ -10,6 +10,8 @@ class Play extends Phaser.Scene {
         //loading assets
         this.load.image('orbiter','assets/orbitPlaceholder.png');
         this.load.image('testPlanert','assets/planet.png');
+        this.load.image('blackHole', './assets/blackHole.png');
+        this.load.image('blackHoleWaves', './assets/blackHoleWaves.png');
     }
 
     create() {
@@ -62,8 +64,13 @@ class Play extends Phaser.Scene {
         //     this.testPlanet.setTranslate(900,500,2);
         // });
 
-
-
+        //Black Hole Creation
+        this.blackHoleWaves = new Blackhole(this, screenCenterX - 3300, screenCenterY, 'blackHoleWaves').setScale(0.5); //blackHoleWaves are the waves that move and collide with the ship, the waves move up and down for visual sakes randomly
+        this.blackHole = new Blackhole(this, screenCenterX - 1100, screenCenterY, 'blackHole').setScale(0.2); //blackHole is the hole itself that rotates for visual sakes
+        this.blackHoleWaves.setSpeed(0.2); //Sets the speed at which the Black Hole Waves advance
+    
+        //Supposed to print out "test" when blackholewaves colides with orbit planet but is not as of now, need to figure this out.
+        this.physics.add.collider(this.blackHoleWaves, this.orbitPlanet, () => { console.log("test")});
     }
 
     update(){
@@ -79,6 +86,11 @@ class Play extends Phaser.Scene {
                 this.scene.start('menuScene')
             }
         }
+
+        //Runs the update method for the Black Hole and Black Hole Waves
+        this.blackHoleWaves.update(1); // 1 represents Black Hole Waves
+        this.blackHole.update(0); // 0 represents Black Hole
+
 
 
         //capture system
@@ -123,6 +135,4 @@ class Play extends Phaser.Scene {
             this.scene.start('endScene');
         } 
     }
-
-
 }

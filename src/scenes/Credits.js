@@ -10,10 +10,6 @@ class Credits extends Phaser.Scene {
         this.load.image('menuBG', './assets/menu/menuBackground.png');
         this.load.image('menuBGStars', './assets/menu/menuBackgroundStars.png');
         this.load.image('backButton', './assets/menu/creditsBackButton.png');
-
-        //Black hole temp
-        this.load.image('blackHole', './assets/blackHole.png');
-        this.load.image('blackHoleWaves', './assets/blackHoleWaves.png');
     }
 
     create(){
@@ -39,17 +35,9 @@ class Credits extends Phaser.Scene {
             gravityY: 500,
             lifespan: 900
         });
-
-        //Black hole temp
-        this.blackHoleWaves = new Blackhole(this, screenCenterX - 3300, screenCenterY, 'blackHoleWaves').setScale(0.5);
-        this.blackHole = new Blackhole(this, screenCenterX - 1100, screenCenterY, 'blackHole').setScale(0.2);
-        this.blackHoleWaves.setSpeed(0.2);
     }
 
     update(){
-        this.blackHoleWaves.update(1); // 1 represents Black Hole Waves
-        this.blackHole.update(0); // 0 represents Black Hole
-
         //Update Mouse flame location
         this.mouseFlameEmitter.setPosition(this.game.input.mousePointer.x + 60, this.game.input.mousePointer.y + 50);
         
