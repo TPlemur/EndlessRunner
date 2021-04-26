@@ -10,7 +10,6 @@ class Menu extends Phaser.Scene{
         this.load.image('menuBG', './assets/menu/menuBackground.png');
         this.load.image('launchButton', './assets/menu/menuLaunchButton.png');
         this.load.image('creditsButton', './assets/menu/menuCreditsButton.png');
-        this.load.image('rocketParticle', './assets/menu/rocketParticle.png');
         this.load.image('menuBGStars', './assets/menu/menuBackgroundStars.png');
         this.load.image('title', './assets/menu/menuTitle.png');
         this.load.image('cursorParticles', './assets/menu/cursorParticles.png');
