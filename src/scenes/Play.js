@@ -65,12 +65,14 @@ class Play extends Phaser.Scene {
         this.orbirter.displayHeight = 30;
 
         //Black Hole Creation
-        this.blackHoleWaves = new Blackhole(this, screenCenterX - 3300, screenCenterY, 'blackHoleWaves').setScale(0.5); //blackHoleWaves are the waves that move and collide with the ship, the waves move up and down for visual sakes randomly
+        this.blackHoleWaves = new Blackhole(this, screenCenterX - 3500, screenCenterY, 'blackHoleWaves').setScale(0.5); //blackHoleWaves are the waves that move and collide with the ship, the waves move up and down for visual sakes randomly
         this.blackHole = new Blackhole(this, screenCenterX - 1100, screenCenterY, 'blackHole').setScale(0.2); //blackHole is the hole itself that rotates for visual sakes
         this.blackHoleWaves.setSpeed(0.2); //Sets the speed at which the Black Hole Waves advance
     
-        //Supposed to print out "test" when blackholewaves colides with orbit planet but is not as of now, need to figure this out.
-        this.physics.add.collider(this.blackHoleWaves, this.orbitPlanet, () => { console.log("test")});
+        //Creates physical bodies for orbitPlanet and blackHole Waves and can perform a function when they collide.
+        this.physics.add.existing(this.blackHoleWaves);
+        this.physics.add.existing(this.orbitPlanet);
+        this.physics.add.collider(this.blackHoleWaves, this.orbitPlanet, () => { console.log("Collided")});
     }
 
     update(){
@@ -115,6 +117,9 @@ class Play extends Phaser.Scene {
             this.lastDist = 1000000; //just needs to be bigger thant the max screen width.
             //set the orbiter to orbiting the new planet
             this.orbirter.setOrbit(this.targetPlanet.x,this.targetPlanet.y);
+            
+            //Sets the blackHoleWaves back a certain distance once a new planet is being orbitted 
+            this.blackHoleWaves.setSetBack(200);
             
             //reassign the planets
             this.deadPlanet.copyPlanet(this.orbitPlanet);
