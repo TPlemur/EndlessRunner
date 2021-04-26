@@ -10,7 +10,6 @@ class Menu extends Phaser.Scene{
         this.load.image('menuBG', './assets/menu/menuBackground.png');
         this.load.image('launchButton', './assets/menu/menuLaunchButton.png');
         this.load.image('creditsButton', './assets/menu/menuCreditsButton.png');
-        this.load.image('rocketParticle', './assets/menu/rocketParticle.png');
         this.load.image('menuBGStars', './assets/menu/menuBackgroundStars.png');
         this.load.image('title', './assets/menu/menuTitle.png');
         this.load.image('cursorParticles', './assets/menu/cursorParticles.png');
@@ -62,7 +61,7 @@ class Menu extends Phaser.Scene{
         this.title = this.add.sprite(screenCenterX, screenCenterY - 300, 'title').setScale(200);
 
         //Initialize Particles and Emitter
-        this.rocketParticles = this.add.particles('rocketParticle').setScale(1);
+        this.rocketParticles = this.add.particles('menuBGStars').setScale(1);
         this.rocketEmitter = this.rocketParticles.createEmitter().setPosition(-1000,0);
         
         //Buttons
@@ -120,7 +119,7 @@ class Menu extends Phaser.Scene{
         //Start Particles
         emitter.setPosition(button.x, button.y);
         emitter.setBlendMode(Phaser.BlendModes.ADD);  
-        emitter.setSpeed(190).setScale(0.1).setLifespan(800);
+        emitter.setSpeed(150).setScale(0.1).setLifespan(800);
          
         //Scale Button
         button.setScale(2.8); 
