@@ -82,7 +82,7 @@ class Menu extends Phaser.Scene{
 
     update(){
         //Shoot flames from the mouse
-        this.mouseFlameEmitter.setPosition(this.game.input.mousePointer.x + 60, this.game.input.mousePointer.y + 50);
+        this.mouseFlameEmitter.setPosition(this.game.input.mousePointer.x + 40, this.game.input.mousePointer.y + 30);
 
         //Adds Parallax Effect, /20 is to slow down the amount the background moves
         this.parallaxBackground();

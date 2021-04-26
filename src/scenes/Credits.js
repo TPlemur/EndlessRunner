@@ -39,7 +39,7 @@ class Credits extends Phaser.Scene {
 
     update(){
         //Update Mouse flame location
-        this.mouseFlameEmitter.setPosition(this.game.input.mousePointer.x + 60, this.game.input.mousePointer.y + 50);
+        this.mouseFlameEmitter.setPosition(this.game.input.mousePointer.x + 40, this.game.input.mousePointer.y + 30);
         
         this.parallaxBackground();
     }
