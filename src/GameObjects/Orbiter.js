@@ -117,7 +117,7 @@ class Orbiter extends Phaser.GameObjects.Sprite {
 
     //checks if orbiter will collide with planet
     checkCollision(planet) {
-        if (Math.hypot(this.x-planet.x,this.y-planet.y) <= planet.radius) {
+        if (this.checkDist(planet) <= planet.radius) {
             return true;
         }
         return false;
@@ -132,7 +132,7 @@ class Orbiter extends Phaser.GameObjects.Sprite {
 
     //returns the distance between the orbiter's position and an object with a .x and .y property
     checkDist(planet){
-        return Math.sqrt(Math.pow(this.x-planet.x,2)+Math.pow(this.y-planet.y,2));
+        return Math.hypot(this.x-planet.x,this.y-planet.y);
     }
 
     //start liner motion in the direction the ship is currently pointing

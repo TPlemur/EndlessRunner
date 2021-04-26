@@ -12,6 +12,7 @@ class Play extends Phaser.Scene {
         this.load.image('testPlanert','assets/planet.png');
         this.load.image('blackHole', './assets/blackHole.png');
         this.load.image('blackHoleWaves', './assets/blackHoleWaves.png');
+        this.load.image('boundingRing','assets/boundingRing.png');
     }
 
     create() {
@@ -25,14 +26,13 @@ class Play extends Phaser.Scene {
 
         //flags & vars
         this.gameRuningFlag = true;
-        this.lastDist = 10000000; // var should be bigger than screen at start
+        this.lastDist = 10000000; // var should be bigger than screen at start, but doesn't need to be anything specific
 
         //text configuration
-        let textConfig = {
+        this.textConfig = {
             fontFamily: 'Courier',
             fontSize: '200px',
-            backgroundColor: '#F3B141',
-            color: '#843605',
+            color: '#707081',
             align: 'right',
             padding: {
                 top: 5,
@@ -45,11 +45,13 @@ class Play extends Phaser.Scene {
         this.targetPlanet = new Planet(this,1000,500,'testPlanert');
         this.orbitPlanet = new Planet(this,500,500,'testPlanert');
         this.deadPlanet = new Planet(this,-200,500,'testPlanert');
+        this.boundingRing = new Planet(this,1000,500,'boundingRing');
 
         //setting size of new planets
         this.targetPlanet.setSize(100);
         this.orbitPlanet.setSize(100);
         this.deadPlanet.setSize(100);
+        this.boundingRing.setSize(this.targetPlanet.captureRange);
 
         //place orbiter in the starting location
         this.orbirter = new Orbiter(this,
@@ -75,15 +77,26 @@ class Play extends Phaser.Scene {
         //update the orbiter]
         if(this.gameRuningFlag){
             this.orbirter.update();
+                    //check if the game should end
+            if(this.orbirter.checkBounds() || this.orbirter.checkCollision(this.targetPlanet)){
+                this.gameRuningFlag = false
+                //this.orbiter.explode() UNIMPLEMENTED
+                this.add.text(game.config.width/2, game.config.height/2,'GAME OVER', this.textConfig).setOrigin(0.5);
+
+                //When game ends jump to End Screen after 2 seconds
+                this.clock = this.time.delayedCall(2000,()=>{this.scene.start('endScene')},null,this);
+            } 
+
         }        
         else{//if game ends go space to go to menu
             if(Phaser.Input.Keyboard.JustDown(keySPACE)){
                 this.scene.start('playScene');
             }
             if(Phaser.Input.Keyboard.JustDown(keyESC)){
-                this.scene.start('menuScene')
+                this.scene.start('endScene')
             }
         }
+
 
         //Runs the update method for the Black Hole and Black Hole Waves
         this.blackHoleWaves.update(1); // 1 represents Black Hole Waves
@@ -99,7 +112,7 @@ class Play extends Phaser.Scene {
             && this.lastDist<this.targetPlanet.captureRange){
             
             // reset lastDist for next capture
-            this.lastDist = 1000000; 
+            this.lastDist = 1000000; //just needs to be bigger thant the max screen width.
             //set the orbiter to orbiting the new planet
             this.orbirter.setOrbit(this.targetPlanet.x,this.targetPlanet.y);
             
@@ -110,27 +123,23 @@ class Play extends Phaser.Scene {
             //randomize target planet and place it off screen
             //this.targetPlanet.randomize() //NOT IMPLEMENTED
             this.targetPlanet.x = screenWidth + this.targetPlanet.radius;
+            //update the bounding ring
+            this.boundingRing.x = this.targetPlanet.x;
+            this.boundingRing.y = this.targetPlanet.y;
+            this.boundingRing.setSize(this.targetPlanet.captureRange);
+            this.boundingRing.alpha -=0.05; // decrement the alpha of the ring
 
             //move everything to reset the world
             this.deadPlanet.setTranslate(-this.deadPlanet.radius,this.deadPlanet.y,2);  // magic numbers are to be replaced
             this.targetPlanet.setTranslate(1000,this.targetPlanet.y,2);                 // magic numbers are to be replaced
             this.orbitPlanet.setTranslate(500,this.orbitPlanet.y,2);                    // magic numbers are to be replaced
             this.orbirter.setTranslate(500,500,2);                                      // magic numbers are to be replaced
+            this.boundingRing.setTranslate(1000,this.targetPlanet.y,2);                 // magic numbers need to be the same as target planet's
             
             
         }
         else{
             this.lastDist = this.orbirter.checkDist(this.targetPlanet);
         }
-
-        //check if the game should end
-        if(this.orbirter.checkBounds() || this.orbirter.checkCollision(this.targetPlanet)){
-            this.gameRuningFlag = false
-            //this.orbiter.explode() UNIMPLEMENTED
-            this.add.text(game.config.width/2, game.config.height/2,'GAME OVER', this.textConfig).setOrigin(0.5);
-
-            //When game ends jump to End Screen
-            this.scene.start('endScene');
-        } 
     }
 }
