@@ -42,10 +42,10 @@ class Play extends Phaser.Scene {
         }
 
         //creating all three planets that can be on screen at once
-        this.targetPlanet = new Planet(this,1000,500,'testPlanert');
-        this.orbitPlanet = new Planet(this,500,500,'testPlanert');
+        this.targetPlanet = new Planet(this,5*screenWidth/6,screenHeight/2,'testPlanert');
+        this.orbitPlanet = new Planet(this,screenWidth/2,screenHeight/2,'testPlanert');
         this.deadPlanet = new Planet(this,-200,500,'testPlanert');
-        this.boundingRing = new Planet(this,1000,500,'boundingRing');
+        this.boundingRing = new Planet(this,5*screenWidth/6,screenHeight/2,'boundingRing');
 
         //setting size of new planets
         this.targetPlanet.setSize(100);
@@ -55,7 +55,7 @@ class Play extends Phaser.Scene {
 
         //place orbiter in the starting location
         this.orbirter = new Orbiter(this,
-            500,500,500,500, //placed at origin of orbit
+            screenWidth/2,screenHeight/2,screenWidth/2,screenHeight/2, //placed at origin of orbit
             this.targetPlanet.captureRange,0, //radious, angle
             'orbiter',keySPACE
         )
@@ -136,10 +136,10 @@ class Play extends Phaser.Scene {
 
             //move everything to reset the world
             this.deadPlanet.setTranslate(-this.deadPlanet.radius,this.deadPlanet.y,2);  // magic numbers are to be replaced
-            this.targetPlanet.setTranslate(1000,this.targetPlanet.y,2);                 // magic numbers are to be replaced
-            this.orbitPlanet.setTranslate(500,this.orbitPlanet.y,2);                    // magic numbers are to be replaced
-            this.orbirter.setTranslate(500,500,2);                                      // magic numbers are to be replaced
-            this.boundingRing.setTranslate(1000,this.targetPlanet.y,2);                 // magic numbers need to be the same as target planet's
+            this.targetPlanet.setTranslate(this.targetPlanet.x-screenWidth/3,this.targetPlanet.y,2);                 // magic numbers are to be replaced
+            this.orbitPlanet.setTranslate(this.orbitPlanet.x-screenWidth/3,this.orbitPlanet.y,2);                    // magic numbers are to be replaced
+            this.orbirter.setTranslate(this.orbitPlanet.x-screenWidth/3,this.orbitPlanet.y,2);                                      // magic numbers are to be replaced
+            this.boundingRing.setTranslate(this.targetPlanet.x-screenWidth/3,this.targetPlanet.y,2);                 // magic numbers need to be the same as target planet's
             
             
         }
