@@ -25,6 +25,18 @@ class Planet extends Phaser.GameObjects.Sprite {
         this.captureRange = this.radius*2.5;
     }
 
+    //generate a random integer between min and max
+    randomInterval(min,max){
+        return Math.floor(Math.random()*(max-min+1)+ min);
+    }
+
+    //size place the planet randomly such that the capture range never goes off the screen
+    randomize(){
+        this.setSize(this.randomInterval(50,150));
+        this.x = screenWidth + this.captureRange + this.randomInterval(0,screenWidth/3 - 2*this.captureRange);
+        this.y = this.captureRange + this.randomInterval(0,screenHeight-2*this.captureRange);
+    }
+
     //set this planet to be visualy and mechanicly identical to another
     copyPlanet(planet){
         this.x = planet.x;

@@ -126,7 +126,7 @@ class Play extends Phaser.Scene {
             this.orbitPlanet.copyPlanet(this.targetPlanet);
 
             //randomize target planet and place it off screen
-            //this.targetPlanet.randomize() //NOT IMPLEMENTED
+            this.targetPlanet.randomize()
             this.targetPlanet.x = screenWidth + this.targetPlanet.radius;
             //update the bounding ring
             this.boundingRing.x = this.targetPlanet.x;
