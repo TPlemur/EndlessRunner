@@ -8,7 +8,7 @@ class Play extends Phaser.Scene {
 
     preload() {
         //loading assets
-        this.load.image('orbiter','assets/orbitPlaceholder.png');
+        this.load.image('orbiter','assets//background/ShipSample.png');
         this.load.image('testPlanert','assets/planet.png');
         this.load.image('blackHole', './assets/blackHole.png');
         this.load.image('blackHoleWaves', './assets/blackHoleWaves.png');
@@ -25,8 +25,6 @@ class Play extends Phaser.Scene {
         this.bg = this.add.tileSprite(0,0,screenWidth,screenHeight,'background').setOrigin(0,0);
         this.bgStars00 = this.add.tileSprite(0,0,screenWidth,screenHeight,'stars').setOrigin(0,0);
         this.bgStars01 = this.add.tileSprite(0,0,screenWidth,screenHeight,'menuBGStars').setOrigin(0,0).setScale(1.3);
-
-        //this.add.image(500,500,'planets','planet5.png')
 
         //Fades in the Scene
         this.cameras.main.fadeIn(250);
@@ -70,7 +68,7 @@ class Play extends Phaser.Scene {
         this.blackHoleWaves.setOrigin(1,0.5);
 
         //creating all three planets that can be on screen at once
-        let tempString = 'Planet' + String(Math.floor(Math.random()*(22)+ 1))+'.png'
+        let tempString = 'Planet' + String(Math.floor(Math.random()*(22)+ 1))+'.png' //generate random call for a planet
         this.targetPlanet = new Planet(this,5*screenWidth/6,screenHeight/2,'planets',tempString);
         tempString = 'Planet' + String(Math.floor(Math.random()*(22)+ 1))+'.png'
         this.orbitPlanet = new Planet(this,screenWidth/2,screenHeight/2,'planets',tempString);
@@ -208,8 +206,8 @@ class Play extends Phaser.Scene {
                 ease:'Quad',
                 duration: 2000,
             });            
-        }
-        else{
+        }//end capture actions
+        else{//set lastdist if no captue happens
             this.lastDist = this.orbirter.checkDist(this.targetPlanet);
         }
     }
