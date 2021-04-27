@@ -8,7 +8,7 @@ class Planet extends Phaser.GameObjects.Sprite {
         super(scene,x,y,texture,frame);
         scene.add.existing(this);
         this.radius = this.displayWidth/2;
-        this.captureRange = this.radius*1.5
+        this.captureRange = this.radius*2.5
         this.rotation = (2*Math.PI*Math.random())-Math.PI;
         //why doesn't this work >:(
         this.tint = 0xFFFFFF*Math.random();
@@ -18,12 +18,34 @@ class Planet extends Phaser.GameObjects.Sprite {
         
     }
 
+    //set the radius and update everything dependant on that
     setSize(radius) {
         this.radius = radius;
         this.orbit_radius = radius*ORBIT_MULTIPLIER;
         this.displayWidth = radius*2;
         this.displayHeight = radius*2;
-        this.captureRange = this.radius*2;
+        this.captureRange = this.radius*2.5;
+    }
+
+    //generate a random integer between min and max
+    randomInterval(min,max){
+        return Math.floor(Math.random()*(max-min+1)+ min);
+    }
+
+    //size place the planet randomly such that the capture range never goes off the screen
+    randomize(minSize){
+        this.setSize(this.randomInterval(minSize,150));
+        this.x = screenWidth + this.captureRange + this.randomInterval(0,screenWidth/3 - 2*this.captureRange);
+        this.y = this.captureRange + this.randomInterval(0,screenHeight-2*this.captureRange);
+    }
+
+    //set this planet to be visualy and mechanicly identical to another
+    copyPlanet(planet){
+        this.x = planet.x;
+        this.y = planet.y;
+        this.texture = planet.texture;
+        this.rotation = planet.rotation;
+        this.setSize(planet.radius);
     }
 
     //TODO: make function that compares ship velocity to max orbital velocity

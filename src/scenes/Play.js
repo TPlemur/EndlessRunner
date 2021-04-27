@@ -10,9 +10,18 @@ class Play extends Phaser.Scene {
         //loading assets
         this.load.image('orbiter','assets/orbitPlaceholder.png');
         this.load.image('testPlanert','assets/planet.png');
+        this.load.image('blackHole', './assets/blackHole.png');
+        this.load.image('blackHoleWaves', './assets/blackHoleWaves.png');
+        this.load.image('boundingRing','assets/planets/dottedRing.png');
+        this.load.image('background','assets/background/BackgroundB1.png');
+        this.load.image('stars','assets/background/BackgroundS2.png');
     }
 
     create() {
+        //load background
+        this.add.sprite(0,0,'background').setOrigin(0,0);
+        this.bgStars = this.add.tileSprite(0,0,screenWidth,screenHeight,'stars').setOrigin(0,0)
+
 
         //Fades in the Scene
         this.cameras.main.fadeIn(250);
@@ -23,14 +32,15 @@ class Play extends Phaser.Scene {
 
         //flags & vars
         this.gameRuningFlag = true;
-        this.lastDist = 10000000; // var should be bigger than screen at start
+        this.lastDist = screenHeight+screenWidth; // var should be bigger than screen at start, but doesn't need to be anything specific
+        this.minSize = 100; //smallest randomly generated radious for planets
+        gameScore = 0; //set the score to 0
 
         //text configuration
-        let textConfig = {
+        this.textConfig = {
             fontFamily: 'Courier',
             fontSize: '200px',
-            backgroundColor: '#F3B141',
-            color: '#843605',
+            color: '#707081',
             align: 'right',
             padding: {
                 top: 5,
@@ -40,45 +50,68 @@ class Play extends Phaser.Scene {
         }
 
         //creating all three planets that can be on screen at once
-        this.targetPlanet = new Planet(this,1000,500,'testPlanert');
-        this.orbitPlanet = new Planet(this,500,500,'testPlanert');
+        this.targetPlanet = new Planet(this,5*screenWidth/6,screenHeight/2,'testPlanert');
+        this.orbitPlanet = new Planet(this,screenWidth/2,screenHeight/2,'testPlanert');
         this.deadPlanet = new Planet(this,-200,500,'testPlanert');
+        this.boundingRing = new Planet(this,5*screenWidth/6,screenHeight/2,'boundingRing');
 
         //setting size of new planets
         this.targetPlanet.setSize(100);
         this.orbitPlanet.setSize(100);
         this.deadPlanet.setSize(100);
+        this.boundingRing.setSize(this.targetPlanet.captureRange);
 
         //place orbiter in the starting location
         this.orbirter = new Orbiter(this,
-            500,500,500,500, //placed at origin of orbit
-            this.targetPlanet.radius*1.5,0, //radious, angle
+            screenWidth/2,screenHeight/2,screenWidth/2,screenHeight/2, //placed at origin of orbit
+            this.targetPlanet.captureRange,0, //radious, angle
             'orbiter',keySPACE
         )
 
-        //translation test
-        // this.Clock = this.time.delayedCall(2000,()=>{
-        //     this.orbirter.setTranslate(900,500,2);
-        //     this.testPlanet.setTranslate(900,500,2);
-        // });
+        //scale up orbiter by magic numbers can be removed for final game
+        this.orbirter.displayWidth = 30;
+        this.orbirter.displayHeight = 30;
 
-
-
+        //Black Hole Creation
+        this.blackHoleWaves = new Blackhole(this, screenCenterX - 3500, screenCenterY, 'blackHoleWaves').setScale(0.5); //blackHoleWaves are the waves that move and collide with the ship, the waves move up and down for visual sakes randomly
+        this.blackHole = new Blackhole(this, screenCenterX - 1100, screenCenterY, 'blackHole').setScale(0.2); //blackHole is the hole itself that rotates for visual sakes
+        this.blackHoleWaves.setSpeed(0.2); //Sets the speed at which the Black Hole Waves advance
+    
+        //Creates physical bodies for orbitPlanet and blackHole Waves and can perform a function when they collide.
+        this.physics.add.existing(this.blackHoleWaves);
+        this.physics.add.existing(this.orbitPlanet);
+        this.physics.add.collider(this.blackHoleWaves, this.orbitPlanet, () => { console.log("Collided")});
     }
 
     update(){
         //update the orbiter]
         if(this.gameRuningFlag){
             this.orbirter.update();
+                    //check if the game should end
+            if(this.orbirter.checkBounds() || this.orbirter.checkCollision(this.targetPlanet)){
+                this.gameRuningFlag = false
+                //this.orbiter.explode() UNIMPLEMENTED
+                this.add.text(game.config.width/2, game.config.height/2,'GAME OVER', this.textConfig).setOrigin(0.5);
+
+                //When game ends jump to End Screen after 2 seconds
+                this.clock = this.time.delayedCall(2000,()=>{this.scene.start('endScene')},null,this);
+            } 
+
         }        
         else{//if game ends go space to go to menu
             if(Phaser.Input.Keyboard.JustDown(keySPACE)){
                 this.scene.start('playScene');
             }
             if(Phaser.Input.Keyboard.JustDown(keyESC)){
-                this.scene.start('menuScene')
+                this.scene.start('endScene')
             }
         }
+
+
+        //Runs the update method for the Black Hole and Black Hole Waves
+        this.blackHoleWaves.update(1); // 1 represents Black Hole Waves
+        this.blackHole.update(0); // 0 represents Black Hole
+
 
 
         //capture system
@@ -89,40 +122,51 @@ class Play extends Phaser.Scene {
             && this.lastDist<this.targetPlanet.captureRange){
             
             // reset lastDist for next capture
-            this.lastDist = 1000000; 
+            this.lastDist = screenWidth+screenHeight; //mostly just needs to be big
             //set the orbiter to orbiting the new planet
             this.orbirter.setOrbit(this.targetPlanet.x,this.targetPlanet.y);
             
+            //Sets the blackHoleWaves back a certain distance once a new planet is being orbitted 
+            this.blackHoleWaves.setSetBack(200);
+            
             //reassign the planets
-            Object.assign(this.deadPlanet,this.orbitPlanet); //deadplanet is off the screen to the left, and replaces the old orbit planet
-            Object.assign(this.orbitPlanet,this.targetPlanet); // orbit planet is updated to be the planet the rocket is orbiting
+            this.deadPlanet.copyPlanet(this.orbitPlanet);
+            this.orbitPlanet.copyPlanet(this.targetPlanet);
 
             //randomize target planet and place it off screen
-            //this.targetPlanet.randomize() //NOT IMPLEMENTED
+            this.targetPlanet.randomize(this.minSize)
             this.targetPlanet.x = screenWidth + this.targetPlanet.radius;
+            //update the bounding ring
+            this.boundingRing.x = this.targetPlanet.x;
+            this.boundingRing.y = this.targetPlanet.y;
+            this.boundingRing.setSize(this.targetPlanet.captureRange);
+            this.boundingRing.alpha -=0.1; // decrement the alpha of the ring for difficulty scaling
 
             //move everything to reset the world
             this.deadPlanet.setTranslate(-this.deadPlanet.radius,this.deadPlanet.y,2);  // magic numbers are to be replaced
-            this.targetPlanet.setTranslate(1000,this.targetPlanet.y,2);                 // magic numbers are to be replaced
-            this.orbitPlanet.setTranslate(500,this.orbitPlanet.y,2);                    // magic numbers are to be replaced
-            this.orbirter.setTranslate(500,500,2);                                      // magic numbers are to be replaced
+            this.targetPlanet.setTranslate(this.targetPlanet.x-screenWidth/3,this.targetPlanet.y,2);                 // magic numbers are to be replaced
+            this.orbitPlanet.setTranslate(this.orbitPlanet.x-screenWidth/3,this.orbitPlanet.y,2);                    // magic numbers are to be replaced
+            this.orbirter.setTranslate(this.orbitPlanet.x-screenWidth/3,this.orbitPlanet.y,2);                                      // magic numbers are to be replaced
+            this.boundingRing.setTranslate(this.targetPlanet.x-screenWidth/3,this.targetPlanet.y,2);                 // magic numbers need to be the same as target planet's
             
+            //increment socre and decrement min size of planets
+            gameScore +=1;
+            if(this.minSize>50){
+                this.minSize -=5
+            }
+
+            //move the starfield background
+            this.tweens.add({
+                targets: this.bgStars,
+                tilePositionX: {from: this.bgStars.tilePositionX, to: this.bgStars.tilePositionX + screenWidth/3},
+                ease:'Quad',
+                duration: 2000,
+            });
+
             
         }
         else{
             this.lastDist = this.orbirter.checkDist(this.targetPlanet);
         }
-
-        //check if the game should end
-        if(this.orbirter.checkBounds() || this.orbirter.checkCollision(this.targetPlanet)){
-            this.gameRuningFlag = false
-            //this.orbiter.explode() UNIMPLEMENTED
-            this.add.text(game.config.width/2, game.config.height/2,'GAME OVER', this.textConfig).setOrigin(0.5);
-
-            //When game ends jump to End Screen
-            this.scene.start('endScene');
-        } 
     }
-
-
 }
