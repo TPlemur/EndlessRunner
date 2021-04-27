@@ -47,7 +47,7 @@ class Play extends Phaser.Scene {
             fontSize: '100px',
             color: '#707081',
             backgroundColor: '#000000',
-            align: 'right',
+            align: 'center',
             padding: {
                 top: 5,
                 bottom: 5,
@@ -56,10 +56,12 @@ class Play extends Phaser.Scene {
         }
         //display the score in the top right corner
         this.scoreDisplay = this.add.text(screenWidth,0,'0',this.textConfig).setOrigin(1,0)
+        this.textConfig.backgroundColor = null;
+        this.instructions = this.add.text(screenWidth/2,0,'space to launch\naim for the circle',this.textConfig).setOrigin(0.5,0)
 
         //change textConfig for GAME OVER text
         this.textConfig.fontSize = '200px';
-        this.textConfig.backgroundColor = null;
+
 
         //Black Hole Creation
         this.blackHoleWaves = new Blackhole(this,screenWidth/6, screenCenterY, 'blackHoleWaves').setScale(0.5); //blackHoleWaves are the waves that move and collide with the ship, the waves move up and down for visual sakes randomly
@@ -100,15 +102,27 @@ class Play extends Phaser.Scene {
     update(){
         //update the orbiter]
         if(this.gameRuningFlag){
+            
             this.orbirter.update();
-                    //check if the game should end
+            if(!this.orbirter.isOrbiting){
+                this.instructions.destroy();
+            }
+
+            //check if the game should end
             if(this.orbirter.checkBounds() || this.orbirter.checkCollision(this.targetPlanet)){
                 this.gameRuningFlag = false
                 //this.orbiter.explode() UNIMPLEMENTED
                 this.add.text(game.config.width/2, game.config.height/2,'GAME OVER', this.textConfig).setOrigin(0.5);
 
+                this.textConfig.fontSize = "100px";
+                this.add.text(screenWidth/2,screenHeight,"space to replay",this.textConfig).setOrigin(0.5,1)
+                //update highscore if necessasary
+                if(gameScore>highScore){
+                    highScore = gameScore;
+                }
+
                 //When game ends jump to End Screen after 2 seconds
-                this.clock = this.time.delayedCall(2000,()=>{this.scene.start('endScene')},null,this);
+                this.clock = this.time.delayedCall(1500,()=>{this.scene.start('endScene')},null,this);
             } 
 
         }        

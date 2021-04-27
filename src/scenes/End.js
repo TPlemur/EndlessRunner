@@ -36,6 +36,25 @@ class End extends Phaser.Scene {
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
         
+        //text configuration
+        this.textConfig = {
+            fontFamily: 'Courier',
+            fontSize: '200px',
+            color: '#707081',
+            backgroundColor: null,
+            align: 'right',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 0
+        }
+
+        this.add.text(screenWidth/2,screenHeight/2,"Score:" + gameScore,this.textConfig).setOrigin(0.5,1)
+        this.add.text(screenWidth/2,screenHeight/2,"High Score:" + highScore,this.textConfig).setOrigin(0.5,0)
+
+        this.textConfig.fontSize = '100px';
+        this.add.text(screenWidth/2,screenHeight,'space to replay, esc for menu',this.textConfig).setOrigin(0.5,1)
 
     }
 
