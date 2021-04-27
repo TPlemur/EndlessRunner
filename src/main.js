@@ -32,16 +32,16 @@ let highScore = 0;
 let highScoreHolder; //if we want to have something like this
 
 //contol variables
-let shipMoveSpeed;      //range: 300-800    default: 500    increment: 100
-let captureScale;       //range: 1.5-3      default: 2.5    increment: 0.5
-let volumeControl;      //range: 0-1        default: 0.5    increment: 0.1
-let minPlanet;          //range: 50-150     default: 50     increment: 10
-let maxPlanet;          //range: 50-150     default: 150    increment: 10 cannot be less than minPlanet
-let planetDecrement;    //range: 0-10       default: 5      increment: 1
-let holeSpeed;          //range: 0-1        default: 0.5    increment: 0.5
-let mouseOrbit;         //range: bool       default: false
-let gameAcceleration;   //range: 1-0.5      default: 0.05   increment: 0.5
-let ringFade;           //range: 0-1        default: 0.1    increment: 0.05
+let shipMoveSpeed = 500;     //range: 300-800    default: 500    increment: 100
+let captureScale = 2.5;      //range: 1.5-3      default: 2.5    increment: 0.5
+let volumeControl = 0.5;     //range: 0-1        default: 0.5    increment: 0.1
+let minPlanet = 50;          //range: 50-150     default: 50     increment: 10
+let maxPlanet = 150;         //range: 50-150     default: 150    increment: 10 cannot be less than minPlanet
+let planetDecrement = 5;     //range: 0-10       default: 5      increment: 1
+let holeSpeed = 0.5;         //range: 0-1        default: 0.5    increment: 0.5
+let mouseOrbit = false;      //range: bool       default: false
+let gameAcceleration = 0.05; //range: 1-0.5      default: 0.05   increment: 0.5
+let ringFade = 0.1;          //range: 0-1        default: 0.1    increment: 0.05
 
 //define screen variables
 let screenCenterX = screenWidth / 2;
