@@ -60,13 +60,6 @@ class Play extends Phaser.Scene {
         //change textConfig for GAME OVER text
         this.textConfig.fontSize = '200px';
 
-        //this.anims.create({
-        //    key: 'waves',
-        //    frames: this.anims.generateFrameNumbers('blackHoleWaves', { start: 0, end: 9 }),
-        //    frameRate: 10,
-        //    repeat: -1
-        //});
-
         //Black Hole Creation
         this.blackHoleWaves = new Blackhole(this,screenWidth/6, screenCenterY, 'blackHoleWaves').setScale(0.5); //blackHoleWaves are the waves that move and collide with the ship, the waves move up and down for visual sakes randomly
         this.blackHole = new Blackhole(this, screenCenterX - 1150, screenCenterY, 'blackHole').setScale(1); //blackHole is the hole itself that rotates for visual sakes
