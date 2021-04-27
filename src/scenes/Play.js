@@ -23,7 +23,7 @@ class Play extends Phaser.Scene {
         this.add.sprite(0,0,'background').setOrigin(0,0);
         this.bgStars = this.add.tileSprite(0,0,screenWidth,screenHeight,'stars').setOrigin(0,0);
 
-        this.add.image(500,500,'planets','planet5')
+        this.add.image(500,500,'planets','planet5.png')
 
         //Fades in the Scene
         this.cameras.main.fadeIn(250);
@@ -138,7 +138,7 @@ class Play extends Phaser.Scene {
             //randomize target planet and place it off screen
             //randomize texture
             let planNum = Math.floor(Math.random()*(22)+ 1) //22 is number of planets, list must index from 1
-            let tempString = 'planet' + String(planNum)
+            let tempString = 'planet' + String(planNum)+'.png'
             let tempImage = this.add.image(-500,-400,'planets',tempString)
             this.targetPlanet.setTexture(tempImage.texture);
 
