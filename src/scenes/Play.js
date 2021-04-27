@@ -70,8 +70,10 @@ class Play extends Phaser.Scene {
         this.blackHoleWaves.setOrigin(1,0.5);
 
         //creating all three planets that can be on screen at once
-        this.targetPlanet = new Planet(this,5*screenWidth/6,screenHeight/2,'testPlanert');
-        this.orbitPlanet = new Planet(this,screenWidth/2,screenHeight/2,'testPlanert');
+        let tempString = 'Planet' + String(Math.floor(Math.random()*(22)+ 1))+'.png'
+        this.targetPlanet = new Planet(this,5*screenWidth/6,screenHeight/2,'planets',tempString);
+        tempString = 'Planet' + String(Math.floor(Math.random()*(22)+ 1))+'.png'
+        this.orbitPlanet = new Planet(this,screenWidth/2,screenHeight/2,'planets',tempString);
         this.deadPlanet = new Planet(this,-200,500,'testPlanert');
         this.boundingRing = new Planet(this,5*screenWidth/6,screenHeight/2,'boundingRing');
         this.boundingRing.tint = 0xFFFFFF;
