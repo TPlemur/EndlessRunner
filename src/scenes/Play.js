@@ -44,8 +44,9 @@ class Play extends Phaser.Scene {
         //text configuration
         this.textConfig = {
             fontFamily: 'Courier',
-            fontSize: '200px',
+            fontSize: '100px',
             color: '#707081',
+            backgroundColor: '#000000',
             align: 'right',
             padding: {
                 top: 5,
@@ -53,6 +54,12 @@ class Play extends Phaser.Scene {
             },
             fixedWidth: 0
         }
+        //display the score in the top right corner
+        this.scoreDisplay = this.add.text(screenWidth,0,'0',this.textConfig).setOrigin(1,0)
+
+        //change textConfig for GAME OVER text
+        this.textConfig.fontSize = '200px';
+        this.textConfig.backgroundColor = null;
 
         //Black Hole Creation
         this.blackHoleWaves = new Blackhole(this,screenWidth/6, screenCenterY, 'blackHoleWaves').setScale(0.5); //blackHoleWaves are the waves that move and collide with the ship, the waves move up and down for visual sakes randomly
@@ -165,6 +172,7 @@ class Play extends Phaser.Scene {
             
             //increment socre and decrement min size of planets
             gameScore +=1;
+            this.scoreDisplay.text = String(gameScore);
             if(this.minSize>50){
                 this.minSize -=5
             }
