@@ -10,8 +10,8 @@ class Play extends Phaser.Scene {
         //loading assets
         this.load.image('orbiter','assets//background/ShipSample.png');
         this.load.image('testPlanert','assets/planet.png');
-        this.load.image('blackHole', './assets/blackHole.png');
-        this.load.image('blackHoleWaves', './assets/blackHoleWaves.png');
+        this.load.image('blackHole', './assets/blackhole/blackHole.png');
+        this.load.image('blackHoleWaves', './assets/blackhole/swarmAnim.png',{frameWidth: 1395, frameHeight: 1080, startFrame: 0, endFrame: 9});
         this.load.image('boundingRing','assets/planets/dottedRing.png');
         this.load.image('background','assets/background/BackgroundB1.png');
         this.load.image('menuBG', './assets/menu/menuBackground.png');
@@ -60,10 +60,16 @@ class Play extends Phaser.Scene {
         //change textConfig for GAME OVER text
         this.textConfig.fontSize = '200px';
 
+        //this.anims.create({
+        //    key: 'waves',
+        //    frames: this.anims.generateFrameNumbers('blackHoleWaves', { start: 0, end: 9 }),
+        //    frameRate: 10,
+        //    repeat: -1
+        //});
 
         //Black Hole Creation
         this.blackHoleWaves = new Blackhole(this,screenWidth/6, screenCenterY, 'blackHoleWaves').setScale(0.5); //blackHoleWaves are the waves that move and collide with the ship, the waves move up and down for visual sakes randomly
-        this.blackHole = new Blackhole(this, screenCenterX - 1100, screenCenterY, 'blackHole').setScale(0.2); //blackHole is the hole itself that rotates for visual sakes
+        this.blackHole = new Blackhole(this, screenCenterX - 1150, screenCenterY, 'blackHole').setScale(1); //blackHole is the hole itself that rotates for visual sakes
         this.blackHoleWaves.setSpeed(0.2); //Sets the speed at which the Black Hole Waves advance
         this.blackHoleWaves.setOrigin(1,0.5);
 
@@ -139,8 +145,6 @@ class Play extends Phaser.Scene {
         if(this.blackHoleWaves.x > this.orbirter.x){
             this.blackHoleWaves.setCollision(true);
         }
-
-
 
         //capture system
         //compares the current distance to the last distance

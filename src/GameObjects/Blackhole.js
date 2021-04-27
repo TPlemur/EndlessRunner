@@ -2,7 +2,7 @@
 // Defines the black hole class
 
 class Blackhole extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, texture,){
+    constructor(scene, x, y, texture){
         super(scene, x, y, texture);
         scene.add.existing(this);
 
@@ -26,7 +26,6 @@ class Blackhole extends Phaser.GameObjects.Sprite {
             this.rotation += 0.005; //Rotate the black hole for visual sakes
         }
         else{ // If Black Hole Waves
-
             //Following used for randomMovement()
             if(this.lockRandom == false){
                 if(this.lockDirection == false){
