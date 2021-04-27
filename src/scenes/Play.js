@@ -95,10 +95,6 @@ class Play extends Phaser.Scene {
         this.orbirter.displayWidth = 30;
         this.orbirter.displayHeight = 30;
     
-        //Creates physical bodies for orbitPlanet and blackHole Waves and can perform a function when they collide.
-        this.physics.add.existing(this.blackHoleWaves);
-        this.physics.add.existing(this.orbitPlanet);
-        this.physics.add.collider(this.blackHoleWaves, this.orbitPlanet, () => { });
     }
 
     update(){
@@ -111,7 +107,7 @@ class Play extends Phaser.Scene {
             }
 
             //check if the game should end
-            if(this.orbirter.checkBounds() || this.orbirter.checkCollision(this.targetPlanet)){
+            if(this.orbirter.checkBounds() || this.orbirter.checkCollision(this.targetPlanet) || this.blackHoleWaves.getCollision()){
                 this.gameRuningFlag = false
                 //this.orbiter.explode() UNIMPLEMENTED
                 this.add.text(game.config.width/2, game.config.height/2,'GAME OVER', this.textConfig).setOrigin(0.5);
@@ -141,6 +137,10 @@ class Play extends Phaser.Scene {
         //Runs the update method for the Black Hole and Black Hole Waves
         this.blackHoleWaves.update(1); // 1 represents Black Hole Waves
         this.blackHole.update(0); // 0 represents Black Hole
+
+        if(this.blackHoleWaves.x > this.orbirter.x){
+            this.blackHoleWaves.setCollision(true);
+        }
 
 
 
