@@ -177,7 +177,7 @@ class Play extends Phaser.Scene {
             this.boundingRing.x = this.targetPlanet.x;
             this.boundingRing.y = this.targetPlanet.y;
             this.boundingRing.setSize(this.targetPlanet.captureRange);
-            this.boundingRing.alpha -=0.1; // decrement the alpha of the ring for difficulty scaling
+            this.boundingRing.alpha -=ringFade; // decrement the alpha of the ring for difficulty scaling
 
             //move everything to reset the world
             this.deadPlanet.setTranslate(-this.deadPlanet.radius,this.deadPlanet.y,2);  // magic numbers are to be replaced
@@ -189,8 +189,9 @@ class Play extends Phaser.Scene {
             //increment socre and decrement min size of planets
             gameScore +=1;
             this.scoreDisplay.text = String(gameScore);
-            if(this.minSize>50){
-                this.minSize -=5
+            if(this.minSize>minPlanet){
+                this.minSize -= planetDecrement;
+                console.log(this.minSize)
             }
 
             //move the starfield background

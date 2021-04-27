@@ -20,7 +20,6 @@ class Orbiter extends Phaser.GameObjects.Sprite {
         scene.add.existing(this)
 
         //vars
-        this.speedMulltiplier = 500;// a true magic number, changes the ratio between radius and speed to about correct
         this.movmentSpeed = 2;      // used to set the speed of a rotation, and the following liner motion, determines the initial speed of the ship
         this.isOrbiting = true;     // toggles between liner and circular motion
         this.isClockwise = false;   // wether the ship rotates clockwise or counterclockwise
@@ -61,7 +60,7 @@ class Orbiter extends Phaser.GameObjects.Sprite {
             if(this.isOrbiting){
                 this.setShoot();
             }
-            else{   //remove to dissalow space switching back to orbital motion
+            else if(mouseOrbit){   //orbit the mouse if mouseOrbit is on
                 this.setOrbit(game.input.mousePointer.x,game.input.mousePointer.y);
             }
         }
@@ -77,7 +76,7 @@ class Orbiter extends Phaser.GameObjects.Sprite {
         this.isOrbiting = true;
         //set the period to the correct angle for the current position
         this.period = Math.atan2((this.y-this.originY),(this.x-this.originX));
-        this.movmentSpeed = (this.speedMulltiplier/this.rad)*globalSpeed //adjust speed for orbit, bigger orbit = smaller speed, const is a random number
+        this.movmentSpeed = (shipMoveSpeed/this.rad)*globalSpeed //adjust speed for orbit, bigger orbit = smaller speed, const is a random number
         
         //make an assumption
         this.isClockwise = true;
