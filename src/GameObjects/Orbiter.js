@@ -75,12 +75,25 @@ class Orbiter extends Phaser.GameObjects.Sprite {
         //definine the radious as the distance between the origin and the orbiter
         this.rad = Math.sqrt(Math.pow(this.x-Ox,2)+Math.pow(this.y-Oy,2)); 
         this.isOrbiting = true;
-        //make assumptions about the direction of the orbit
-        if(this.y<Oy){this.isClockwise = true;} //orbiter always progressses to the right so if it is above the origin it should move clockwise
-        else{this.isClockwise = false;}
         //set the period to the correct angle for the current position
         this.period = Math.atan2((this.y-this.originY),(this.x-this.originX));
         this.movmentSpeed = (this.speedMulltiplier/this.rad)*globalSpeed //adjust speed for orbit, bigger orbit = smaller speed, const is a random number
+        
+        //make an assumption
+        this.isClockwise = true;
+        //rotational deltas (assuming clockwise)
+        let deltaRotX = (this.originX +  Math.cos(this.period+this.movmentSpeed/this.rad)*this.rad)-(this.originX +  Math.cos(this.period)*this.rad)
+        let deltaRotY = (this.originY +  Math.sin(this.period+this.movmentSpeed/this.rad)*this.rad)-(this.originY +  Math.sin(this.period)*this.rad)
+        //liner deltas
+        let deltaLinX = Math.cos(this.angle*(1/this.degRadConversion))*this.movmentSpeed
+        let deltaLinY = Math.sin(this.angle*1/this.degRadConversion)*this.movmentSpeed
+        //check the assumption
+        if(
+            Math.sign(deltaRotX) != Math.sign(deltaLinX) &&
+            Math.sign(deltaRotY) != Math.sign(deltaLinY)
+        ){
+            this.isClockwise = false;
+        }
     }
 
     //continue orbiting with the current parameters
