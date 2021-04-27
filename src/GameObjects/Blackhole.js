@@ -7,6 +7,7 @@ class Blackhole extends Phaser.GameObjects.Sprite {
         scene.add.existing(this);
 
         this.rotation = 0; //Rotation of the black hole
+        this.collided = false;
         
         //Following used for Black Hole Waves random movement
         this.randomY; 
@@ -105,5 +106,13 @@ class Blackhole extends Phaser.GameObjects.Sprite {
                duration: 2000,
             });
         }
+    }
+
+    setCollision(check){
+        this.collided = check;
+    }
+
+    getCollision(){
+        return this.collided;
     }
 }

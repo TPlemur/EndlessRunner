@@ -10,10 +10,6 @@ let config= {
     type: Phaser.AUTO,
     width: screenWidth,
     height: screenHeight,  
-    physics: {
-        default: 'arcade',
-        arcade: {debug: true}
-    },
     
     //keeps aspect ratio to 16:9 (1920x1080)
     scale: {
