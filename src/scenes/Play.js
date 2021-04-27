@@ -14,14 +14,17 @@ class Play extends Phaser.Scene {
         this.load.image('blackHoleWaves', './assets/blackHoleWaves.png');
         this.load.image('boundingRing','assets/planets/dottedRing.png');
         this.load.image('background','assets/background/BackgroundB1.png');
+        this.load.image('menuBG', './assets/menu/menuBackground.png');
+        this.load.image('menuBGStars', './assets/menu/menuBackgroundStars.png');
         this.load.image('stars','assets/background/BackgroundS2.png');
         this.load.atlas('planets','assets/planets/planets.png','assets/planets/planets.json')
     }
 
     create() {
         //load background
-        this.add.sprite(0,0,'background').setOrigin(0,0);
-        this.bgStars = this.add.tileSprite(0,0,screenWidth,screenHeight,'stars').setOrigin(0,0);
+        this.bg = this.add.tileSprite(0,0,screenWidth,screenHeight,'background').setOrigin(0,0);
+        this.bgStars00 = this.add.tileSprite(0,0,screenWidth,screenHeight,'stars').setOrigin(0,0);
+        this.bgStars01 = this.add.tileSprite(0,0,screenWidth,screenHeight,'menuBGStars').setOrigin(0,0).setScale(1.3);
 
         //this.add.image(500,500,'planets','planet5.png')
 
@@ -50,6 +53,13 @@ class Play extends Phaser.Scene {
             },
             fixedWidth: 0
         }
+
+        //Black Hole Creation
+        this.blackHoleWaves = new Blackhole(this,screenWidth/6, screenCenterY, 'blackHoleWaves').setScale(0.5); //blackHoleWaves are the waves that move and collide with the ship, the waves move up and down for visual sakes randomly
+        this.blackHole = new Blackhole(this, screenCenterX - 1100, screenCenterY, 'blackHole').setScale(0.2); //blackHole is the hole itself that rotates for visual sakes
+        this.blackHoleWaves.setSpeed(0.2); //Sets the speed at which the Black Hole Waves advance
+        this.blackHoleWaves.setOrigin(1,0.5);
+
         //creating all three planets that can be on screen at once
         this.targetPlanet = new Planet(this,5*screenWidth/6,screenHeight/2,'testPlanert');
         this.orbitPlanet = new Planet(this,screenWidth/2,screenHeight/2,'testPlanert');
@@ -73,16 +83,11 @@ class Play extends Phaser.Scene {
         //scale up orbiter by magic numbers can be removed for final game
         this.orbirter.displayWidth = 30;
         this.orbirter.displayHeight = 30;
-
-        //Black Hole Creation
-        this.blackHoleWaves = new Blackhole(this, screenCenterX - 3500, screenCenterY, 'blackHoleWaves').setScale(0.5); //blackHoleWaves are the waves that move and collide with the ship, the waves move up and down for visual sakes randomly
-        this.blackHole = new Blackhole(this, screenCenterX - 1100, screenCenterY, 'blackHole').setScale(0.2); //blackHole is the hole itself that rotates for visual sakes
-        this.blackHoleWaves.setSpeed(0.2); //Sets the speed at which the Black Hole Waves advance
     
         //Creates physical bodies for orbitPlanet and blackHole Waves and can perform a function when they collide.
         this.physics.add.existing(this.blackHoleWaves);
         this.physics.add.existing(this.orbitPlanet);
-        this.physics.add.collider(this.blackHoleWaves, this.orbitPlanet, () => { console.log("Collided")});
+        this.physics.add.collider(this.blackHoleWaves, this.orbitPlanet, () => { });
     }
 
     update(){
@@ -130,6 +135,7 @@ class Play extends Phaser.Scene {
             
             //Sets the blackHoleWaves back a certain distance once a new planet is being orbitted 
             this.blackHoleWaves.setSetBack(200);
+            this.blackHoleWaves.setTranslate(screenWidth/12);
             
             //reassign the planets
             this.deadPlanet.copyPlanet(this.orbitPlanet);
@@ -165,8 +171,14 @@ class Play extends Phaser.Scene {
 
             //move the starfield background
             this.tweens.add({
-                targets: this.bgStars,
-                tilePositionX: {from: this.bgStars.tilePositionX, to: this.bgStars.tilePositionX + screenWidth/3},
+                targets: this.bgStars00,
+                tilePositionX: {from: this.bgStars00.tilePositionX, to: this.bgStars00.tilePositionX + screenWidth/6},
+                ease:'Quad',
+                duration: 2000,
+            });   
+            this.tweens.add({
+                targets: this.bgStars01,
+                tilePositionX: {from: this.bgStars01.tilePositionX, to: this.bgStars01.tilePositionX + screenWidth/12},
                 ease:'Quad',
                 duration: 2000,
             });            

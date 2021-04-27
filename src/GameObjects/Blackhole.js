@@ -41,7 +41,8 @@ class Blackhole extends Phaser.GameObjects.Sprite {
                 this.randomWaveMovement();
             }
 
-            this.move(this.setBack);
+            this.move();
+            //this.setTranslate();
         }
     } 
 
@@ -76,16 +77,33 @@ class Blackhole extends Phaser.GameObjects.Sprite {
         this.setBack = setBack;
     }
 
-    // Moves the Black Hole Waves forwards unless setBack calls them to move back a certain distance
-    move(setBack){
-        if(setBack == 0)
+    // Moves the Black Hole Waves forward
+    move(){
+        if(this.setBack == 0)
         {
             this.x += this.speed;
         }
-        else{
-            this.x -= this.setBack;
-        }
 
         this.setBack = 0;
+    }
+
+    // Moves Black Hole waves backwards if traveled to new planet
+    setTranslate(tx){
+        if(this.x - tx <= screenWidth/6) {
+            this.scene.tweens.add({
+                targets: this,
+               x: {from: this.x, to: screenWidth/12},
+               ease:'Quad',
+               duration: 2000,
+            });
+        }
+        else{
+            this.scene.tweens.add({
+                targets: this,
+               x: {from: this.x, to: this.x - tx},
+               ease:'Quad',
+               duration: 2000,
+            });
+        }
     }
 }
