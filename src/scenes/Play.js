@@ -23,7 +23,7 @@ class Play extends Phaser.Scene {
         this.add.sprite(0,0,'background').setOrigin(0,0);
         this.bgStars = this.add.tileSprite(0,0,screenWidth,screenHeight,'stars').setOrigin(0,0);
 
-        this.add.image(500,500,'planets','planet5.png')
+        //this.add.image(500,500,'planets','planet5.png')
 
         //Fades in the Scene
         this.cameras.main.fadeIn(250);
