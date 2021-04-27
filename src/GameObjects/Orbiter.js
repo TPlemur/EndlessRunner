@@ -11,6 +11,7 @@
 //setShoot() move forward in a straight line
 //checkColision(planet) returns true on collision with planet
 //checkBounds() returns true if the orbiter leaves the screen
+//checkDist(planet) returns the distance to an object
 
 
 class Orbiter extends Phaser.GameObjects.Sprite {
@@ -19,8 +20,8 @@ class Orbiter extends Phaser.GameObjects.Sprite {
         scene.add.existing(this)
 
         //vars
-        this.speedMulltiplier = 200;// a true magic number, changes the ratio between radius and speed to about correct
-        this.movmentSpeed = 1;      // used to set the speed of a rotation, and the following liner motion
+        this.speedMulltiplier = 500;// a true magic number, changes the ratio between radius and speed to about correct
+        this.movmentSpeed = 2;      // used to set the speed of a rotation, and the following liner motion, determines the initial speed of the ship
         this.isOrbiting = true;     // toggles between liner and circular motion
         this.isClockwise = false;   // wether the ship rotates clockwise or counterclockwise
         this.switchkey = switchKey; // used to switch the state of the orbiter
@@ -123,13 +124,15 @@ class Orbiter extends Phaser.GameObjects.Sprite {
     }
     //checs if the orbiter is out of bounds
     checkBounds(){
-        if(this.x < this.screenOrigin || this.x > screenWidth){
-            return true;
-        }
-        if(this.y < this.screenOrigin || this.y > screenHeight){
+        if(this.x < this.screenOrigin || this.x > screenWidth || this.y < this.screenOrigin || this.y > screenHeight){
             return true;
         }
         return false;
+    }
+
+    //returns the distance between the orbiter's position and an object with a .x and .y property
+    checkDist(planet){
+        return Math.sqrt(Math.pow(this.x-planet.x,2)+Math.pow(this.y-planet.y,2));
     }
 
     //start liner motion in the direction the ship is currently pointing

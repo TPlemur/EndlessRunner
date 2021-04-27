@@ -8,7 +8,7 @@ class Planet extends Phaser.GameObjects.Sprite {
         super(scene,x,y,texture,frame);
         scene.add.existing(this);
         this.radius = this.displayWidth/2;
-        this.orbit_radius = this.radius*ORBIT_MULTIPLIER;
+        this.captureRange = this.radius*1.5
         this.rotation = (2*Math.PI*Math.random())-Math.PI;
         //why doesn't this work >:(
         this.tint = 0xFFFFFF*Math.random();
@@ -23,6 +23,7 @@ class Planet extends Phaser.GameObjects.Sprite {
         this.orbit_radius = radius*ORBIT_MULTIPLIER;
         this.displayWidth = radius*2;
         this.displayHeight = radius*2;
+        this.captureRange = this.radius*2;
     }
 
     //TODO: make function that compares ship velocity to max orbital velocity
