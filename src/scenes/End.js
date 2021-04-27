@@ -62,6 +62,12 @@ class End extends Phaser.Scene {
         //Update Mouse flame location
         this.mouseFlameEmitter.setPosition(this.game.input.mousePointer.x + 40, this.game.input.mousePointer.y + 30);
 
+        //if the pointer is too close to the edge move the particles way out of sight
+        if(this.game.input.mousePointer.x<5||this.game.input.mousePointer.y<3){
+            this.mouseFlameEmitter.setPosition(-100,-100);
+        }
+        
+
         this.parallaxBackground();
 
         //potentialy temparary navigation back to menu
