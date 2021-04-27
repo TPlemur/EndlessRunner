@@ -83,6 +83,11 @@ class Menu extends Phaser.Scene{
         //Shoot flames from the mouse
         this.mouseFlameEmitter.setPosition(this.game.input.mousePointer.x + 40, this.game.input.mousePointer.y + 30);
 
+        //if the pointer is too close to the edge move the particles way out of sight
+        if(this.game.input.mousePointer.x<5||this.game.input.mousePointer.y<3){
+            this.mouseFlameEmitter.setPosition(-100,-100);
+        }
+
         //Adds Parallax Effect, /20 is to slow down the amount the background moves
         this.parallaxBackground();
 
