@@ -7,7 +7,7 @@ class Planet extends Phaser.GameObjects.Sprite {
         super(scene,x,y,texture,frame);
         scene.add.existing(this);
         this.radius = this.displayWidth/2;
-        this.captureRange = this.radius*2.5
+        this.captureRange = this.radius*captureScale
         this.rotation = (2*Math.PI*Math.random())-Math.PI;
         this.tintNum = 0xFFFFFF*Math.random();
         this.tint = this.tintNum
@@ -23,7 +23,7 @@ class Planet extends Phaser.GameObjects.Sprite {
         this.radius = radius;
         this.displayWidth = radius*2;
         this.displayHeight = radius*2;
-        this.captureRange = this.radius*2.5;
+        this.captureRange = this.radius*captureScale;
     }
 
     //generate a random integer between min and max
@@ -33,7 +33,7 @@ class Planet extends Phaser.GameObjects.Sprite {
 
     //size place the planet randomly such that the capture range never goes off the screen
     randomize(minSize){
-        this.setSize(this.randomInterval(minSize,150));
+        this.setSize(this.randomInterval(minSize,maxPlanet));
         this.x = screenWidth + this.captureRange + this.randomInterval(0,screenWidth/3 - 2*this.captureRange);
         this.y = this.captureRange + this.randomInterval(0,screenHeight-2*this.captureRange);
         this.tintNum = 0xFFFFFF*Math.random();

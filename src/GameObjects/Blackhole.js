@@ -11,7 +11,7 @@ class Blackhole extends Phaser.GameObjects.Sprite {
         
         //Following used for Black Hole Waves random movement
         this.randomY; 
-        this.movementSpeed = 0.5;
+        this.movementSpeed = holeSpeed;
         this.lockRandom = false;
         this.lockDirection = false;
 
