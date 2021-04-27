@@ -7,7 +7,7 @@ const screenWidth = 1920;
 const screenHeight = 1080;
 
 let config= {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     width: screenWidth,
     height: screenHeight,  
     physics: {
