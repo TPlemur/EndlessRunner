@@ -29,7 +29,7 @@ class Orbiter extends Phaser.GameObjects.Sprite {
         this.rad = rad;             // the radious of the orbit
         this.originX = Ox;          // x coordinate of the center of an orbit
         this.originY = Oy;          // y coordinate of the center of an orbit
-        this.period = 0;            // incremented to create circular motion
+        this.period = 1*Math.PI;            // incremented to create circular motion
 
         //fixed vars
         this.screenOrigin = 0;      // 0,0 is the top left corner of the window
