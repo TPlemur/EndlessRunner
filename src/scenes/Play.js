@@ -17,7 +17,7 @@ class Play extends Phaser.Scene {
         this.load.image('menuBG', './assets/menu/menuBackground.png');
         this.load.image('menuBGStars', './assets/menu/menuBackgroundStars.png');
         this.load.image('stars','assets/background/BackgroundS2.png');
-        this.load.atlas('planets','assets/planets/planets.png','assets/planets/planets.json')
+        this.load.atlas('planets','assets/planets/planets.png','assets/planets/planets.json');
     }
 
     create() {
@@ -165,9 +165,11 @@ class Play extends Phaser.Scene {
             //randomize target planet and place it off screen
             //randomize texture
             let planNum = Math.floor(Math.random()*(22)+ 1) //22 is number of planets, list must index from 1
-            let tempString = 'planet' + String(planNum)+'.png'
-            let tempImage = this.add.image(-500,-400,'planets',tempString)
-            this.targetPlanet.setTexture(tempImage.texture);
+            let tempString = 'Planet' + String(planNum)+'.png'
+            this.tempPlanet = new Planet(this,500,400,'planets',tempString)
+            this.targetPlanet.setTexture(this.tempPlanet.texture);
+            this.targetPlanet.frame = this.tempPlanet.frame;
+            this.tempPlanet.destroy();
 
             this.targetPlanet.randomize(this.minSize)
             this.targetPlanet.x = screenWidth + this.targetPlanet.radius;
