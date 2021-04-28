@@ -33,7 +33,7 @@ class Menu extends Phaser.Scene{
         //Initialize Background Music that loops also any sound effects
         this.menuBGMusic = this.sound.add('menuBGMusic');
         var musicConfig ={
-            volume: 0.5,
+            volume: musicVolume,
             loop: true,
         }
         this.menuBGMusic.play(musicConfig);
@@ -102,7 +102,7 @@ class Menu extends Phaser.Scene{
 
         //Will Launch the Menu up like a rocket
         if(this.launchMe == true){
-            this.launchMenu(this.blackScreen, this.title, this.launchBtn, this.creditsBtn, this, this.rocketEmitter);
+            this.launchMenu(this.blackScreen, this.title, this.launchBtn, this.creditsBtn, this.settingsBtn, this, this.rocketEmitter);
         }
     }
 
@@ -178,12 +178,13 @@ class Menu extends Phaser.Scene{
         }
     }
 
-    launchMenu(blackScreen, title, launchButton, creditsButton, menuScene, emitter) {
+    launchMenu(blackScreen, title, launchButton, creditsButton, settingsButton, menuScene, emitter) {
         //Moves elements up
         blackScreen.y -= 20;
         title.y -= 20;
         launchButton.y -= 20;
         creditsButton.y -= 20;
+        settingsButton.y -= 20;
 
         //Get rid of the emitter to make it look more clean
         emitter.setAlpha(0);
