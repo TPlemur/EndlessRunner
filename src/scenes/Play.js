@@ -11,7 +11,7 @@ class Play extends Phaser.Scene {
         this.load.image('orbiter','assets//background/ShipSample.png');
         this.load.image('testPlanert','assets/planet.png');
         this.load.image('blackHole', './assets/blackhole/blackHole.png');
-        this.load.image('blackHoleWaves', './assets/blackhole/swarmAnim.png',{frameWidth: 1395, frameHeight: 1080, startFrame: 0, endFrame: 9});
+        this.load.spritesheet('blackHoleWaves', './assets/blackhole/swarmAnim.png',{frameWidth: 1395, frameHeight: 1080, startFrame: 0, endFrame: 9});
         this.load.image('boundingRing','assets/planets/dottedRing.png');
         this.load.image('background','assets/background/BackgroundB1.png');
         this.load.image('menuBG', './assets/menu/menuBackground.png');
@@ -21,6 +21,16 @@ class Play extends Phaser.Scene {
     }
 
     create() {
+        
+        //black hole wibble animation
+        this.anims.create({
+            key: 'wibble',
+            frames: this.anims.generateFrameNumbers('blackHoleWaves',{frames: [0,1,2,3,4,5,6,7,8,9]}),
+            frameRate: 10,
+            repeat: -1
+
+        })
+
         //load background
         this.bg = this.add.tileSprite(0,0,screenWidth,screenHeight,'background').setOrigin(0,0);
         this.bgStars00 = this.add.tileSprite(0,0,screenWidth,screenHeight,'stars').setOrigin(0,0);
@@ -71,7 +81,7 @@ class Play extends Phaser.Scene {
         this.blackHole = new Blackhole(this, screenCenterX - 1150, screenCenterY, 'blackHole').setScale(1); //blackHole is the hole itself that rotates for visual sakes
         this.blackHoleWaves.setSpeed(0.2); //Sets the speed at which the Black Hole Waves advance
         this.blackHoleWaves.setOrigin(1,0.5);
-
+        this.blackHoleWaves.play('wibble')
         //creating planets that go in fron of the block hole
         let tempString = 'Planet' + String(Math.floor(Math.random()*(22)+ 1))+'.png' //generate random call for a planet
         this.targetPlanet = new Planet(this,5*screenWidth/6,screenHeight/2,'planets',tempString);
