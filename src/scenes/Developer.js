@@ -15,6 +15,9 @@ class Developer extends Phaser.Scene {
     }
 
     create(){
+        //Sets the scaling of the minus and plus button
+        this.buttonScale = 0.05;
+
         //Fades in the Scene
         this.cameras.main.fadeIn(500);
 
@@ -56,12 +59,21 @@ class Developer extends Phaser.Scene {
             },
             fixedWidth: 0
         }
-        this.bgVolumeMinus = this.add.sprite(screenCenterX - 200, screenCenterY + 50, 'minus').setInteractive().setScale(0.05);
-        this.bgVolumePlus = this.add.sprite(screenCenterX + 200, screenCenterY + 50, 'plus').setInteractive().setScale(0.05);
-        this.bgVolumeText = this.add.text(screenCenterX, screenCenterY - 40, "Test", this.textConfig).setOrigin(0.5,0.5)
-        this.bgVolumeDisplay = this.add.text(screenCenterX, screenCenterY + 50, Math.round(musicVolume * 10), this.textConfig).setOrigin(0.5,0.5)
-        this.button(this.bgVolumeMinus, this, this.bgVolumeDisplay);
-        this.button(this.bgVolumePlus, this, this.bgVolumeDisplay);
+        //Ship Speed
+        this.shipSpeedMinus = this.add.sprite(screenWidth/6 - 150, screenCenterY - screenCenterY/2, 'minus').setInteractive().setScale(this.buttonScale);
+        this.shipSpeedPlus = this.add.sprite(screenWidth/6 + 150, screenCenterY - screenCenterY/2, 'plus').setInteractive().setScale(this.buttonScale);
+        this.shipSpeedText = this.add.text(screenWidth/6, screenCenterY - screenCenterY/2 - 100, "Ship Speed", this.textConfig).setOrigin(0.5,0.5)
+        this.shipSpeedDisplay = this.add.text(screenWidth/6, screenCenterY - screenCenterY/2, Math.round(shipMoveSpeed / 100), this.textConfig).setOrigin(0.5,0.5)
+        this.button(this.shipSpeedMinus, this, this.shipSpeedDisplay);
+        this.button(this.shipSpeedPlus, this, this.shipSpeedDisplay);
+
+        //Capture Scale
+        this.captureMinus = this.add.sprite(screenWidth/6 - 150, screenCenterY, 'minus').setInteractive().setScale(this.buttonScale);
+        this.capturePlus = this.add.sprite(screenWidth/6 + 150, screenCenterY, 'plus').setInteractive().setScale(this.buttonScale);
+        this.captureText = this.add.text(screenWidth/6, screenCenterY - 100, "Capture Scale", this.textConfig).setOrigin(0.5,0.5)
+        this.captureDisplay = this.add.text(screenWidth/6, screenCenterY, Math.round(captureScale * 10) /5, this.textConfig).setOrigin(0.5,0.5)
+        this.button(this.captureMinus, this, this.captureDisplay);
+        this.button(this.capturePlus, this, this.captureDisplay);
     }
 
     update(){
@@ -95,19 +107,34 @@ class Developer extends Phaser.Scene {
             this.buttonSound.play(sfxConfig);
             settingScene.scene.start("settingsScene"); 
         }
-        //Increments background music and updates text
-        else if(button == this.bgVolumePlus){
-            if(Math.round(musicVolume * 10) / 10 < 1){
-               musicVolume += 0.1;
-               text.text = Math.round(musicVolume * 10);
+        //Increments ship speed and updates text
+        else if(button == this.shipSpeedPlus){
+            if(shipMoveSpeed < 800){
+               shipMoveSpeed += 100;
+               text.text = Math.round(shipMoveSpeed / 100);
             }
         }
-        else if(button == this.bgVolumeMinus){
-            if(Math.round(musicVolume * 10) / 10 > 0) {
-                musicVolume -= 0.1;
-                text.text = Math.round(musicVolume * 10);
+        else if(button == this.shipSpeedMinus){
+            if(shipMoveSpeed > 300) {
+                shipMoveSpeed -= 100;
+                text.text = Math.round(shipMoveSpeed / 100);
             }
         }
+        //Increments capture scale
+        else if(button == this.capturePlus){
+            if(captureScale < 2.9){
+                captureScale += 0.5;
+               text.text = Math.round(captureScale * 10) / 5;
+            }
+        }
+        else if(button == this.captureMinus){
+            if(captureScale > 1.4) {
+                captureScale -= 0.5;
+                text.text = Math.round(captureScale * 10) / 5;
+            }
+        }
+        
+        
     }
 
     actionOnHover(button){
