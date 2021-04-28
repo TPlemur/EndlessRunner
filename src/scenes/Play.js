@@ -202,11 +202,11 @@ class Play extends Phaser.Scene {
             this.boundingRing.alpha -=ringFade; // decrement the alpha of the ring for difficulty scaling
 
             //move everything to reset the world
-            this.deadPlanet.setTranslate(-this.deadPlanet.radius,this.deadPlanet.y,2);  // magic numbers are to be replaced
-            this.targetPlanet.setTranslate(this.targetPlanet.x-screenWidth/3,this.targetPlanet.y,2);                 // magic numbers are to be replaced
-            this.orbitPlanet.setTranslate(this.orbitPlanet.x-screenWidth/3,this.orbitPlanet.y,2);                    // magic numbers are to be replaced
-            this.orbirter.setTranslate(this.orbitPlanet.x-screenWidth/3,this.orbitPlanet.y,2);                                      // magic numbers are to be replaced
-            this.boundingRing.setTranslate(this.targetPlanet.x-screenWidth/3,this.targetPlanet.y,2);                 // magic numbers need to be the same as target planet's
+            this.deadPlanet.setTranslate(-this.deadPlanet.radius,this.deadPlanet.y,tweenspeed);
+            this.targetPlanet.setTranslate(this.targetPlanet.x-screenWidth/3,this.targetPlanet.y,tweenspeed);   
+            this.orbitPlanet.setTranslate(this.orbitPlanet.x-screenWidth/3,this.orbitPlanet.y,tweenspeed);             
+            this.orbirter.setTranslate(this.orbitPlanet.x-screenWidth/3,this.orbitPlanet.y,tweenspeed);                                
+            this.boundingRing.setTranslate(this.targetPlanet.x-screenWidth/3,this.targetPlanet.y,tweenspeed);
             
             //increment socre and decrement min size of planets
             gameScore +=1;
@@ -221,13 +221,13 @@ class Play extends Phaser.Scene {
                 targets: this.bgStars00,
                 tilePositionX: {from: this.bgStars00.tilePositionX, to: this.bgStars00.tilePositionX + screenWidth/6},
                 ease:'Quad',
-                duration: 2000,
+                duration: tweenspeed,
             });   
             this.tweens.add({
                 targets: this.bgStars01,
                 tilePositionX: {from: this.bgStars01.tilePositionX, to: this.bgStars01.tilePositionX + screenWidth/12},
                 ease:'Quad',
-                duration: 2000,
+                duration: tweenspeed,
             });            
         }//end capture actions
         else{//set lastdist if no captue happens
