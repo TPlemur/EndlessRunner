@@ -158,7 +158,6 @@ class Play extends Phaser.Scene {
         this.blackHoleWaves.update(1); // 1 represents Black Hole Waves
         this.blackHole.update(0); // 0 represents Black Hole
         this.holeChaser.x = this.blackHoleWaves.x - this.blackHoleWaves.width*1.3;
-        console.log(this.holeChaser.x)
         //collide with the black hole
         if(this.blackHoleWaves.x > this.orbirter.x + screenWidth/1.6){ //1.6 is a magic number based on what looks good for where the player dies
             this.blackHoleWaves.setCollision(true); 
@@ -193,8 +192,7 @@ class Play extends Phaser.Scene {
             this.targetPlanet.frame = this.tempPlanet.frame;
             this.tempPlanet.destroy();
 
-            this.targetPlanet.randomize(this.minSize)
-            this.targetPlanet.x = screenWidth + this.targetPlanet.radius;
+            this.targetPlanet.randomize(this.minSize);
             //update the bounding ring
             this.boundingRing.x = this.targetPlanet.x;
             this.boundingRing.y = this.targetPlanet.y;
@@ -202,18 +200,17 @@ class Play extends Phaser.Scene {
             this.boundingRing.alpha -=ringFade; // decrement the alpha of the ring for difficulty scaling
 
             //move everything to reset the world
-            this.deadPlanet.setTranslate(-this.deadPlanet.radius,this.deadPlanet.y,2);  // magic numbers are to be replaced
-            this.targetPlanet.setTranslate(this.targetPlanet.x-screenWidth/3,this.targetPlanet.y,2);                 // magic numbers are to be replaced
-            this.orbitPlanet.setTranslate(this.orbitPlanet.x-screenWidth/3,this.orbitPlanet.y,2);                    // magic numbers are to be replaced
-            this.orbirter.setTranslate(this.orbitPlanet.x-screenWidth/3,this.orbitPlanet.y,2);                                      // magic numbers are to be replaced
-            this.boundingRing.setTranslate(this.targetPlanet.x-screenWidth/3,this.targetPlanet.y,2);                 // magic numbers need to be the same as target planet's
+            this.deadPlanet.setTranslate(-this.deadPlanet.radius,this.deadPlanet.y,tweenspeed);
+            this.targetPlanet.setTranslate(this.targetPlanet.x-screenWidth/3,this.targetPlanet.y,tweenspeed);   
+            this.orbitPlanet.setTranslate(this.orbitPlanet.x-screenWidth/3,this.orbitPlanet.y,tweenspeed);             
+            this.orbirter.setTranslate(this.orbitPlanet.x-screenWidth/3,this.orbitPlanet.y,tweenspeed);                                
+            this.boundingRing.setTranslate(this.targetPlanet.x-screenWidth/3,this.targetPlanet.y,tweenspeed);
             
             //increment socre and decrement min size of planets
             gameScore +=1;
             this.scoreDisplay.text = String(gameScore);
             if(this.minSize>minPlanet){
                 this.minSize -= planetDecrement;
-                console.log(this.minSize)
             }
 
             //move the starfield background
@@ -221,13 +218,13 @@ class Play extends Phaser.Scene {
                 targets: this.bgStars00,
                 tilePositionX: {from: this.bgStars00.tilePositionX, to: this.bgStars00.tilePositionX + screenWidth/6},
                 ease:'Quad',
-                duration: 2000,
+                duration: tweenspeed,
             });   
             this.tweens.add({
                 targets: this.bgStars01,
                 tilePositionX: {from: this.bgStars01.tilePositionX, to: this.bgStars01.tilePositionX + screenWidth/12},
                 ease:'Quad',
-                duration: 2000,
+                duration: tweenspeed,
             });            
         }//end capture actions
         else{//set lastdist if no captue happens

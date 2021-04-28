@@ -31,6 +31,7 @@ let gameScore = 0;
 let highScore = 0;
 let highScoreHolder; //if we want to have something like this
 let causeOfDeath = 'Not dead yet';
+let tweenspeed = 2; //time in seconds
 
 //contol variables
 let shipMoveSpeed = 500;     //range: 300-800    default: 500    increment: 100                                 IMPLEMENTED
