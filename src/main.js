@@ -16,7 +16,7 @@ let config= {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
-    scene: [Menu, Play, Credits, End],
+    scene: [Menu, Play, Credits, Settings, End],
 }
 
 //define game object

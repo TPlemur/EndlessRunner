@@ -10,6 +10,7 @@ class Menu extends Phaser.Scene{
         this.load.image('menuBG', './assets/menu/menuBackground.png');
         this.load.image('launchButton', './assets/menu/menuLaunchButton.png');
         this.load.image('creditsButton', './assets/menu/menuCreditsButton.png');
+        this.load.image('settingsButton', '/assets/menu/settingsButton.png');
         this.load.image('menuBGStars', './assets/menu/menuBackgroundStars.png');
         this.load.image('title', './assets/menu/menuTitle.png');
         this.load.image('cursorParticles', './assets/menu/cursorParticles.png');
@@ -65,15 +66,20 @@ class Menu extends Phaser.Scene{
         this.rocketEmitter = this.rocketParticles.createEmitter().setPosition(-1000,0);
         
         //Buttons
-        this.launchBtn = this.add.sprite(screenCenterX, screenCenterY + 50, 'launchButton').setInteractive().setScale(3); //Initialize the button
+        this.launchBtn = this.add.sprite(screenCenterX, screenCenterY + 50, 'launchButton').setInteractive().setScale(2); //Initialize the button
         this.launchBtn.on('pointerover', () => this.actionOnHover(this.launchBtn, this.rocketEmitter)); //What happens when you hover over
         this.launchBtn.on('pointerout', () => this.actionOnHoverOut(this.launchBtn, this.rocketEmitter)); //What happens when you hover out
         this.launchBtn.on('pointerdown', () => this.actionOnClick(this.launchBtn, this, this.menuBGMusic, this.mouseFlameEmitter)); //What happens when you click   
         
-        this.creditsBtn = this.add.sprite(screenCenterX, screenCenterY + 350, 'creditsButton').setInteractive().setScale(3);
+        this.creditsBtn = this.add.sprite(screenCenterX, screenCenterY + 350, 'creditsButton').setInteractive().setScale(2);
         this.creditsBtn.on('pointerover', () => this.actionOnHover(this.creditsBtn, this.rocketEmitter)); 
         this.creditsBtn.on('pointerout', () => this.actionOnHoverOut(this.creditsBtn, this.rocketEmitter)); 
         this.creditsBtn.on('pointerdown', () => this.actionOnClick(this.creditsBtn, this, this.menuBGMusic, this.mouseFlameEmitter));  
+
+        this.settingsBtn = this.add.sprite(screenCenterX, screenCenterY + 200, 'settingsButton').setInteractive().setScale(2);
+        this.settingsBtn.on('pointerover', () => this.actionOnHover(this.settingsBtn, this.rocketEmitter)); 
+        this.settingsBtn.on('pointerout', () => this.actionOnHoverOut(this.settingsBtn, this.rocketEmitter)); 
+        this.settingsBtn.on('pointerdown', () => this.actionOnClick(this.settingsBtn, this, this.menuBGMusic, this.mouseFlameEmitter));  
 
         // Black Screen used for Transitioning between Scenes
         this.blackScreen = this.add.rectangle(screenCenterX, (screenCenterY + screenHeight) * 2, screenWidth, screenHeight * 3, 0x000000);
@@ -118,6 +124,9 @@ class Menu extends Phaser.Scene{
         else if(button == this.creditsBtn){
             menuScene.scene.start("creditsScene"); 
         }
+        else if(button == this.settingsBtn){
+            menuScene.scene.start("settingsScene"); 
+        }
     }
 
     actionOnHover(button, emitter){
@@ -127,7 +136,7 @@ class Menu extends Phaser.Scene{
         emitter.setSpeed(150).setScale(0.1).setLifespan(800);
          
         //Scale Button
-        button.setScale(2.8); 
+        button.setScale(1.8); 
     }
 
     actionOnHoverOut(button, emitter){
@@ -135,7 +144,7 @@ class Menu extends Phaser.Scene{
         emitter.setPosition(button.x, button.y).setSpeed(0); 
 
         //Scale Button
-        button.setScale(3);
+        button.setScale(2);
     }
 
     parallaxBackground(){

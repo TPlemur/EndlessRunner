@@ -3,7 +3,7 @@
 
 class Settings extends Phaser.Scene {
     constructor(){
-        super("creditsScene")
+        super("settingsScene")
     }
 
     preload(){
@@ -13,6 +13,7 @@ class Settings extends Phaser.Scene {
     }
 
     create(){
+        console.log("test");
         //Fades in the Scene
         this.cameras.main.fadeIn(500);
 
@@ -56,10 +57,10 @@ class Settings extends Phaser.Scene {
         this.menuBackgroundStars.tilePositionY = this.game.input.mousePointer.y / 35;
     }
 
-    actionOnClick(creditsScene){
+    actionOnClick(settingScene){
         //Plays Sound effect and go to menu
-        creditsScene.sound.play('launchButtonSound');
-        creditsScene.scene.start("menuScene"); 
+        settomgScene.sound.play('launchButtonSound');
+        settingScene.scene.start("menuScene"); 
     }
 
     actionOnHover(){
