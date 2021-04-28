@@ -51,7 +51,7 @@ class Play extends Phaser.Scene {
   
 
         //background patch for black hole
-        this.add.rectangle(0, 0, screenWidth/24, screenHeight, 0x723105).setOrigin(0 ,0);
+        this.holeChaser = this.add.rectangle(0, 0, screenWidth, screenHeight, 0x723105).setOrigin(1,0);
 
         //Black Hole Creation
         this.blackHoleWaves = new Blackhole(this,screenWidth/1.4, screenCenterY, 'blackHoleWaves').setScale(0.5); //blackHoleWaves are the waves that move and collide with the ship, the waves move up and down for visual sakes randomly
@@ -157,7 +157,8 @@ class Play extends Phaser.Scene {
         //Runs the update method for the Black Hole and Black Hole Waves
         this.blackHoleWaves.update(1); // 1 represents Black Hole Waves
         this.blackHole.update(0); // 0 represents Black Hole
-
+        this.holeChaser.x = this.blackHoleWaves.x - this.blackHoleWaves.width*1.3;
+        console.log(this.holeChaser.x)
         //collide with the black hole
         if(this.blackHoleWaves.x > this.orbirter.x + screenWidth/1.6){ //1.6 is a magic number based on what looks good for where the player dies
             this.blackHoleWaves.setCollision(true); 
