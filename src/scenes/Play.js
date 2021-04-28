@@ -60,18 +60,23 @@ class Play extends Phaser.Scene {
         //change textConfig for GAME OVER text
         this.textConfig.fontSize = '200px';
 
+
+
         //Black Hole Creation
         this.blackHoleWaves = new Blackhole(this,screenWidth/6, screenCenterY, 'blackHoleWaves').setScale(0.5); //blackHoleWaves are the waves that move and collide with the ship, the waves move up and down for visual sakes randomly
+    
+        //createing deadPlanet on top of the waves, but behind the main hole so it gets more propperly eaten
+        this.deadPlanet = new Planet(this,-200,500,'testPlanert');        
+        
         this.blackHole = new Blackhole(this, screenCenterX - 1150, screenCenterY, 'blackHole').setScale(1); //blackHole is the hole itself that rotates for visual sakes
         this.blackHoleWaves.setSpeed(0.2); //Sets the speed at which the Black Hole Waves advance
         this.blackHoleWaves.setOrigin(1,0.5);
 
-        //creating all three planets that can be on screen at once
+        //creating planets that go in fron of the block hole
         let tempString = 'Planet' + String(Math.floor(Math.random()*(22)+ 1))+'.png' //generate random call for a planet
         this.targetPlanet = new Planet(this,5*screenWidth/6,screenHeight/2,'planets',tempString);
         tempString = 'Planet' + String(Math.floor(Math.random()*(22)+ 1))+'.png'
         this.orbitPlanet = new Planet(this,screenWidth/2,screenHeight/2,'planets',tempString);
-        this.deadPlanet = new Planet(this,-200,500,'testPlanert');
         this.boundingRing = new Planet(this,5*screenWidth/6,screenHeight/2,'boundingRing');
         this.boundingRing.tint = 0xFFFFFF;
 
