@@ -26,8 +26,16 @@ class Settings extends Phaser.Scene {
         this.menuBackground = this.add.tileSprite(0, 0, game.config.width, game.config.height, "menuBG").setOrigin(0,0).setScrollFactor(0);
         this.menuBackgroundStars = this.add.tileSprite(0, 0, game.config.width, game.config.height, "menuBGStars").setOrigin(0,0).setScrollFactor(0);
 
-        this.backBtn = this.add.sprite(screenCenterX, screenCenterY + 350, 'backButton').setInteractive().setScale(2); //Initialize the button
-        this.button(this.backBtn, this);
+        //Initialize SFX Sounds
+        this.buttonSound = this.sound.add('launchButtonSound');
+        this.sfxConfig ={
+            volume: sfxVolume,
+            loop: false,
+        }
+
+        this.backBtn = this.add.sprite(screenCenterX, screenCenterY + 400, 'backButton').setInteractive().setScale(2); //Initialize the button
+        this.button(this.backBtn, this, null, this.sfxConfig);
+
 
         this.mouseFlameEmitter = this.add.particles('cursorParticles').createEmitter({
             x: -3000,
@@ -56,24 +64,31 @@ class Settings extends Phaser.Scene {
         }
 
         //Increment Buttons and add text
-        this.easy = this.add.sprite(screenCenterX - 200, screenCenterY - 200, 'easy').setInteractive().setScale(2).setOrigin(0.5,0.5);
-        this.medium = this.add.sprite(screenCenterX, screenCenterY - 200, 'medium').setInteractive().setScale(2).setOrigin(0.5,0.5);
+        this.easy = this.add.sprite(screenCenterX - 200, screenCenterY - 350, 'easy').setInteractive().setScale(2).setOrigin(0.5,0.5);
+        this.medium = this.add.sprite(screenCenterX, screenCenterY - 350, 'medium').setInteractive().setScale(2).setOrigin(0.5,0.5);
         this.medium.setTint(169,166,166); //Start game with medium settings
-        this.impossible = this.add.sprite(screenCenterX + 200, screenCenterY - 200, 'impossible').setInteractive().setScale(2).setOrigin(0.5,0.5);
-        this.difficultyText = this.add.text(screenCenterX, screenCenterY - 350, "Difficulty Selection", this.textConfig).setOrigin(0.5,0.5);
+        this.impossible = this.add.sprite(screenCenterX + 200, screenCenterY - 350, 'impossible').setInteractive().setScale(2).setOrigin(0.5,0.5);
+        this.difficultyText = this.add.text(screenCenterX, screenCenterY - 450, "Difficulty Selection", this.textConfig).setOrigin(0.5,0.5);
         this.button(this.easy, this);
         this.button(this.medium, this);
         this.button(this.impossible, this);
 
-        this.bgVolumeMinus = this.add.sprite(screenCenterX - 200, screenCenterY + 50, 'minus').setInteractive().setScale(0.05);
-        this.bgVolumePlus = this.add.sprite(screenCenterX + 200, screenCenterY + 50, 'plus').setInteractive().setScale(0.05);
-        this.bgVolumeText = this.add.text(screenCenterX, screenCenterY - 40, "Background Music", this.textConfig).setOrigin(0.5,0.5)
-        this.bgVolumeDisplay = this.add.text(screenCenterX, screenCenterY + 50, Math.round(musicVolume * 10), this.textConfig).setOrigin(0.5,0.5)
+        this.bgVolumeMinus = this.add.sprite(screenCenterX - 200, screenCenterY - 100, 'minus').setInteractive().setScale(0.05);
+        this.bgVolumePlus = this.add.sprite(screenCenterX + 200, screenCenterY - 100, 'plus').setInteractive().setScale(0.05);
+        this.bgVolumeText = this.add.text(screenCenterX, screenCenterY - 200, "Background Music", this.textConfig).setOrigin(0.5,0.5)
+        this.bgVolumeDisplay = this.add.text(screenCenterX, screenCenterY - 100, Math.round(musicVolume * 10), this.textConfig).setOrigin(0.5,0.5)
         this.button(this.bgVolumeMinus, this, this.bgVolumeDisplay);
         this.button(this.bgVolumePlus, this, this.bgVolumeDisplay);
 
-        this.developer = this.add.sprite(screenCenterX, screenCenterY + 200, 'developer').setInteractive().setScale(2).setOrigin(0.5,0.5);
-        this.button(this.developer, this);
+        this.sfxVolumeMinus = this.add.sprite(screenCenterX - 200, screenCenterY + 120, 'minus').setInteractive().setScale(0.05);
+        this.sfxVolumePlus = this.add.sprite(screenCenterX + 200, screenCenterY + 120, 'plus').setInteractive().setScale(0.05);
+        this.sfxVolumeText = this.add.text(screenCenterX, screenCenterY + 20, "SFX Volume", this.textConfig).setOrigin(0.5,0.5)
+        this.sfxVolumeDisplay = this.add.text(screenCenterX, screenCenterY + 120, Math.round(sfxVolume * 10), this.textConfig).setOrigin(0.5,0.5)
+        this.button(this.sfxVolumeMinus, this, this.sfxVolumeDisplay);
+        this.button(this.sfxVolumePlus, this, this.sfxVolumeDisplay);
+
+        this.developer = this.add.sprite(screenCenterX, screenCenterY + 250, 'developer').setInteractive().setScale(2).setOrigin(0.5,0.5);
+        this.button(this.developer, this, null, this.sfxConfig);
 
     }
 
@@ -96,16 +111,16 @@ class Settings extends Phaser.Scene {
         this.menuBackgroundStars.tilePositionY = this.game.input.mousePointer.y / 35;
     }
 
-    button(button, text, scene){
+    button(button, text, scene, sfxConfig){
         button.on('pointerover', () => this.actionOnHover(button)); //What happens when you hover over
         button.on('pointerout', () => this.actionOnHoverOut(button)); //What happens when you hover out
-        button.on('pointerdown', () => this.actionOnClick(button, text, scene)); //What happens when you click   
+        button.on('pointerdown', () => this.actionOnClick(button, text, scene, sfxConfig)); //What happens when you click   
     }
 
-    actionOnClick(button, settingScene, text){
+    actionOnClick(button, settingScene, text, sfxConfig){
         //Plays Sound effect and go to menu
         if(button == this.backBtn){
-            settingScene.sound.play('launchButtonSound');
+            this.buttonSound.play(sfxConfig);
             settingScene.scene.start("menuScene"); 
         }
         //Increments background music and updates text
@@ -119,6 +134,18 @@ class Settings extends Phaser.Scene {
             if(Math.round(musicVolume * 10) / 10 > 0) {
                 musicVolume -= 0.1;
                 text.text = Math.round(musicVolume * 10);
+            }
+        }
+        else if(button == this.sfxVolumePlus){
+            if(Math.round(sfxVolume * 10) / 10 < 1){
+               sfxVolume += 0.1;
+               text.text = Math.round(sfxVolume * 10);
+            }
+        }
+        else if(button == this.sfxVolumeMinus){
+            if(Math.round(sfxVolume * 10) / 10 > 0){
+               sfxVolume -= 0.1;
+               text.text = Math.round(sfxVolume * 10);
             }
         }
         //Choose which difficulty is selected
@@ -136,7 +163,7 @@ class Settings extends Phaser.Scene {
         }
         //Developer Mode
         else if(button = this.developer){
-            settingScene.sound.play('launchButtonSound');
+            this.buttonSound.play(sfxConfig);
             settingScene.scene.start("developerScene"); 
         }
     }

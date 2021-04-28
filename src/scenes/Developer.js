@@ -20,9 +20,16 @@ class Developer extends Phaser.Scene {
 
         this.menuBackground = this.add.tileSprite(0, 0, game.config.width, game.config.height, "menuBG").setOrigin(0,0).setScrollFactor(0);
         this.menuBackgroundStars = this.add.tileSprite(0, 0, game.config.width, game.config.height, "menuBGStars").setOrigin(0,0).setScrollFactor(0);
+        
+        //Initialize SFX Sounds
+        this.buttonSound = this.sound.add('launchButtonSound');
+        this.sfxConfig ={
+            volume: sfxVolume,
+            loop: false,
+        }
 
         this.backBtn = this.add.sprite(screenCenterX, screenCenterY + 350, 'backButton').setInteractive().setScale(2); //Initialize the button
-        this.button(this.backBtn, this);
+        this.button(this.backBtn, this, null, this.sfxConfig);
 
         this.mouseFlameEmitter = this.add.particles('cursorParticles').createEmitter({
             x: -3000,
@@ -76,16 +83,16 @@ class Developer extends Phaser.Scene {
         this.menuBackgroundStars.tilePositionY = this.game.input.mousePointer.y / 35;
     }
 
-    button(button, text, scene){
+    button(button, text, scene, sfxConfig){
         button.on('pointerover', () => this.actionOnHover(button)); //What happens when you hover over
         button.on('pointerout', () => this.actionOnHoverOut(button)); //What happens when you hover out
-        button.on('pointerdown', () => this.actionOnClick(button, text, scene)); //What happens when you click   
+        button.on('pointerdown', () => this.actionOnClick(button, text, scene, sfxConfig)); //What happens when you click   
     }
 
-    actionOnClick(button, settingScene, text){
+    actionOnClick(button, settingScene, text, sfxConfig){
         //Plays Sound effect and go to menu
         if(button == this.backBtn){
-            settingScene.sound.play('launchButtonSound');
+            this.buttonSound.play(sfxConfig);
             settingScene.scene.start("settingsScene"); 
         }
         //Increments background music and updates text

@@ -38,6 +38,14 @@ class Menu extends Phaser.Scene{
         }
         this.menuBGMusic.play(musicConfig);
 
+        //Initialize SFX Sounds
+        this.buttonSound = this.sound.add('launchButtonSound');
+        this.launchSound = this.sound.add('launchNoise');
+        this.sfxConfig ={
+            volume: sfxVolume,
+            loop: false,
+        }
+
         //Sets Cursor to a .cur file
         this.input.setDefaultCursor('url(./assets/menu/spaceshipCursor.cur), pointer'); //Temporary Adding Source Here: http://www.rw-designer.com/licenses
 
@@ -69,17 +77,17 @@ class Menu extends Phaser.Scene{
         this.launchBtn = this.add.sprite(screenCenterX, screenCenterY + 50, 'launchButton').setInteractive().setScale(2); //Initialize the button
         this.launchBtn.on('pointerover', () => this.actionOnHover(this.launchBtn, this.rocketEmitter)); //What happens when you hover over
         this.launchBtn.on('pointerout', () => this.actionOnHoverOut(this.launchBtn, this.rocketEmitter)); //What happens when you hover out
-        this.launchBtn.on('pointerdown', () => this.actionOnClick(this.launchBtn, this, this.menuBGMusic, this.mouseFlameEmitter)); //What happens when you click   
+        this.launchBtn.on('pointerdown', () => this.actionOnClick(this.launchBtn, this, this.menuBGMusic, this.mouseFlameEmitter, this.sfxConfig)); //What happens when you click   
         
         this.creditsBtn = this.add.sprite(screenCenterX, screenCenterY + 350, 'creditsButton').setInteractive().setScale(2);
         this.creditsBtn.on('pointerover', () => this.actionOnHover(this.creditsBtn, this.rocketEmitter)); 
         this.creditsBtn.on('pointerout', () => this.actionOnHoverOut(this.creditsBtn, this.rocketEmitter)); 
-        this.creditsBtn.on('pointerdown', () => this.actionOnClick(this.creditsBtn, this, this.menuBGMusic, this.mouseFlameEmitter));  
+        this.creditsBtn.on('pointerdown', () => this.actionOnClick(this.creditsBtn, this, this.menuBGMusic, this.mouseFlameEmitter, this.sfxConfig));  
 
         this.settingsBtn = this.add.sprite(screenCenterX, screenCenterY + 200, 'settingsButton').setInteractive().setScale(2);
         this.settingsBtn.on('pointerover', () => this.actionOnHover(this.settingsBtn, this.rocketEmitter)); 
         this.settingsBtn.on('pointerout', () => this.actionOnHoverOut(this.settingsBtn, this.rocketEmitter)); 
-        this.settingsBtn.on('pointerdown', () => this.actionOnClick(this.settingsBtn, this, this.menuBGMusic, this.mouseFlameEmitter));  
+        this.settingsBtn.on('pointerdown', () => this.actionOnClick(this.settingsBtn, this, this.menuBGMusic, this.mouseFlameEmitter, this.sfxConfig));  
 
         // Black Screen used for Transitioning between Scenes
         this.blackScreen = this.add.rectangle(screenCenterX, (screenCenterY + screenHeight) * 2, screenWidth, screenHeight * 3, 0x000000);
@@ -106,15 +114,15 @@ class Menu extends Phaser.Scene{
         }
     }
 
-    actionOnClick(button, menuScene, bgMusic, emitter){
+    actionOnClick(button, menuScene, bgMusic, emitter, sfxConfig){
         //Plays Sound effect and Stop background music
-        menuScene.sound.play('launchButtonSound');
+        this.buttonSound.play(sfxConfig);
         bgMusic.stop();
 
         //Depending on which button is pushed, a scene will run and the menu will launch
         if(button == this.launchBtn){
             //Play a Launching noise and Shake the screen
-            menuScene.sound.play('launchNoise');
+            this.launchSound.play(sfxConfig);
             menuScene.cameras.main.shake(1500);
 
             emitter.setAlpha(0);
