@@ -9,7 +9,6 @@ class Play extends Phaser.Scene {
     preload() {
         //loading assets
         this.load.image('orbiter','assets//background/ShipSample.png');
-        this.load.image('testPlanert','assets/planet.png');
         this.load.image('blackHole', './assets/blackhole/blackHole.png');
         this.load.spritesheet('blackHoleWaves', './assets/blackhole/swarmAnim.png',{frameWidth: 1395, frameHeight: 1080, startFrame: 0, endFrame: 9});
         this.load.image('boundingRing','assets/planets/dottedRing.png');
@@ -76,7 +75,7 @@ class Play extends Phaser.Scene {
         this.blackHoleWaves = new Blackhole(this,screenWidth/6, screenCenterY, 'blackHoleWaves').setScale(0.5); //blackHoleWaves are the waves that move and collide with the ship, the waves move up and down for visual sakes randomly
     
         //createing deadPlanet on top of the waves, but behind the main hole so it gets more propperly eaten
-        this.deadPlanet = new Planet(this,-200,500,'testPlanert');        
+        this.deadPlanet = new Planet(this,-200,500,'boundingRing');        
         
         this.blackHole = new Blackhole(this, screenCenterX - 1150, screenCenterY, 'blackHole').setScale(1); //blackHole is the hole itself that rotates for visual sakes
         this.blackHoleWaves.setSpeed(0.2); //Sets the speed at which the Black Hole Waves advance
