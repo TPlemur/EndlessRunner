@@ -165,17 +165,49 @@ class Settings extends Phaser.Scene {
         if(this.whichButton == 0){
             this.medium.clearTint();
             this.hard.clearTint();
-            this.easy.setTint(169,166,166); 
+            this.easy.setTint(169,166,166);
+            //update settings 
+            shipMoveSpeed = 300;   //range: 300-800    default: 500    increment: 100 
+            captureScale = 3;      //range: 1.5-3      default: 2.5    increment: 0.5
+            minPlanet = 100;       //range: 50-150     default: 50     increment: 10
+            maxPlanet = 150;       //range: 50-150     default: 150    increment: 10 cannot be less than minPlanet 
+            planetDecrement = 0;   //range: 0-10       default: 5      increment: 1
+            holeSpeed = 0;         //range: 0-1        default: 0.2    increment: 0.1
+            mouseOrbit = false;    //range: bool       default: false
+            gameAcceleration = 0;  //range: 1-0.5      default: 0.05   increment: 0.5
+            ringFade = 0;          //range: 0-1        default: 0.1    increment: 0.05            
+            
+
         }
         else if(this.whichButton == 1){
             this.easy.clearTint();
             this.hard.clearTint();
             this.medium.setTint(169,166,166); 
+            //update settings 
+            shipMoveSpeed = 500;     //range: 300-800    default: 500    increment: 100 
+            captureScale = 2.5;      //range: 1.5-3      default: 2.5    increment: 0.5
+            minPlanet = 50;          //range: 50-150     default: 50     increment: 10
+            maxPlanet = 150;         //range: 50-150     default: 150    increment: 10 cannot be less than minPlanet 
+            planetDecrement = 5;     //range: 0-10       default: 5      increment: 1
+            holeSpeed = 0.2;         //range: 0-1        default: 0.2    increment: 0.1
+            mouseOrbit = false;      //range: bool       default: false
+            gameAcceleration = 0.05; //range: 1-0.5      default: 0.05   increment: 0.5
+            ringFade = 0.1;          //range: 0-1        default: 0.1    increment: 0.05
         }
         else if(this.whichButton == 2){
             this.easy.clearTint();
             this.medium.clearTint();
-            this.hard.setTint(169,166,166); 
+            this.hard.setTint(169,166,166);
+            //update settings 
+            shipMoveSpeed = 800;     //range: 300-800    default: 500    increment: 100 
+            captureScale = 1.5;      //range: 1.5-3      default: 2.5    increment: 0.5
+            minPlanet = 50;          //range: 50-150     default: 50     increment: 10
+            maxPlanet = 100;         //range: 50-150     default: 150    increment: 10 cannot be less than minPlanet 
+            planetDecrement = 50;    //range: 0-10       default: 5      increment: 1
+            holeSpeed = 1;           //range: 0-1        default: 0.2    increment: 0.1
+            mouseOrbit = false;      //range: bool       default: false
+            gameAcceleration = 0.05; //range: 1-0.5      default: 0.05   increment: 0.5
+            ringFade = 1;            //range: 0-1        default: 0.1    increment: 0.05            
         }
     }
 }
