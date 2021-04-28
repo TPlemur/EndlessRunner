@@ -48,37 +48,16 @@ class Play extends Phaser.Scene {
         this.minSize = 100; //smallest randomly generated radious for planets
         gameScore = 0; //set the score to 0
 
-        //text configuration
-        this.textConfig = {
-            fontFamily: 'Courier',
-            fontSize: '100px',
-            color: '#707081',
-            backgroundColor: '#000000',
-            align: 'center',
-            padding: {
-                top: 5,
-                bottom: 5,
-            },
-            fixedWidth: 0
-        }
-        //display the score in the top right corner
-        this.scoreDisplay = this.add.text(screenWidth,0,'0',this.textConfig).setOrigin(1,0)
-        this.textConfig.backgroundColor = null;
-        this.instructions = this.add.text(screenWidth/2,0,'space to launch\naim for the circle',this.textConfig).setOrigin(0.5,0)
-
-        //change textConfig for GAME OVER text
-        this.textConfig.fontSize = '200px';
-
+  
 
 
         //Black Hole Creation
-        this.blackHoleWaves = new Blackhole(this,screenWidth/6, screenCenterY, 'blackHoleWaves').setScale(0.5); //blackHoleWaves are the waves that move and collide with the ship, the waves move up and down for visual sakes randomly
+        this.blackHoleWaves = new Blackhole(this,screenWidth/1.4, screenCenterY, 'blackHoleWaves').setScale(0.5); //blackHoleWaves are the waves that move and collide with the ship, the waves move up and down for visual sakes randomly
     
         //createing deadPlanet on top of the waves, but behind the main hole so it gets more propperly eaten
         this.deadPlanet = new Planet(this,-200,500,'boundingRing');        
         
         this.blackHole = new Blackhole(this, screenCenterX - 1150, screenCenterY, 'blackHole').setScale(1); //blackHole is the hole itself that rotates for visual sakes
-        this.blackHoleWaves.setSpeed(0.2); //Sets the speed at which the Black Hole Waves advance
         this.blackHoleWaves.setOrigin(1,0.5);
         this.blackHoleWaves.play('wibble')
         //creating planets that go in fron of the block hole
@@ -102,10 +81,37 @@ class Play extends Phaser.Scene {
             'orbiter',keySPACE
         )
 
-        //scale up orbiter by magic numbers can be removed for final game
+        //scale up orbiter by magic numbers can changed for final asset
         this.orbirter.displayWidth = 30;
         this.orbirter.displayHeight = 30;
+
+        //scale up black hole waves by a magic number
+        this.blackHoleWaves.displayWidth = screenWidth;
+        this.blackHoleWaves.displayHeight = screenHeight*1.5;
     
+        //text configuration
+        this.textConfig = {
+            fontFamily: 'Courier',
+            fontSize: '100px',
+            color: '#707081',
+            backgroundColor: '#000000',
+            align: 'center',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 0
+        }
+        //display the score in the top right corner
+        this.scoreDisplay = this.add.text(screenWidth,0,'0',this.textConfig).setOrigin(1,0)
+        this.textConfig.backgroundColor = null;
+        this.instructions = this.add.text(screenWidth/2,0,'space to launch\naim for the circle',this.textConfig).setOrigin(0.5,0)
+
+        //change textConfig for GAME OVER text
+        this.textConfig.fontSize = '200px';
+    
+
+
     }
 
     update(){
@@ -149,8 +155,10 @@ class Play extends Phaser.Scene {
         this.blackHoleWaves.update(1); // 1 represents Black Hole Waves
         this.blackHole.update(0); // 0 represents Black Hole
 
-        if(this.blackHoleWaves.x > this.orbirter.x){
-            this.blackHoleWaves.setCollision(true);
+        //collide with the black hole
+        if(this.blackHoleWaves.x > this.orbirter.x + screenWidth/1.6){ //1.6 is a magic number based on what looks good for where the player dies
+            this.blackHoleWaves.setCollision(true); 
+            causeOfDeath = 'Sucked into a black hole'
         }
 
         //capture system
@@ -166,8 +174,7 @@ class Play extends Phaser.Scene {
             this.orbirter.setOrbit(this.targetPlanet.x,this.targetPlanet.y);
             
             //Sets the blackHoleWaves back a certain distance once a new planet is being orbitted 
-            this.blackHoleWaves.setSetBack(200);
-            this.blackHoleWaves.setTranslate(screenWidth/12);
+            this.blackHoleWaves.setTranslate(this.blackHoleWaves.x-screenWidth/12);
             
             //reassign the planets
             this.deadPlanet.copyPlanet(this.orbitPlanet);

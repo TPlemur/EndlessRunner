@@ -130,6 +130,7 @@ class Orbiter extends Phaser.GameObjects.Sprite {
     //checks if orbiter will collide with planet
     checkCollision(planet) {
         if (this.checkDist(planet) <= planet.radius) {
+            causeOfDeath = 'Crashed on a planet';
             return true;
         }
         return false;
@@ -137,6 +138,7 @@ class Orbiter extends Phaser.GameObjects.Sprite {
     //checs if the orbiter is out of bounds
     checkBounds(){
         if(this.x < this.screenOrigin || this.x > screenWidth || this.y < this.screenOrigin || this.y > screenHeight){
+            causeOfDeath = 'Drifting endlessly in space';
             return true;
         }
         return false;
