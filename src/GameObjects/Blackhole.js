@@ -29,10 +29,10 @@ class Blackhole extends Phaser.GameObjects.Sprite {
             //Following used for randomMovement()
             if(this.lockRandom == false){
                 if(this.lockDirection == false){
-                    this.randomY = this.y + Math.floor(Math.random() * 200) + 1;
+                    this.randomY = this.y + Math.floor(Math.random() * 100) + 1;
                 }
                 else{
-                    this.randomY = this.y - Math.floor(Math.random() * 200) + 1;
+                    this.randomY = this.y - Math.floor(Math.random() * 100) + 1;
                 }
 
                 this.lockRandom = true;
@@ -42,7 +42,6 @@ class Blackhole extends Phaser.GameObjects.Sprite {
             }
 
             this.move();
-            //this.setTranslate();
         }
     } 
 

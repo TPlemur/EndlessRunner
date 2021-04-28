@@ -50,6 +50,8 @@ class Play extends Phaser.Scene {
 
   
 
+        //background patch for black hole
+        this.add.rectangle(0, 0, screenWidth/24, screenHeight, 0x723105).setOrigin(0 ,0);
 
         //Black Hole Creation
         this.blackHoleWaves = new Blackhole(this,screenWidth/1.4, screenCenterY, 'blackHoleWaves').setScale(0.5); //blackHoleWaves are the waves that move and collide with the ship, the waves move up and down for visual sakes randomly

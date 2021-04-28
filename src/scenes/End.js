@@ -36,6 +36,7 @@ class End extends Phaser.Scene {
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
         
+        
         this.cdBLACK = false;
         this.cdSPACE = false;
         this.cdPLAN = false;
@@ -105,7 +106,7 @@ class End extends Phaser.Scene {
 
         //rotate end screen object
         if(this.cdBLACK){
-        this.blackHole.update(0); // 0 represents Black Hole
+        this.blackHole.update(0);
         }
         if(this.cdSPACE){
             this.orbirter.angle += 0.5;
