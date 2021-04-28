@@ -2,11 +2,12 @@
 // Defines the black hole class
 
 class Blackhole extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, texture,){
+    constructor(scene, x, y, texture){
         super(scene, x, y, texture);
         scene.add.existing(this);
 
         this.rotation = 0; //Rotation of the black hole
+        this.collided = false;
         
         //Following used for Black Hole Waves random movement
         this.randomY; 
@@ -15,7 +16,7 @@ class Blackhole extends Phaser.GameObjects.Sprite {
         this.lockDirection = false;
 
         //Following used for Black Hole/Black Hole Waves Movement to the Right
-        this.speed = 0;
+        this.speed = holeSpeed;
         this.setBack = 0;
     }
 
@@ -25,14 +26,13 @@ class Blackhole extends Phaser.GameObjects.Sprite {
             this.rotation += 0.005; //Rotate the black hole for visual sakes
         }
         else{ // If Black Hole Waves
-
             //Following used for randomMovement()
             if(this.lockRandom == false){
                 if(this.lockDirection == false){
-                    this.randomY = this.y + Math.floor(Math.random() * 200) + 1;
+                    this.randomY = this.y + Math.floor(Math.random() * 100) + 1;
                 }
                 else{
-                    this.randomY = this.y - Math.floor(Math.random() * 200) + 1;
+                    this.randomY = this.y - Math.floor(Math.random() * 100) + 1;
                 }
 
                 this.lockRandom = true;
@@ -41,7 +41,7 @@ class Blackhole extends Phaser.GameObjects.Sprite {
                 this.randomWaveMovement();
             }
 
-            this.move(this.setBack);
+            this.move();
         }
     } 
 
@@ -71,21 +71,37 @@ class Blackhole extends Phaser.GameObjects.Sprite {
         this.speed = speed;
     }
 
-    // Sets how much the Black Hole Waves should go back after flying to a new planet
-    setSetBack(setBack){
-        this.setBack = setBack;
+
+    // Moves the Black Hole Waves forward
+    move(){
+        this.x += this.speed;
     }
 
-    // Moves the Black Hole Waves forwards unless setBack calls them to move back a certain distance
-    move(setBack){
-        if(setBack == 0)
-        {
-            this.x += this.speed;
+    // Moves Black Hole waves backwards if traveled to new planet
+    setTranslate(tx){
+        if(tx <= screenWidth/1.4) {
+            this.scene.tweens.add({
+                targets: this,
+               x: {from: this.x, to: screenWidth/1.4},
+               ease:'Quad',
+               duration: 2000,
+            });
         }
         else{
-            this.x -= this.setBack;
+            this.scene.tweens.add({
+                targets: this,
+               x: {from: this.x, to: tx},
+               ease:'Quad',
+               duration: 2000,
+            });
         }
+    }
 
-        this.setBack = 0;
+    setCollision(check){
+        this.collided = check;
+    }
+
+    getCollision(){
+        return this.collided;
     }
 }

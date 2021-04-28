@@ -20,7 +20,6 @@ class Orbiter extends Phaser.GameObjects.Sprite {
         scene.add.existing(this)
 
         //vars
-        this.speedMulltiplier = 500;// a true magic number, changes the ratio between radius and speed to about correct
         this.movmentSpeed = 2;      // used to set the speed of a rotation, and the following liner motion, determines the initial speed of the ship
         this.isOrbiting = true;     // toggles between liner and circular motion
         this.isClockwise = false;   // wether the ship rotates clockwise or counterclockwise
@@ -29,7 +28,7 @@ class Orbiter extends Phaser.GameObjects.Sprite {
         this.rad = rad;             // the radious of the orbit
         this.originX = Ox;          // x coordinate of the center of an orbit
         this.originY = Oy;          // y coordinate of the center of an orbit
-        this.period = 0;            // incremented to create circular motion
+        this.period = 1*Math.PI;            // incremented to create circular motion
 
         //fixed vars
         this.screenOrigin = 0;      // 0,0 is the top left corner of the window
@@ -61,7 +60,7 @@ class Orbiter extends Phaser.GameObjects.Sprite {
             if(this.isOrbiting){
                 this.setShoot();
             }
-            else{   //remove to dissalow space switching back to orbital motion
+            else if(mouseOrbit){   //orbit the mouse if mouseOrbit is on
                 this.setOrbit(game.input.mousePointer.x,game.input.mousePointer.y);
             }
         }
@@ -75,12 +74,25 @@ class Orbiter extends Phaser.GameObjects.Sprite {
         //definine the radious as the distance between the origin and the orbiter
         this.rad = Math.sqrt(Math.pow(this.x-Ox,2)+Math.pow(this.y-Oy,2)); 
         this.isOrbiting = true;
-        //make assumptions about the direction of the orbit
-        if(this.y<Oy){this.isClockwise = true;} //orbiter always progressses to the right so if it is above the origin it should move clockwise
-        else{this.isClockwise = false;}
         //set the period to the correct angle for the current position
         this.period = Math.atan2((this.y-this.originY),(this.x-this.originX));
-        this.movmentSpeed = (this.speedMulltiplier/this.rad)*globalSpeed //adjust speed for orbit, bigger orbit = smaller speed, const is a random number
+        this.movmentSpeed = (shipMoveSpeed/this.rad)*globalSpeed //adjust speed for orbit, bigger orbit = smaller speed, const is a random number
+        
+        //make an assumption
+        this.isClockwise = true;
+        //rotational deltas (assuming clockwise)
+        let deltaRotX = (this.originX +  Math.cos(this.period+this.movmentSpeed/this.rad)*this.rad)-(this.originX +  Math.cos(this.period)*this.rad)
+        let deltaRotY = (this.originY +  Math.sin(this.period+this.movmentSpeed/this.rad)*this.rad)-(this.originY +  Math.sin(this.period)*this.rad)
+        //liner deltas
+        let deltaLinX = Math.cos(this.angle*(1/this.degRadConversion))*this.movmentSpeed
+        let deltaLinY = Math.sin(this.angle*1/this.degRadConversion)*this.movmentSpeed
+        //check the assumption
+        if(
+            Math.sign(deltaRotX) != Math.sign(deltaLinX) &&
+            Math.sign(deltaRotY) != Math.sign(deltaLinY)
+        ){
+            this.isClockwise = false;
+        }
     }
 
     //continue orbiting with the current parameters
@@ -118,6 +130,7 @@ class Orbiter extends Phaser.GameObjects.Sprite {
     //checks if orbiter will collide with planet
     checkCollision(planet) {
         if (this.checkDist(planet) <= planet.radius) {
+            causeOfDeath = 'Crashed into a planet';
             return true;
         }
         return false;
@@ -125,6 +138,7 @@ class Orbiter extends Phaser.GameObjects.Sprite {
     //checs if the orbiter is out of bounds
     checkBounds(){
         if(this.x < this.screenOrigin || this.x > screenWidth || this.y < this.screenOrigin || this.y > screenHeight){
+            causeOfDeath = 'Drifting endlessly in space';
             return true;
         }
         return false;

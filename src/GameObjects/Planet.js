@@ -4,13 +4,12 @@ let DENSITY_CONSTANT = 10;
 let ORBIT_MULTIPLIER = 1.5;
 
 class Planet extends Phaser.GameObjects.Sprite {
-    constructor(scene,x,y,texture,atlas,frame) {
+    constructor(scene,x,y,texture,frame) {
         super(scene,x,y,texture,frame);
         scene.add.existing(this);
         this.radius = this.displayWidth/2;
-        this.captureRange = this.radius*2.5
+        this.captureRange = this.radius*captureScale
         this.rotation = (2*Math.PI*Math.random())-Math.PI;
-        this.atlas = atlas;
         this.tintNum = 0xFFFFFF*Math.random();
         this.tint = this.tintNum
 
@@ -26,7 +25,7 @@ class Planet extends Phaser.GameObjects.Sprite {
         this.orbit_radius = radius*ORBIT_MULTIPLIER;
         this.displayWidth = radius*2;
         this.displayHeight = radius*2;
-        this.captureRange = this.radius*2.5;
+        this.captureRange = this.radius*captureScale;
     }
 
     //generate a random integer between min and max
@@ -36,7 +35,7 @@ class Planet extends Phaser.GameObjects.Sprite {
 
     //size place the planet randomly such that the capture range never goes off the screen
     randomize(minSize){
-        this.setSize(this.randomInterval(minSize,150));
+        this.setSize(this.randomInterval(minSize,maxPlanet));
         this.x = screenWidth + this.captureRange + this.randomInterval(0,screenWidth/3 - 2*this.captureRange);
         this.y = this.captureRange + this.randomInterval(0,screenHeight-2*this.captureRange);
         this.tintNum = 0xFFFFFF*Math.random();
@@ -52,6 +51,7 @@ class Planet extends Phaser.GameObjects.Sprite {
         this.setSize(planet.radius);
         this.tintNum = planet.tintNum;
         this.tint = this.tintNum;
+        this.frame = planet.frame;
     }
 
     //TODO: make function that compares ship velocity to max orbital velocity
