@@ -10,7 +10,7 @@ class Play extends Phaser.Scene {
         //loading assets
         this.load.image('orbiter','assets//background/ShipSample.png');
         this.load.image('blackHole', './assets/blackhole/blackHole.png');
-        this.load.spritesheet('blackHoleWaves', './assets/blackhole/swarmAnim.png',{frameWidth: 1395, frameHeight: 1080, startFrame: 0, endFrame: 9});
+        this.load.spritesheet('blackHoleWaves', './assets/blackhole/swarmAnim.png',{frameWidth: 1394, frameHeight: 1080, startFrame: 0, endFrame: 9});
         this.load.image('boundingRing','assets/planets/dottedRing.png');
         this.load.image('background','assets/background/BackgroundB1.png');
         this.load.image('menuBG', './assets/menu/menuBackground.png');
@@ -90,6 +90,7 @@ class Play extends Phaser.Scene {
         //scale up black hole waves by a magic number
         this.blackHoleWaves.displayWidth = screenWidth;
         this.blackHoleWaves.displayHeight = screenHeight*1.5;
+        this.blackHoleWaves.alpha = 1;
     
         //text configuration
         this.textConfig = {

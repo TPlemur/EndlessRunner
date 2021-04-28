@@ -13,7 +13,7 @@ class Settings extends Phaser.Scene {
         this.load.image('developer', './assets/menu/developerButton.png');
         this.load.image('easy', './assets/menu/easyButton.png');
         this.load.image('medium', './assets/menu/mediumButton.png');
-        this.load.image('hard', './assets/menu/hardButton.png');
+        this.load.image('impossible', './assets/menu/hardButton.png');
         this.load.image('plus', './assets/menu/plus.png');
         this.load.image('minus', './assets/menu/minus.png');
     }
@@ -59,11 +59,11 @@ class Settings extends Phaser.Scene {
         this.easy = this.add.sprite(screenCenterX - 200, screenCenterY - 200, 'easy').setInteractive().setScale(2).setOrigin(0.5,0.5);
         this.medium = this.add.sprite(screenCenterX, screenCenterY - 200, 'medium').setInteractive().setScale(2).setOrigin(0.5,0.5);
         this.medium.setTint(169,166,166); //Start game with medium settings
-        this.hard = this.add.sprite(screenCenterX + 200, screenCenterY - 200, 'hard').setInteractive().setScale(2).setOrigin(0.5,0.5);
+        this.impossible = this.add.sprite(screenCenterX + 200, screenCenterY - 200, 'impossible').setInteractive().setScale(2).setOrigin(0.5,0.5);
         this.difficultyText = this.add.text(screenCenterX, screenCenterY - 350, "Difficulty Selection", this.textConfig).setOrigin(0.5,0.5);
         this.button(this.easy, this);
         this.button(this.medium, this);
-        this.button(this.hard, this);
+        this.button(this.impossible, this);
 
         this.bgVolumeMinus = this.add.sprite(screenCenterX - 200, screenCenterY + 50, 'minus').setInteractive().setScale(0.05);
         this.bgVolumePlus = this.add.sprite(screenCenterX + 200, screenCenterY + 50, 'plus').setInteractive().setScale(0.05);
@@ -130,7 +130,7 @@ class Settings extends Phaser.Scene {
             this.whichButton = 1
             this.difficulty();
         }
-        else if(button == this.hard){
+        else if(button == this.impossible){
             this.whichButton = 2
             this.difficulty();
         }
@@ -143,7 +143,7 @@ class Settings extends Phaser.Scene {
 
     actionOnHover(button){
         //Scale Button
-        if(button == this.backBtn || button == this.easy || button == this.medium || button == this.hard || button == this.developer){
+        if(button == this.backBtn || button == this.easy || button == this.medium || button == this.impossible || button == this.developer){
             button.setScale(1.8); 
         }
         else{
@@ -153,7 +153,7 @@ class Settings extends Phaser.Scene {
 
     actionOnHoverOut(button){
         //Scale Button
-        if(button == this.backBtn || button == this.easy || button == this.medium || button == this.hard || button == this.developer){
+        if(button == this.backBtn || button == this.easy || button == this.medium || button == this.impossible || button == this.developer){
             button.setScale(2); 
         }
         else{
@@ -164,7 +164,7 @@ class Settings extends Phaser.Scene {
     difficulty(){
         if(this.whichButton == 0){
             this.medium.clearTint();
-            this.hard.clearTint();
+            this.impossible.clearTint();
             this.easy.setTint(169,166,166);
             //update settings 
             shipMoveSpeed = 300;   //range: 300-800    default: 500    increment: 100 
@@ -181,7 +181,7 @@ class Settings extends Phaser.Scene {
         }
         else if(this.whichButton == 1){
             this.easy.clearTint();
-            this.hard.clearTint();
+            this.impossible.clearTint();
             this.medium.setTint(169,166,166); 
             //update settings 
             shipMoveSpeed = 500;     //range: 300-800    default: 500    increment: 100 
@@ -197,7 +197,7 @@ class Settings extends Phaser.Scene {
         else if(this.whichButton == 2){
             this.easy.clearTint();
             this.medium.clearTint();
-            this.hard.setTint(169,166,166);
+            this.impossible.setTint(169,166,166);
             //update settings 
             shipMoveSpeed = 800;     //range: 300-800    default: 500    increment: 100 
             captureScale = 1.5;      //range: 1.5-3      default: 2.5    increment: 0.5
