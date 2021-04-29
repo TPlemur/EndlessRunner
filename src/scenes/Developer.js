@@ -10,8 +10,8 @@ class Developer extends Phaser.Scene {
         this.load.image('menuBG', './assets/menu/menuBackground.png');
         this.load.image('menuBGStars', './assets/menu/menuBackgroundStars.png');
         this.load.image('backButton', './assets/buttons/Back.png');
-        this.load.image('plus', './assets/menu/plus.png');
-        this.load.image('minus', './assets/menu/minus.png');
+        this.load.image('plus', './assets/buttons/Plus.png');
+        this.load.image('minus', './assets/buttons/Minus.png');
 
         this.load.audio('click', './assets/menu/operationClick.wav'); //Temporarily adding source here: https://freesound.org/people/JonnyRuss01/sounds/478197/
     }
@@ -53,7 +53,7 @@ class Developer extends Phaser.Scene {
         this.maxPlanetIncrement = 10;
 
         //Sets the scaling of the minus and plus button
-        this.buttonScale = 0.05;
+        this.buttonScale = buttonScale;
 
         //Fades in the Scene
         this.cameras.main.fadeIn(500);
@@ -88,7 +88,7 @@ class Developer extends Phaser.Scene {
         this.textConfig = {
             fontFamily: 'Courier',
             fontSize: '60px',
-            color: '#9d9db0',
+            color: fontColor,
             backgroundColor: null,
             align: 'center',
             padding: {
@@ -356,7 +356,7 @@ class Developer extends Phaser.Scene {
             button.setScale(0.4); 
         }
         else{
-            button.setScale(0.03);
+            button.setScale(buttonScale - 0.05);
         }
     }
 
@@ -366,7 +366,7 @@ class Developer extends Phaser.Scene {
             button.setScale(0.5); 
         }
         else{
-            button.setScale(0.05);
+            button.setScale(buttonScale);
         }
     }
 }

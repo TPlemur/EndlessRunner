@@ -66,7 +66,7 @@ class End extends Phaser.Scene {
         this.textConfig = {
             fontFamily: 'Courier',
             fontSize: '200px',
-            color: '#707081',
+            color: fontColor,
             backgroundColor: null,
             align: 'right',
             padding: {
