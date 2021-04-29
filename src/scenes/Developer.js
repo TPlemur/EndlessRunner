@@ -44,6 +44,10 @@ class Developer extends Phaser.Scene {
         this.accelerationMin = 0;
         this.accelerationIncrement = 0.05;
 
+        this.minPlanetMax = 150;
+        this.minPlanetMin = 40;
+        this.minPlanetIncrement = 10;
+
         //Sets the scaling of the minus and plus button
         this.buttonScale = 0.05;
 
@@ -151,6 +155,13 @@ class Developer extends Phaser.Scene {
         this.button(this.accelerationMinus, this, this.accelerationDisplay, this.sfxConfig);
         this.button(this.accelerationPlus, this, this.accelerationDisplay, this.sfxConfig);
 
+        //Min Planet Scale
+        this.minPlanetMinus = this.add.sprite(screenWidth - screenCenterX/2, screenCenterY, 'minus').setInteractive().setScale(this.buttonScale);
+        this.minPlanetPlus = this.add.sprite(screenWidth - screenCenterX/2 + 300, screenCenterY, 'plus').setInteractive().setScale(this.buttonScale);
+        this.minPlanetText = this.add.text(screenWidth - screenCenterX/2 + 150, screenCenterY- 100, "Min Planet Scale", this.textConfig).setOrigin(0.5,0.5)
+        this.minPlanetDisplay = this.add.text(screenWidth - screenCenterX/2 + 150, screenCenterY, minPlanet, this.textConfig).setOrigin(0.5,0.5)
+        this.button(this.minPlanetMinus, this, this.minPlanetDisplay, this.sfxConfig);
+        this.button(this.minPlanetPlus, this, this.minPlanetDisplay, this.sfxConfig);
     }
 
     update(){
@@ -286,7 +297,22 @@ class Developer extends Phaser.Scene {
                 gameAcceleration -= this.accelerationIncrement;
                 text.text = Math.round(gameAcceleration * 100) / 100;
             }
-        }       
+        }     
+        //minPlanet Scale
+        else if(button == this.minPlanetPlus){
+            this.clickSound.play(sfxConfig);
+            if(minPlanet < this.minPlanetMax){
+                minPlanet += this.minPlanetIncrement;
+               text.text = minPlanet;
+            }
+        }
+        else if(button == this.minPlanetMinus){
+            this.clickSound.play(sfxConfig);
+            if(minPlanet > this.minPlanetMin){
+                minPlanet -= this.minPlanetIncrement;
+               text.text = minPlanet;
+            }
+        }    
     }
 
     actionOnHover(button){
