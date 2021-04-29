@@ -8,9 +8,10 @@ class Menu extends Phaser.Scene{
     preload(){
         //Load Images
         this.load.image('menuBG', './assets/menu/menuBackground.png');
-        this.load.image('launchButton', './assets/menu/menuLaunchButton.png');
-        this.load.image('creditsButton', './assets/menu/menuCreditsButton.png');
-        this.load.image('settingsButton', '/assets/menu/settingsButton.png');
+        this.load.image('bgPlanet', './assets/buttons/planetBackground.png');
+        this.load.image('launchButton', './assets/buttons/Launch.png');
+        this.load.image('creditsButton', './assets/buttons/Credit.png');
+        this.load.image('settingsButton', './assets/buttons/Options.png');
         this.load.image('menuBGStars', './assets/menu/menuBackgroundStars.png');
         this.load.image('title', './assets/menu/menuTitle.png');
         this.load.image('cursorParticles', './assets/menu/cursorParticles.png');
@@ -52,6 +53,8 @@ class Menu extends Phaser.Scene{
         //Set background that is tileable
         this.menuBackground = this.add.tileSprite(0, 0, game.config.width, game.config.height, "menuBG").setOrigin(0,0).setScrollFactor(0);
         this.menuBackgroundStars = this.add.tileSprite(0, 0, game.config.width, game.config.height, "menuBGStars").setOrigin(0,0).setScrollFactor(0);
+        this.bgPlanet = this.add.sprite(screenCenterX, screenCenterY, 'bgPlanet').setScale(1.4);
+
 
         //Create a particle emitter to shoot flames out of the mouse
         this.mouseFlameEmitter = this.add.particles('cursorParticles').createEmitter({
@@ -67,24 +70,24 @@ class Menu extends Phaser.Scene{
         });
 
         //Initialize Title
-        this.title = this.add.sprite(screenCenterX, screenCenterY - 300, 'title').setScale(200);
+        this.title = this.add.sprite(screenCenterX, screenCenterY - 420, 'title').setScale(200);
 
         //Initialize Particles and Emitter
         this.rocketParticles = this.add.particles('menuBGStars').setScale(1);
         this.rocketEmitter = this.rocketParticles.createEmitter().setPosition(-1000,0);
         
         //Buttons
-        this.launchBtn = this.add.sprite(screenCenterX, screenCenterY + 50, 'launchButton').setInteractive().setScale(2); //Initialize the button
+        this.launchBtn = this.add.sprite(screenCenterX, screenCenterY - 180, 'launchButton').setInteractive().setScale(0.9); //Initialize the button
         this.launchBtn.on('pointerover', () => this.actionOnHover(this.launchBtn, this.rocketEmitter)); //What happens when you hover over
         this.launchBtn.on('pointerout', () => this.actionOnHoverOut(this.launchBtn, this.rocketEmitter)); //What happens when you hover out
         this.launchBtn.on('pointerdown', () => this.actionOnClick(this.launchBtn, this, this.menuBGMusic, this.mouseFlameEmitter, this.sfxConfig)); //What happens when you click   
         
-        this.creditsBtn = this.add.sprite(screenCenterX, screenCenterY + 350, 'creditsButton').setInteractive().setScale(2);
+        this.creditsBtn = this.add.sprite(screenCenterX, screenCenterY + 40, 'creditsButton').setInteractive().setScale(0.9);
         this.creditsBtn.on('pointerover', () => this.actionOnHover(this.creditsBtn, this.rocketEmitter)); 
         this.creditsBtn.on('pointerout', () => this.actionOnHoverOut(this.creditsBtn, this.rocketEmitter)); 
         this.creditsBtn.on('pointerdown', () => this.actionOnClick(this.creditsBtn, this, this.menuBGMusic, this.mouseFlameEmitter, this.sfxConfig));  
 
-        this.settingsBtn = this.add.sprite(screenCenterX, screenCenterY + 200, 'settingsButton').setInteractive().setScale(2);
+        this.settingsBtn = this.add.sprite(screenCenterX, screenCenterY + 260, 'settingsButton').setInteractive().setScale(0.9);
         this.settingsBtn.on('pointerover', () => this.actionOnHover(this.settingsBtn, this.rocketEmitter)); 
         this.settingsBtn.on('pointerout', () => this.actionOnHoverOut(this.settingsBtn, this.rocketEmitter)); 
         this.settingsBtn.on('pointerdown', () => this.actionOnClick(this.settingsBtn, this, this.menuBGMusic, this.mouseFlameEmitter, this.sfxConfig));  
@@ -141,10 +144,10 @@ class Menu extends Phaser.Scene{
         //Start Particles
         emitter.setPosition(button.x, button.y);
         emitter.setBlendMode(Phaser.BlendModes.ADD);  
-        emitter.setSpeed(150).setScale(0.1).setLifespan(800);
+        emitter.setSpeed(100).setScale(0.2).setLifespan(800);
          
         //Scale Button
-        button.setScale(1.8); 
+        button.setScale(0.8); 
     }
 
     actionOnHoverOut(button, emitter){
@@ -152,7 +155,7 @@ class Menu extends Phaser.Scene{
         emitter.setPosition(button.x, button.y).setSpeed(0); 
 
         //Scale Button
-        button.setScale(2);
+        button.setScale(0.9);
     }
 
     parallaxBackground(){
