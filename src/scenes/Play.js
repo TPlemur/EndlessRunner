@@ -139,8 +139,6 @@ class Play extends Phaser.Scene {
     }
 
     update() {
-        globalSpeed +=gameAcceleration;
-
         //update the orbiter
         if (this.gameRuningFlag) {
             //run the orbiter
@@ -203,6 +201,9 @@ class Play extends Phaser.Scene {
         if (!this.orbirter.isOrbiting
             && this.orbirter.checkDist(this.targetPlanet) > this.lastDist
             && this.lastDist < this.targetPlanet.captureRange) {
+
+            //accelerate the game
+            globalSpeed += gameAcceleration;
 
             //play success audio
             this.successSound.play(this.sfxConfig);
