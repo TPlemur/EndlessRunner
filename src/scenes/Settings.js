@@ -55,7 +55,7 @@ class Settings extends Phaser.Scene {
         this.textConfig = {
             fontFamily: 'Courier',
             fontSize: '80px',
-            color: '#707081',
+            color: '#9d9db0',
             backgroundColor: null,
             align: 'center',
             padding: {

@@ -48,6 +48,10 @@ class Developer extends Phaser.Scene {
         this.minPlanetMin = 40;
         this.minPlanetIncrement = 10;
 
+        this.maxPlanetMax = 160;
+        this.maxPlanetMin = 50;
+        this.maxPlanetIncrement = 10;
+
         //Sets the scaling of the minus and plus button
         this.buttonScale = 0.05;
 
@@ -84,7 +88,7 @@ class Developer extends Phaser.Scene {
         this.textConfig = {
             fontFamily: 'Courier',
             fontSize: '60px',
-            color: '#707081',
+            color: '#9d9db0',
             backgroundColor: null,
             align: 'center',
             padding: {
@@ -162,6 +166,14 @@ class Developer extends Phaser.Scene {
         this.minPlanetDisplay = this.add.text(screenWidth - screenCenterX/2 + 150, screenCenterY, minPlanet, this.textConfig).setOrigin(0.5,0.5)
         this.button(this.minPlanetMinus, this, this.minPlanetDisplay, this.sfxConfig);
         this.button(this.minPlanetPlus, this, this.minPlanetDisplay, this.sfxConfig);
+
+        //Max Planet Scale
+        this.maxPlanetMinus = this.add.sprite(screenWidth - screenCenterX/2, screenCenterY + screenCenterY/2, 'minus').setInteractive().setScale(this.buttonScale);
+        this.maxPlanetPlus = this.add.sprite(screenWidth - screenCenterX/2 + 300, screenCenterY + screenCenterY/2, 'plus').setInteractive().setScale(this.buttonScale);
+        this.maxPlanetText = this.add.text(screenWidth - screenCenterX/2 + 150, screenCenterY + screenCenterY/2 - 100, "Max Planet Scale", this.textConfig).setOrigin(0.5,0.5)
+        this.maxPlanetDisplay = this.add.text(screenWidth - screenCenterX/2 + 150, screenCenterY + screenCenterY/2, maxPlanet, this.textConfig).setOrigin(0.5,0.5)
+        this.button(this.maxPlanetMinus, this, this.maxPlanetDisplay, this.sfxConfig);
+        this.button(this.maxPlanetPlus, this, this.maxPlanetDisplay, this.sfxConfig);
     }
 
     update(){
@@ -302,6 +314,10 @@ class Developer extends Phaser.Scene {
         else if(button == this.minPlanetPlus){
             this.clickSound.play(sfxConfig);
             if(minPlanet < this.minPlanetMax){
+                if(minPlanet >= maxPlanet - 10){
+                    maxPlanet += this.maxPlanetIncrement;
+                    this.maxPlanetDisplay.text = maxPlanet;
+                }
                 minPlanet += this.minPlanetIncrement;
                text.text = minPlanet;
             }
@@ -312,7 +328,22 @@ class Developer extends Phaser.Scene {
                 minPlanet -= this.minPlanetIncrement;
                text.text = minPlanet;
             }
-        }    
+        }   
+        //maxPlanet Scale
+        else if(button == this.maxPlanetPlus){
+            this.clickSound.play(sfxConfig);
+            if(maxPlanet < this.maxPlanetMax){
+                maxPlanet += this.maxPlanetIncrement;
+               text.text = maxPlanet;
+            }
+        }
+        else if(button == this.maxPlanetMinus){
+            this.clickSound.play(sfxConfig);
+            if(maxPlanet > this.maxPlanetMin && maxPlanet - 10> minPlanet){
+                maxPlanet -= this.maxPlanetIncrement;
+               text.text = maxPlanet;
+            }
+        }     
     }
 
     actionOnHover(button){
