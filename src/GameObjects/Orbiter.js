@@ -42,10 +42,10 @@ class Orbiter extends Phaser.GameObjects.Sprite {
     update(){
         //Increments the angle of the ship, defines speed and direction of rotation
         if(this.isClockwise){
-            this.period += this.movmentSpeed/this.rad;
+            this.period += this.movmentSpeed/this.rad *globalSpeed;
         }
         else{
-            this.period -= this.movmentSpeed/this.rad; 
+            this.period -= this.movmentSpeed/this.rad *globalSpeed; 
         }
         //move appropreatly
         if(this.isOrbiting){
@@ -76,7 +76,7 @@ class Orbiter extends Phaser.GameObjects.Sprite {
         this.isOrbiting = true;
         //set the period to the correct angle for the current position
         this.period = Math.atan2((this.y-this.originY),(this.x-this.originX));
-        this.movmentSpeed = (shipMoveSpeed/this.rad)*globalSpeed //adjust speed for orbit, bigger orbit = smaller speed, const is a random number
+        this.movmentSpeed = (shipMoveSpeed/this.rad) //adjust speed for orbit, bigger orbit = smaller speed, const is a random number
         
         //make an assumption
         this.isClockwise = true;
@@ -157,7 +157,7 @@ class Orbiter extends Phaser.GameObjects.Sprite {
     //maintain liner motion 
     shoot(){
         //Move the approprate distance and preportion
-        this.x += Math.cos(this.angle*(1/this.degRadConversion))*this.movmentSpeed
-        this.y += Math.sin(this.angle*1/this.degRadConversion)*this.movmentSpeed
+        this.x += Math.cos(this.angle*(1/this.degRadConversion))*this.movmentSpeed*globalSpeed
+        this.y += Math.sin(this.angle*1/this.degRadConversion)*this.movmentSpeed*globalSpeed
     }
 }

@@ -10,7 +10,7 @@ class Play extends Phaser.Scene {
         //loading assets
         this.load.image('orbiter', 'assets/newShip.png');
         this.load.image('blackHole', './assets/blackhole/blackHole.png');
-        this.load.spritesheet('blackHoleWaves', './assets/blackhole/swarmAnim.png', { frameWidth: 1395, frameHeight: 1080, startFrame: 0, endFrame: 9 });
+        this.load.spritesheet('blackHoleWaves', './assets/blackhole/newSwarmSpriteSheet.png', { frameWidth: 1440, frameHeight: 1080, startFrame: 0, endFrame: 9 });
         this.load.image('boundingRing', 'assets/planets/dottedRing.png');
         this.load.image('background', 'assets/background/BackgroundB1.png');
         this.load.image('menuBG', './assets/menu/menuBackground.png');
@@ -67,11 +67,12 @@ class Play extends Phaser.Scene {
         this.lastDist = screenHeight + screenWidth; // var should be bigger than screen at start, but doesn't need to be anything specific
         this.minSize = 100; //smallest randomly generated radious for planets
         gameScore = 0; //set the score to 0
+        globalSpeed = 1;//reset the global speed
 
 
 
         //background patch for black hole
-        this.holeChaser = this.add.rectangle(0, 0, screenWidth, screenHeight, 0x723105).setOrigin(1, 0);
+        this.holeChaser = this.add.rectangle(0, 0, screenWidth, screenHeight, 0x703004).setOrigin(1, 0);
 
         //Black Hole Creation
         this.blackHoleWaves = new Blackhole(this, screenWidth / 1.4, screenCenterY, 'blackHoleWaves').setScale(0.5); //blackHoleWaves are the waves that move and collide with the ship, the waves move up and down for visual sakes randomly
@@ -138,7 +139,7 @@ class Play extends Phaser.Scene {
     }
 
     update() {
-        //update the orbiter]
+        //update the orbiter
         if (this.gameRuningFlag) {
             //run the orbiter
             this.orbirter.update();
@@ -200,6 +201,9 @@ class Play extends Phaser.Scene {
         if (!this.orbirter.isOrbiting
             && this.orbirter.checkDist(this.targetPlanet) > this.lastDist
             && this.lastDist < this.targetPlanet.captureRange) {
+
+            //accelerate the game
+            globalSpeed += gameAcceleration;
 
             //play success audio
             this.successSound.play(this.sfxConfig);
