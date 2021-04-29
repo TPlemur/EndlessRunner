@@ -16,6 +16,8 @@ class Settings extends Phaser.Scene {
         this.load.image('impossible', './assets/menu/hardButton.png');
         this.load.image('plus', './assets/menu/plus.png');
         this.load.image('minus', './assets/menu/minus.png');
+
+        this.load.audio('click', './assets/menu/operationClick.wav'); //Temporarily adding source here: https://freesound.org/people/JonnyRuss01/sounds/478197/
     }
 
     create(){
@@ -28,6 +30,7 @@ class Settings extends Phaser.Scene {
 
         //Initialize SFX Sounds
         this.buttonSound = this.sound.add('launchButtonSound');
+        this.clickSound = this.sound.add('click');
         this.sfxConfig ={
             volume: sfxVolume,
             loop: false,
@@ -69,23 +72,23 @@ class Settings extends Phaser.Scene {
         this.medium.setTint(169,166,166); //Start game with medium settings
         this.impossible = this.add.sprite(screenCenterX + 200, screenCenterY - 350, 'impossible').setInteractive().setScale(2).setOrigin(0.5,0.5);
         this.difficultyText = this.add.text(screenCenterX, screenCenterY - 450, "Difficulty Selection", this.textConfig).setOrigin(0.5,0.5);
-        this.button(this.easy, this);
-        this.button(this.medium, this);
-        this.button(this.impossible, this);
+        this.button(this.easy, this, null, this.sfxConfig);
+        this.button(this.medium, this, null, this.sfxConfig);
+        this.button(this.impossible, this, null, this.sfxConfig);
 
         this.bgVolumeMinus = this.add.sprite(screenCenterX - 200, screenCenterY - 100, 'minus').setInteractive().setScale(0.05);
         this.bgVolumePlus = this.add.sprite(screenCenterX + 200, screenCenterY - 100, 'plus').setInteractive().setScale(0.05);
         this.bgVolumeText = this.add.text(screenCenterX, screenCenterY - 200, "Background Music", this.textConfig).setOrigin(0.5,0.5)
         this.bgVolumeDisplay = this.add.text(screenCenterX, screenCenterY - 100, Math.round(musicVolume * 10), this.textConfig).setOrigin(0.5,0.5)
-        this.button(this.bgVolumeMinus, this, this.bgVolumeDisplay);
-        this.button(this.bgVolumePlus, this, this.bgVolumeDisplay);
+        this.button(this.bgVolumeMinus, this, this.bgVolumeDisplay, this.sfxConfig);
+        this.button(this.bgVolumePlus, this, this.bgVolumeDisplay, this.sfxConfig);
 
         this.sfxVolumeMinus = this.add.sprite(screenCenterX - 200, screenCenterY + 120, 'minus').setInteractive().setScale(0.05);
         this.sfxVolumePlus = this.add.sprite(screenCenterX + 200, screenCenterY + 120, 'plus').setInteractive().setScale(0.05);
         this.sfxVolumeText = this.add.text(screenCenterX, screenCenterY + 20, "SFX Volume", this.textConfig).setOrigin(0.5,0.5)
         this.sfxVolumeDisplay = this.add.text(screenCenterX, screenCenterY + 120, Math.round(sfxVolume * 10), this.textConfig).setOrigin(0.5,0.5)
-        this.button(this.sfxVolumeMinus, this, this.sfxVolumeDisplay);
-        this.button(this.sfxVolumePlus, this, this.sfxVolumeDisplay);
+        this.button(this.sfxVolumeMinus, this, this.sfxVolumeDisplay, this.sfxConfig);
+        this.button(this.sfxVolumePlus, this, this.sfxVolumeDisplay, this.sfxConfig);
 
         this.developer = this.add.sprite(screenCenterX, screenCenterY + 250, 'developer').setInteractive().setScale(2).setOrigin(0.5,0.5);
         this.button(this.developer, this, null, this.sfxConfig);
@@ -125,24 +128,28 @@ class Settings extends Phaser.Scene {
         }
         //Increments background music and updates text
         else if(button == this.bgVolumePlus){
+            this.clickSound.play(sfxConfig);
             if(Math.round(musicVolume * 10) / 10 < 1){
                musicVolume += 0.1;
                text.text = Math.round(musicVolume * 10);
             }
         }
         else if(button == this.bgVolumeMinus){
+            this.clickSound.play(sfxConfig);
             if(Math.round(musicVolume * 10) / 10 > 0) {
                 musicVolume -= 0.1;
                 text.text = Math.round(musicVolume * 10);
             }
         }
         else if(button == this.sfxVolumePlus){
+            this.clickSound.play(sfxConfig);
             if(Math.round(sfxVolume * 10) / 10 < 1){
                sfxVolume += 0.1;
                text.text = Math.round(sfxVolume * 10);
             }
         }
         else if(button == this.sfxVolumeMinus){
+            this.clickSound.play(sfxConfig);
             if(Math.round(sfxVolume * 10) / 10 > 0){
                sfxVolume -= 0.1;
                text.text = Math.round(sfxVolume * 10);
@@ -150,14 +157,17 @@ class Settings extends Phaser.Scene {
         }
         //Choose which difficulty is selected
         else if(button == this.easy){
+            this.clickSound.play(sfxConfig);
             this.whichButton = 0
             this.difficulty();
         }
         else if(button == this.medium){
+            this.clickSound.play(sfxConfig);
             this.whichButton = 1
             this.difficulty();
         }
         else if(button == this.impossible){
+            this.clickSound.play(sfxConfig);
             this.whichButton = 2
             this.difficulty();
         }
