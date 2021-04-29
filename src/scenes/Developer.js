@@ -38,6 +38,11 @@ class Developer extends Phaser.Scene {
         this.ringFadeMin = 0;
         this.ringFadeIncrement = 0.05;
 
+        this.printMouseOrbit = false;
+
+        this.accelerationMax = 1;
+        this.accelerationMin = 0;
+        this.accelerationIncrement = 0.05;
 
         //Sets the scaling of the minus and plus button
         this.buttonScale = 0.05;
@@ -56,7 +61,7 @@ class Developer extends Phaser.Scene {
             loop: false,
         }
 
-        this.backBtn = this.add.sprite(screenCenterX, screenCenterY + 350, 'backButton').setInteractive().setScale(2); //Initialize the button
+        this.backBtn = this.add.sprite(screenCenterX, screenCenterY + 450, 'backButton').setInteractive().setScale(2); //Initialize the button
         this.button(this.backBtn, this, null, this.sfxConfig);
 
         this.mouseFlameEmitter = this.add.particles('cursorParticles').createEmitter({
@@ -123,6 +128,29 @@ class Developer extends Phaser.Scene {
         this.ringFadeDisplay = this.add.text(screenCenterX, screenCenterY, Math.round(ringFade * 100)/ 10, this.textConfig).setOrigin(0.5,0.5)
         this.button(this.ringFadeMinus, this, this.ringFadeDisplay, this.sfxConfig);
         this.button(this.ringFadePlus, this, this.ringFadeDisplay, this.sfxConfig);
+
+        //Mouse Orbit
+        this.mouseOrbitMinus = this.add.sprite(screenCenterX - 150, screenCenterY + screenCenterY/2, 'minus').setInteractive().setScale(this.buttonScale);
+        this.mouseOrbitPlus = this.add.sprite(screenCenterX + 150, screenCenterY + screenCenterY/2, 'plus').setInteractive().setScale(this.buttonScale);
+        this.mouseOrbitText = this.add.text(screenCenterX, screenCenterY + screenCenterY/2 - 100, "Mouse Orbit", this.textConfig).setOrigin(0.5,0.5)
+        if(mouseOrbit == true){
+            this.printMouseOrbit = "true";
+        }
+        else {
+            this.printMouseOrbit = "false";
+        }
+        this.mouseOrbitDisplay = this.add.text(screenCenterX, screenCenterY + screenCenterY/2, this.printMouseOrbit, this.textConfig).setOrigin(0.5,0.5)
+        this.button(this.mouseOrbitMinus, this, this.mouseOrbitDisplay, this.sfxConfig);
+        this.button(this.mouseOrbitPlus, this, this.mouseOrbitDisplay, this.sfxConfig);
+
+        //Game Acceleration Scale
+        this.accelerationMinus = this.add.sprite(screenWidth - screenCenterX/2, screenCenterY - screenCenterY/2, 'minus').setInteractive().setScale(this.buttonScale);
+        this.accelerationPlus = this.add.sprite(screenWidth - screenCenterX/2 + 300, screenCenterY - screenCenterY/2, 'plus').setInteractive().setScale(this.buttonScale);
+        this.accelerationText = this.add.text(screenWidth - screenCenterX/2 + 150, screenCenterY - screenCenterY/2 - 100, "Game Acceleration", this.textConfig).setOrigin(0.5,0.5)
+        this.accelerationDisplay = this.add.text(screenWidth - screenCenterX/2 + 150, screenCenterY - screenCenterY/2, Math.round(gameAcceleration * 100) / 10, this.textConfig).setOrigin(0.5,0.5)
+        this.button(this.accelerationMinus, this, this.accelerationDisplay, this.sfxConfig);
+        this.button(this.accelerationPlus, this, this.accelerationDisplay, this.sfxConfig);
+
     }
 
     update(){
@@ -230,7 +258,35 @@ class Developer extends Phaser.Scene {
                 ringFade -= this.ringFadeIncrement;
                 text.text = Math.round(ringFade * 100) / 100;
             }
-        }          
+        }
+        //Mouse Orbit
+        else if(button == this.mouseOrbitPlus){
+            this.clickSound.play(sfxConfig);
+            mouseOrbit = true;
+            this.mouseOrbitText = "true";
+            text.text = this.mouseOrbitText
+        }   
+        else if(button == this.mouseOrbitMinus){
+            this.clickSound.play(sfxConfig);
+            mouseOrbit = false;
+            this.mouseOrbitText = "false";
+            text.text = this.mouseOrbitText
+        }      
+        //Game Acceleration
+        else if(button == this.accelerationPlus){
+            this.clickSound.play(sfxConfig);
+            if(Math.round(gameAcceleration * 100) / 100 < this.accelerationMax){
+                gameAcceleration += this.accelerationIncrement;
+                text.text = Math.round(gameAcceleration * 100) / 100;
+            }
+        }     
+        else if(button == this.accelerationMinus){
+            this.clickSound.play(sfxConfig);
+            if(Math.round(gameAcceleration * 100) / 100 > this.accelerationMin){
+                gameAcceleration -= this.accelerationIncrement;
+                text.text = Math.round(gameAcceleration * 100) / 100;
+            }
+        }       
     }
 
     actionOnHover(button){

@@ -32,6 +32,7 @@ let highScore = 0;
 let highScoreHolder; //if we want to have something like this
 let causeOfDeath = 'Not dead yet';
 let tweenspeed = 2; //time in seconds
+let whichButton = 1; // Game starts off with medium settings 0 = Easy, 1 = Medium, 2 = Hard
 
 //contol variables
 let shipMoveSpeed = 500;     //range: 300-800    default: 500    increment: 100                                 IMPLEMENTED SETTINGS DONE
@@ -42,9 +43,9 @@ let minPlanet = 50;          //range: 50-150     default: 50     increment: 10  
 let maxPlanet = 150;         //range: 50-150     default: 150    increment: 10 cannot be less than minPlanet    IMPLEMENTED
 let planetDecrement = 5;     //range: 0-10       default: 5      increment: 1                                   IMPLEMENTED SETTINGS DONE
 let holeSpeed = 0.2;         //range: 0-1        default: 0.2    increment: 0.1                                 IMPLEMENTED SETTINGS DONE
-let mouseOrbit = false;      //range: bool       default: false                                                 IMPLEMENTED
+let mouseOrbit = false;      //range: bool       default: false                                                 IMPLEMENTED SETTINGS DONE
 let gameAcceleration = 0.05; //range: 1-0.5      default: 0.05   increment: 0.5
-let ringFade = 0.1;          //range: 0-1        default: 0.1    increment: 0.05                                IMPLEMENTED
+let ringFade = 0.1;          //range: 0-1        default: 0.1    increment: 0.05                                IMPLEMENTED SETTINGS DONE
 
 //define screen variables
 let screenCenterX = screenWidth / 2;

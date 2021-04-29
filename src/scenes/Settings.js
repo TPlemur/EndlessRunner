@@ -21,7 +21,6 @@ class Settings extends Phaser.Scene {
     }
 
     create(){
-        this.whichButton = 1; //0 = Easy, 1 = Medium, 2 = Hard
         //Fades in the Scene
         this.cameras.main.fadeIn(500);
 
@@ -36,7 +35,7 @@ class Settings extends Phaser.Scene {
             loop: false,
         }
 
-        this.backBtn = this.add.sprite(screenCenterX, screenCenterY + 400, 'backButton').setInteractive().setScale(2); //Initialize the button
+        this.backBtn = this.add.sprite(screenCenterX, screenCenterY + 450, 'backButton').setInteractive().setScale(2); //Initialize the button
         this.button(this.backBtn, this, null, this.sfxConfig);
 
 
@@ -69,8 +68,16 @@ class Settings extends Phaser.Scene {
         //Increment Buttons and add text
         this.easy = this.add.sprite(screenCenterX - 200, screenCenterY - 350, 'easy').setInteractive().setScale(2).setOrigin(0.5,0.5);
         this.medium = this.add.sprite(screenCenterX, screenCenterY - 350, 'medium').setInteractive().setScale(2).setOrigin(0.5,0.5);
-        this.medium.setTint(169,166,166); //Start game with medium settings
         this.impossible = this.add.sprite(screenCenterX + 200, screenCenterY - 350, 'impossible').setInteractive().setScale(2).setOrigin(0.5,0.5);
+        if(whichButton == 0){
+            this.easy.setTint(169,166,166);
+        }
+        else if(whichButton == 1){
+            this.medium.setTint(169,166,166);
+        }
+        else if(whichButton == 2){
+            this.impossible.setTint(169,166,166);
+        }
         this.difficultyText = this.add.text(screenCenterX, screenCenterY - 450, "Difficulty Selection", this.textConfig).setOrigin(0.5,0.5);
         this.button(this.easy, this, null, this.sfxConfig);
         this.button(this.medium, this, null, this.sfxConfig);
@@ -158,17 +165,17 @@ class Settings extends Phaser.Scene {
         //Choose which difficulty is selected
         else if(button == this.easy){
             this.clickSound.play(sfxConfig);
-            this.whichButton = 0
+            whichButton = 0
             this.difficulty();
         }
         else if(button == this.medium){
             this.clickSound.play(sfxConfig);
-            this.whichButton = 1
+            whichButton = 1
             this.difficulty();
         }
         else if(button == this.impossible){
             this.clickSound.play(sfxConfig);
-            this.whichButton = 2
+            whichButton = 2
             this.difficulty();
         }
         //Developer Mode
@@ -199,7 +206,7 @@ class Settings extends Phaser.Scene {
     }
         //Sets diffiuclty values and tints
     difficulty(){
-        if(this.whichButton == 0){
+        if(whichButton == 0){
             this.medium.clearTint();
             this.impossible.clearTint();
             this.easy.setTint(169,166,166);
@@ -216,7 +223,7 @@ class Settings extends Phaser.Scene {
             
 
         }
-        else if(this.whichButton == 1){
+        else if(whichButton == 1){
             this.easy.clearTint();
             this.impossible.clearTint();
             this.medium.setTint(169,166,166); 
@@ -231,7 +238,7 @@ class Settings extends Phaser.Scene {
             gameAcceleration = 0.05; //range: 1-0.5      default: 0.05   increment: 0.5
             ringFade = 0.1;          //range: 0-1        default: 0.1    increment: 0.05
         }
-        else if(this.whichButton == 2){
+        else if(whichButton == 2){
             this.easy.clearTint();
             this.medium.clearTint();
             this.impossible.setTint(169,166,166);
