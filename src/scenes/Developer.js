@@ -12,7 +12,9 @@ class Developer extends Phaser.Scene {
         this.load.image('backButton', './assets/buttons/Back.png');
         this.load.image('plus', './assets/buttons/Plus.png');
         this.load.image('minus', './assets/buttons/Minus.png');
-
+        this.load.atlas('planets', 'assets/planets/planets.png', 'assets/planets/planets.json');
+        this.load.image('boundingRing', 'assets/planets/dottedRing.png');
+        this.load.image('orbiter', 'assets/newShip.png');
         this.load.audio('click', './assets/menu/operationClick.wav'); //Temporarily adding source here: https://freesound.org/people/JonnyRuss01/sounds/478197/
     }
 
@@ -61,6 +63,25 @@ class Developer extends Phaser.Scene {
         this.menuBackground = this.add.tileSprite(0, 0, game.config.width, game.config.height, "menuBG").setOrigin(0,0).setScrollFactor(0);
         this.menuBackgroundStars = this.add.tileSprite(0, 0, game.config.width, game.config.height, "menuBGStars").setOrigin(0,0).setScrollFactor(0);
         
+        //create background examples
+        let tempString = 'Planet' + String(Math.floor(Math.random() * (22) + 1)) + '.png' //generate random call for a planet
+        this.examplePlanet = new Planet(this,screenWidth / 2, screenHeight / 2, 'planets', tempString);
+        this.examplePlanet.setSize(100);
+        this.exampleRing = new Planet(this,screenWidth / 2, screenHeight / 2, 'boundingRing');
+        this.exampleRing.tint = 0xFFFFFF;
+        this.examplePlanet.tint = 0x000000;
+        this.orbirter = new Orbiter(this,
+            screenWidth / 2, screenHeight / 2, screenWidth / 2, screenHeight / 2, //placed at origin of orbit
+            this.examplePlanet.captureRange, 0, //radious, angle
+            'orbiter', keySPACE
+        )
+        //scale orbiter by magic numbers can changed for final asset
+        this.orbirter.displayWidth = 30;
+        this.orbirter.displayHeight = 30;
+        this.examplePlanet.alpha = 0.4;
+        this.exampleRing.alpha = 0.2;
+        this.orbirter.alpha = 0.4;
+
         //Initialize SFX Sounds
         this.buttonSound = this.sound.add('launchButtonSound');
         this.clickSound = this.sound.add('click');
@@ -190,6 +211,13 @@ class Developer extends Phaser.Scene {
         }
         
         this.parallaxBackground();
+
+        //update background planet and such
+        this.exampleRing.setSize(this.examplePlanet.captureRange);
+        this.exampleRing.angle += 0.1;
+        this.orbirter.period -= (shipMoveSpeed/this.orbirter.rad)/this.orbirter.rad*globalSpeed;
+        this.orbirter.orbit()
+        this.examplePlanet.setSize(minPlanet)
     }
 
     parallaxBackground(){
