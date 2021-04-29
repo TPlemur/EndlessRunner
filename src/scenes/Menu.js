@@ -55,7 +55,6 @@ class Menu extends Phaser.Scene{
         this.menuBackgroundStars = this.add.tileSprite(0, 0, game.config.width, game.config.height, "menuBGStars").setOrigin(0,0).setScrollFactor(0);
         this.bgPlanet = this.add.sprite(screenCenterX, screenCenterY, 'bgPlanet').setScale(1.4);
 
-
         //Create a particle emitter to shoot flames out of the mouse
         this.mouseFlameEmitter = this.add.particles('cursorParticles').createEmitter({
             x: -3000,
@@ -70,7 +69,8 @@ class Menu extends Phaser.Scene{
         });
 
         //Initialize Title
-        this.title = this.add.sprite(screenCenterX, screenCenterY - 420, 'title').setScale(200);
+        this.title = this.add.sprite(screenCenterX, screenCenterY - 425, 'title').setScale(200);
+        this.title.alpha = 0;
 
         //Initialize Particles and Emitter
         this.rocketParticles = this.add.particles('menuBGStars').setScale(1);
@@ -113,7 +113,7 @@ class Menu extends Phaser.Scene{
 
         //Will Launch the Menu up like a rocket
         if(this.launchMe == true){
-            this.launchMenu(this.blackScreen, this.title, this.launchBtn, this.creditsBtn, this.settingsBtn, this, this.rocketEmitter);
+            this.launchMenu(this.blackScreen, this.title, this.launchBtn, this.creditsBtn, this.settingsBtn, this, this.rocketEmitter, this.bgPlanet);
         }
     }
 
@@ -166,6 +166,10 @@ class Menu extends Phaser.Scene{
     }
 
     pulseTitle(){
+        if(this.title.scale <= 102.5) {
+            this.title.alpha += 0.04;
+        }
+
         if(this.title.scale > 2.5 && this.stopped == false){
             this.title.scale -= 3;
         }
@@ -189,13 +193,14 @@ class Menu extends Phaser.Scene{
         }
     }
 
-    launchMenu(blackScreen, title, launchButton, creditsButton, settingsButton, menuScene, emitter) {
+    launchMenu(blackScreen, title, launchButton, creditsButton, settingsButton, menuScene, emitter, planet) {
         //Moves elements up
         blackScreen.y -= 20;
         title.y -= 20;
         launchButton.y -= 20;
         creditsButton.y -= 20;
         settingsButton.y -= 20;
+        planet.y -= 20;
 
         //Get rid of the emitter to make it look more clean
         emitter.setAlpha(0);
