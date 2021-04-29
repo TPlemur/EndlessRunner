@@ -45,7 +45,7 @@ let planetDecrement = 5;     //range: 0-10       default: 5      increment: 1   
 let holeSpeed = 0.2;         //range: 0-1        default: 0.2    increment: 0.1                                 IMPLEMENTED SETTINGS DONE
 let mouseOrbit = false;      //range: bool       default: false                                                 IMPLEMENTED SETTINGS DONE
 let gameAcceleration = 0.05; //range: 1-0.5      default: 0.05   increment: 0.5                                             SETTINGS DONE
-let ringFade = 0.1;          //range: 0-1        default: 0.1    increment: 0.05                                IMPLEMENTED SETTINGS DONE
+let ringFade = 0.05;          //range: 0-1        default: 0.1    increment: 0.05                                IMPLEMENTED SETTINGS DONE
 
 //define screen variables
 let screenCenterX = screenWidth / 2;

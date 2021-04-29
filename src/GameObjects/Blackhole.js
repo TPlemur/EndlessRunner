@@ -74,7 +74,7 @@ class Blackhole extends Phaser.GameObjects.Sprite {
 
     // Moves the Black Hole Waves forward
     move(){
-        this.x += this.speed;
+        this.x += this.speed*globalSpeed;
     }
 
     // Moves Black Hole waves backwards if traveled to new planet

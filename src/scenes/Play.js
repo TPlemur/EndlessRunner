@@ -67,6 +67,7 @@ class Play extends Phaser.Scene {
         this.lastDist = screenHeight + screenWidth; // var should be bigger than screen at start, but doesn't need to be anything specific
         this.minSize = 100; //smallest randomly generated radious for planets
         gameScore = 0; //set the score to 0
+        globalSpeed = 1;//reset the global speed
 
 
 
@@ -138,7 +139,9 @@ class Play extends Phaser.Scene {
     }
 
     update() {
-        //update the orbiter]
+        globalSpeed +=gameAcceleration;
+
+        //update the orbiter
         if (this.gameRuningFlag) {
             //run the orbiter
             this.orbirter.update();
