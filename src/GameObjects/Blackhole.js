@@ -84,7 +84,7 @@ class Blackhole extends Phaser.GameObjects.Sprite {
                 targets: this,
                x: {from: this.x, to: screenWidth/1.4},
                ease:'Quad',
-               duration: 2000,
+               duration: tweenspeed,
             });
         }
         else{
@@ -92,7 +92,7 @@ class Blackhole extends Phaser.GameObjects.Sprite {
                 targets: this,
                x: {from: this.x, to: tx},
                ease:'Quad',
-               duration: 2000,
+               duration: tweenspeed,
             });
         }
     }
