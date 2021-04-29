@@ -240,7 +240,7 @@ class Settings extends Phaser.Scene {
             captureScale = 1.5;      //range: 1.5-3      default: 2.5    increment: 0.5
             minPlanet = 50;          //range: 50-150     default: 50     increment: 10
             maxPlanet = 100;         //range: 50-150     default: 150    increment: 10 cannot be less than minPlanet 
-            planetDecrement = 50;    //range: 0-10       default: 5      increment: 1
+            planetDecrement = 10;    //range: 0-10       default: 5      increment: 1
             holeSpeed = 1;           //range: 0-1        default: 0.2    increment: 0.1
             mouseOrbit = false;      //range: bool       default: false
             gameAcceleration = 0.05; //range: 1-0.5      default: 0.05   increment: 0.5
