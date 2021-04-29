@@ -9,11 +9,11 @@ class Settings extends Phaser.Scene {
     preload(){
         this.load.image('menuBG', './assets/menu/menuBackground.png');
         this.load.image('menuBGStars', './assets/menu/menuBackgroundStars.png');
-        this.load.image('backButton', './assets/menu/creditsBackButton.png');
-        this.load.image('developer', './assets/menu/developerButton.png');
-        this.load.image('easy', './assets/menu/easyButton.png');
-        this.load.image('medium', './assets/menu/mediumButton.png');
-        this.load.image('impossible', './assets/menu/hardButton.png');
+        this.load.image('backButton', './assets/buttons/Back.png');
+        this.load.image('developer', './assets/buttons/Gear.png');
+        this.load.image('easy', './assets/buttons/Easy.png');
+        this.load.image('medium', './assets/buttons/Medium.png');
+        this.load.image('impossible', './assets/buttons/Impossible.png');
         this.load.image('plus', './assets/menu/plus.png');
         this.load.image('minus', './assets/menu/minus.png');
 
@@ -35,7 +35,7 @@ class Settings extends Phaser.Scene {
             loop: false,
         }
 
-        this.backBtn = this.add.sprite(screenCenterX, screenCenterY + 450, 'backButton').setInteractive().setScale(2); //Initialize the button
+        this.backBtn = this.add.sprite(screenCenterX, screenCenterY + 450, 'backButton').setInteractive().setScale(0.5); //Initialize the button
         this.button(this.backBtn, this, null, this.sfxConfig);
 
 
@@ -66,17 +66,17 @@ class Settings extends Phaser.Scene {
         }
 
         //Increment Buttons and add text
-        this.easy = this.add.sprite(screenCenterX - 200, screenCenterY - 350, 'easy').setInteractive().setScale(2).setOrigin(0.5,0.5);
-        this.medium = this.add.sprite(screenCenterX, screenCenterY - 350, 'medium').setInteractive().setScale(2).setOrigin(0.5,0.5);
-        this.impossible = this.add.sprite(screenCenterX + 200, screenCenterY - 350, 'impossible').setInteractive().setScale(2).setOrigin(0.5,0.5);
+        this.easy = this.add.sprite(screenCenterX - 400, screenCenterY - 350, 'easy').setInteractive().setScale(0.5).setOrigin(0.5,0.5);
+        this.medium = this.add.sprite(screenCenterX, screenCenterY - 350, 'medium').setInteractive().setScale(0.5).setOrigin(0.5,0.5);
+        this.impossible = this.add.sprite(screenCenterX + 400, screenCenterY - 350, 'impossible').setInteractive().setScale(0.5).setOrigin(0.5,0.5);
         if(whichButton == 0){
-            this.easy.setTint(169,166,166);
+            this.easy.setTint(0x656565);
         }
         else if(whichButton == 1){
-            this.medium.setTint(169,166,166);
+            this.medium.setTint(0x656565);
         }
         else if(whichButton == 2){
-            this.impossible.setTint(169,166,166);
+            this.impossible.setTint(0x656565);
         }
         this.difficultyText = this.add.text(screenCenterX, screenCenterY - 450, "Difficulty Selection", this.textConfig).setOrigin(0.5,0.5);
         this.button(this.easy, this, null, this.sfxConfig);
@@ -97,7 +97,7 @@ class Settings extends Phaser.Scene {
         this.button(this.sfxVolumeMinus, this, this.sfxVolumeDisplay, this.sfxConfig);
         this.button(this.sfxVolumePlus, this, this.sfxVolumeDisplay, this.sfxConfig);
 
-        this.developer = this.add.sprite(screenCenterX, screenCenterY + 250, 'developer').setInteractive().setScale(2).setOrigin(0.5,0.5);
+        this.developer = this.add.sprite(screenCenterX, screenCenterY + 300, 'developer').setInteractive().setScale(0.15).setOrigin(0.5,0.5);
         this.button(this.developer, this, null, this.sfxConfig);
 
     }
@@ -187,18 +187,26 @@ class Settings extends Phaser.Scene {
 
     actionOnHover(button){
         //Scale Button
-        if(button == this.backBtn || button == this.easy || button == this.medium || button == this.impossible || button == this.developer){
-            button.setScale(1.8); 
+        if(button == this.backBtn || button == this.easy || button == this.medium || button == this.impossible){
+            button.setScale(0.4); 
+        }
+        else if(button == this.developer)
+        {
+            button.setScale(0.13);
         }
         else{
-            button.setScale(0.03);
+           button.setScale(0.04);
         }
     }
 
     actionOnHoverOut(button){
         //Scale Button
-        if(button == this.backBtn || button == this.easy || button == this.medium || button == this.impossible || button == this.developer){
-            button.setScale(2); 
+        if(button == this.backBtn || button == this.easy || button == this.medium || button == this.impossible){
+            button.setScale(0.5); 
+        }
+        else if(button == this.developer)
+        {
+            button.setScale(0.15);
         }
         else{
             button.setScale(0.05);
@@ -209,7 +217,7 @@ class Settings extends Phaser.Scene {
         if(whichButton == 0){
             this.medium.clearTint();
             this.impossible.clearTint();
-            this.easy.setTint(169,166,166);
+            this.easy.setTint(0x656565);
             //update settings 
             shipMoveSpeed = 300;   //range: 300-800    default: 500    increment: 100 
             captureScale = 3;      //range: 1.5-3      default: 2.5    increment: 0.5
@@ -226,7 +234,7 @@ class Settings extends Phaser.Scene {
         else if(whichButton == 1){
             this.easy.clearTint();
             this.impossible.clearTint();
-            this.medium.setTint(169,166,166); 
+            this.medium.setTint(0x656565);
             //update settings 
             shipMoveSpeed = 500;     //range: 300-800    default: 500    increment: 100 
             captureScale = 2.5;      //range: 1.5-3      default: 2.5    increment: 0.5
@@ -241,7 +249,7 @@ class Settings extends Phaser.Scene {
         else if(whichButton == 2){
             this.easy.clearTint();
             this.medium.clearTint();
-            this.impossible.setTint(169,166,166);
+            this.impossible.setTint(0x656565);
             //update settings 
             shipMoveSpeed = 800;     //range: 300-800    default: 500    increment: 100 
             captureScale = 1.5;      //range: 1.5-3      default: 2.5    increment: 0.5

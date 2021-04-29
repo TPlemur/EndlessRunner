@@ -9,7 +9,7 @@ class Developer extends Phaser.Scene {
     preload(){
         this.load.image('menuBG', './assets/menu/menuBackground.png');
         this.load.image('menuBGStars', './assets/menu/menuBackgroundStars.png');
-        this.load.image('backButton', './assets/menu/creditsBackButton.png');
+        this.load.image('backButton', './assets/buttons/Back.png');
         this.load.image('plus', './assets/menu/plus.png');
         this.load.image('minus', './assets/menu/minus.png');
 
@@ -69,7 +69,7 @@ class Developer extends Phaser.Scene {
             loop: false,
         }
 
-        this.backBtn = this.add.sprite(screenCenterX, screenCenterY + 450, 'backButton').setInteractive().setScale(2); //Initialize the button
+        this.backBtn = this.add.sprite(screenCenterX, screenCenterY + 450, 'backButton').setInteractive().setScale(0.5); //Initialize the button
         this.button(this.backBtn, this, null, this.sfxConfig);
 
         this.mouseFlameEmitter = this.add.particles('cursorParticles').createEmitter({
@@ -97,6 +97,10 @@ class Developer extends Phaser.Scene {
             },
             fixedWidth: 0
         }
+        //Developer Options Text
+        this.holeSpeedText = this.add.text(screenCenterX, screenCenterY - screenCenterY/2 - 230, "{ Developer Options }", this.textConfig).setOrigin(0.5,0.5)
+
+
         //Ship Speed
         this.shipSpeedMinus = this.add.sprite(screenWidth/6 - 150, screenCenterY - screenCenterY/2, 'minus').setInteractive().setScale(this.buttonScale);
         this.shipSpeedPlus = this.add.sprite(screenWidth/6 + 150, screenCenterY - screenCenterY/2, 'plus').setInteractive().setScale(this.buttonScale);
@@ -349,7 +353,7 @@ class Developer extends Phaser.Scene {
     actionOnHover(button){
         //Scale Button
         if(button == this.backBtn){
-            button.setScale(1.8); 
+            button.setScale(0.4); 
         }
         else{
             button.setScale(0.03);
@@ -359,7 +363,7 @@ class Developer extends Phaser.Scene {
     actionOnHoverOut(button){
         //Scale Button
         if(button == this.backBtn){
-            button.setScale(2); 
+            button.setScale(0.5); 
         }
         else{
             button.setScale(0.05);
