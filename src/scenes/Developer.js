@@ -34,6 +34,10 @@ class Developer extends Phaser.Scene {
         this.holeSpeedMin = 0;
         this.holeSpeedIncrement = 0.1;
 
+        this.ringFadeMax = 1;
+        this.ringFadeMin = 0;
+        this.ringFadeIncrement = 0.05;
+
 
         //Sets the scaling of the minus and plus button
         this.buttonScale = 0.05;
@@ -111,6 +115,14 @@ class Developer extends Phaser.Scene {
         this.holeSpeedDisplay = this.add.text(screenCenterX, screenCenterY - screenCenterY/2, Math.round(holeSpeed * 10), this.textConfig).setOrigin(0.5,0.5)
         this.button(this.holeSpeedMinus, this, this.holeSpeedDisplay, this.sfxConfig);
         this.button(this.holeSpeedPlus, this, this.holeSpeedDisplay, this.sfxConfig);
+
+        //Ring Fade Scale
+        this.ringFadeMinus = this.add.sprite(screenCenterX - 150, screenCenterY, 'minus').setInteractive().setScale(this.buttonScale);
+        this.ringFadePlus = this.add.sprite(screenCenterX + 150, screenCenterY, 'plus').setInteractive().setScale(this.buttonScale);
+        this.ringFadeText = this.add.text(screenCenterX, screenCenterY- 100, "Ring Fade Scale", this.textConfig).setOrigin(0.5,0.5)
+        this.ringFadeDisplay = this.add.text(screenCenterX, screenCenterY, Math.round(ringFade * 100)/ 10, this.textConfig).setOrigin(0.5,0.5)
+        this.button(this.ringFadeMinus, this, this.ringFadeDisplay, this.sfxConfig);
+        this.button(this.ringFadePlus, this, this.ringFadeDisplay, this.sfxConfig);
     }
 
     update(){
@@ -204,7 +216,21 @@ class Developer extends Phaser.Scene {
                 text.text = Math.round(holeSpeed * 10);
             }
         }
-          
+         //Ring fade scale
+         else if(button == this.ringFadePlus){
+            this.clickSound.play(sfxConfig);
+            if(Math.round(ringFade * 100) / 100 < this.ringFadeMax){
+                ringFade += this.ringFadeIncrement;
+                text.text = Math.round(ringFade * 100) / 100;
+            }
+        }
+        else if(button == this.ringFadeMinus){
+            this.clickSound.play(sfxConfig);
+            if(Math.round(ringFade * 100) / 100 > this.ringFadeMin){
+                ringFade -= this.ringFadeIncrement;
+                text.text = Math.round(ringFade * 100) / 100;
+            }
+        }          
     }
 
     actionOnHover(button){
