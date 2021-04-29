@@ -140,8 +140,10 @@ class Play extends Phaser.Scene {
     update() {
         //update the orbiter]
         if (this.gameRuningFlag) {
-
+            //run the orbiter
             this.orbirter.update();
+
+            //remove the instruction text after the first launch
             if (!this.orbirter.isOrbiting) {
                 this.instructions.destroy();
             }
@@ -250,13 +252,13 @@ class Play extends Phaser.Scene {
                 targets: this.bgStars00,
                 tilePositionX: { from: this.bgStars00.tilePositionX, to: this.bgStars00.tilePositionX + screenWidth / 6 },
                 ease: 'Quad',
-                duration: tweenspeed,
+                duration: 1000*tweenspeed,
             });
             this.tweens.add({
                 targets: this.bgStars01,
                 tilePositionX: { from: this.bgStars01.tilePositionX, to: this.bgStars01.tilePositionX + screenWidth / 12 },
                 ease: 'Quad',
-                duration: tweenspeed,
+                duration: 1000*tweenspeed,
             });
         }//end capture actions
         else {//set lastdist if no captue happens
