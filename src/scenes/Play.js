@@ -8,7 +8,7 @@ class Play extends Phaser.Scene {
 
     preload() {
         //loading assets
-        this.load.image('orbiter', 'assets//background/ShipSample.png');
+        this.load.image('orbiter', 'assets/newShip.png');
         this.load.image('blackHole', './assets/blackhole/blackHole.png');
         this.load.spritesheet('blackHoleWaves', './assets/blackhole/swarmAnim.png', { frameWidth: 1395, frameHeight: 1080, startFrame: 0, endFrame: 9 });
         this.load.image('boundingRing', 'assets/planets/dottedRing.png');
@@ -67,6 +67,7 @@ class Play extends Phaser.Scene {
         this.lastDist = screenHeight + screenWidth; // var should be bigger than screen at start, but doesn't need to be anything specific
         this.minSize = 100; //smallest randomly generated radious for planets
         gameScore = 0; //set the score to 0
+        globalSpeed = 1;//reset the global speed
 
 
 
@@ -138,10 +139,12 @@ class Play extends Phaser.Scene {
     }
 
     update() {
-        //update the orbiter]
+        //update the orbiter
         if (this.gameRuningFlag) {
-
+            //run the orbiter
             this.orbirter.update();
+
+            //remove the instruction text after the first launch
             if (!this.orbirter.isOrbiting) {
                 this.instructions.destroy();
             }
@@ -199,6 +202,9 @@ class Play extends Phaser.Scene {
             && this.orbirter.checkDist(this.targetPlanet) > this.lastDist
             && this.lastDist < this.targetPlanet.captureRange) {
 
+            //accelerate the game
+            globalSpeed += gameAcceleration;
+
             //play success audio
             this.successSound.play(this.sfxConfig);
 
@@ -250,13 +256,13 @@ class Play extends Phaser.Scene {
                 targets: this.bgStars00,
                 tilePositionX: { from: this.bgStars00.tilePositionX, to: this.bgStars00.tilePositionX + screenWidth / 6 },
                 ease: 'Quad',
-                duration: tweenspeed,
+                duration: 1000*tweenspeed,
             });
             this.tweens.add({
                 targets: this.bgStars01,
                 tilePositionX: { from: this.bgStars01.tilePositionX, to: this.bgStars01.tilePositionX + screenWidth / 12 },
                 ease: 'Quad',
-                duration: tweenspeed,
+                duration: 1000*tweenspeed,
             });
         }//end capture actions
         else {//set lastdist if no captue happens
