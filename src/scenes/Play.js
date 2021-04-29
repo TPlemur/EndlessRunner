@@ -104,7 +104,7 @@ class Play extends Phaser.Scene {
             'orbiter', keySPACE
         )
 
-        //scale up orbiter by magic numbers can changed for final asset
+        //scale orbiter by magic numbers can changed for final asset
         this.orbirter.displayWidth = 30;
         this.orbirter.displayHeight = 30;
 
