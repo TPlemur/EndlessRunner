@@ -30,6 +30,10 @@ class Developer extends Phaser.Scene {
         this.planetDecMin = 0;
         this.planetDecIncrement = 1;
 
+        this.holeSpeedMax = 1;
+        this.holeSpeedMin = 0;
+        this.holeSpeedIncrement = 0.1;
+
 
         //Sets the scaling of the minus and plus button
         this.buttonScale = 0.05;
@@ -99,6 +103,14 @@ class Developer extends Phaser.Scene {
         this.planetDecDisplay = this.add.text(screenWidth/6, screenCenterY + screenCenterY/2, planetDecrement, this.textConfig).setOrigin(0.5,0.5)
         this.button(this.planetDecMinus, this, this.planetDecDisplay, this.sfxConfig);
         this.button(this.planetDecPlus, this, this.planetDecDisplay, this.sfxConfig);
+
+        //Black Hole Speed Scale
+        this.holeSpeedMinus = this.add.sprite(screenCenterX - 150, screenCenterY - screenCenterY/2, 'minus').setInteractive().setScale(this.buttonScale);
+        this.holeSpeedPlus = this.add.sprite(screenCenterX + 150, screenCenterY - screenCenterY/2, 'plus').setInteractive().setScale(this.buttonScale);
+        this.holeSpeedText = this.add.text(screenCenterX, screenCenterY - screenCenterY/2 - 100, "Black Hole Speed", this.textConfig).setOrigin(0.5,0.5)
+        this.holeSpeedDisplay = this.add.text(screenCenterX, screenCenterY - screenCenterY/2, Math.round(holeSpeed * 10), this.textConfig).setOrigin(0.5,0.5)
+        this.button(this.holeSpeedMinus, this, this.holeSpeedDisplay, this.sfxConfig);
+        this.button(this.holeSpeedPlus, this, this.holeSpeedDisplay, this.sfxConfig);
     }
 
     update(){
@@ -177,8 +189,22 @@ class Developer extends Phaser.Scene {
                 text.text = planetDecrement
             }
         }
-        
-        
+        //Increments black hole speed scale
+        else if(button == this.holeSpeedPlus){
+            this.clickSound.play(sfxConfig);
+            if(Math.round(holeSpeed * 10) / 10 < this.holeSpeedMax){
+                holeSpeed += this.holeSpeedIncrement;
+                text.text = Math.round(holeSpeed * 10);
+            }
+        }
+        else if(button == this.holeSpeedMinus){
+            this.clickSound.play(sfxConfig);
+            if(Math.round(holeSpeed * 10) / 10> this.holeSpeedMin){
+                holeSpeed -= this.holeSpeedIncrement;
+                text.text = Math.round(holeSpeed * 10);
+            }
+        }
+          
     }
 
     actionOnHover(button){
