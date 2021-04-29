@@ -9,8 +9,8 @@ class Credits extends Phaser.Scene {
     preload(){
         this.load.image('menuBG', './assets/menu/menuBackground.png');
         this.load.image('menuBGStars', './assets/menu/menuBackgroundStars.png');
-        this.load.image('backButton', './assets/menu/creditsBackButton.png');
-    }
+        this.load.image('backButton', './assets/buttons/Back.png');
+        }
 
     create(){
         //Fades in the Scene
@@ -26,7 +26,7 @@ class Credits extends Phaser.Scene {
         this.menuBackground = this.add.tileSprite(0, 0, game.config.width, game.config.height, "menuBG").setOrigin(0,0).setScrollFactor(0);
         this.menuBackgroundStars = this.add.tileSprite(0, 0, game.config.width, game.config.height, "menuBGStars").setOrigin(0,0).setScrollFactor(0);
 
-        this.backBtn = this.add.sprite(screenCenterX, screenCenterY + 350, 'backButton').setInteractive().setScale(2); //Initialize the button
+        this.backBtn = this.add.sprite(screenCenterX, screenCenterY + 450, 'backButton').setInteractive().setScale(0.5); //Initialize the button
         this.backBtn.on('pointerover', this.actionOnHover); //What happens when you hover over
         this.backBtn.on('pointerout', this.actionOnHoverOut); //What happens when you hover out
         this.backBtn.on('pointerdown', () => this.actionOnClick(this, this.sfxConfig)); //What happens when you click   
@@ -72,12 +72,12 @@ class Credits extends Phaser.Scene {
 
     actionOnHover(){
         //Scale Button
-        this.setScale(1.8); 
+        this.setScale(0.4); 
     }
 
     actionOnHoverOut(){
         //Scale Button
-        this.setScale(2);
+        this.setScale(0.5);
     }
 
 }
