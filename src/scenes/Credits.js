@@ -41,6 +41,7 @@ class Credits extends Phaser.Scene {
         this.menuBackgroundStars = this.add.tileSprite(0, 0, game.config.width, game.config.height, "menuBGStars").setOrigin(0,0).setScrollFactor(0);
 
 
+        //Main text
         this.peopleHeading = this.add.text(screenCenterX, 30, "A game By:", this.textConfig).setOrigin(0.5,0);
         this.assetHeading  = this.add.text(screenCenterX, screenCenterY - 190, "Assets and Librarys:", this.textConfig).setOrigin(0.5,0);
         this.textConfig.fontSize = '60px'
