@@ -69,27 +69,22 @@ class Play extends Phaser.Scene {
         gameScore = 0; //set the score to 0
         globalSpeed = 1;//reset the global speed
 
-
-
-        //background patch for black hole
+        //Black Hole Creation
         this.holeChaser = this.add.rectangle(0, 0, screenWidth, screenHeight, 0x703004).setOrigin(1, 0);
-
-        //Black Hole wave Creation
         this.blackHoleWaves = new Blackhole(this, screenWidth / 1.4, screenCenterY, 'blackHoleWaves').setScale(0.5); //blackHoleWaves are the waves that move and collide with the ship, the waves move up and down for visual sakes randomly
-
-        //createing deadPlanet on top of the waves, but behind the main hole so it gets more propperly eaten
-        this.deadPlanet = new Planet(this, -200, 500, 'boundingRing');
-
-         //place the black hole itself
-         this.blackHole = new Blackhole(this, screenCenterX - 1150, screenCenterY, 'blackHole').setScale(1); //blackHole is the hole itself that rotates for visual sakes
-        
         this.blackHoleWaves.setOrigin(1, 0.5);
-        this.blackHoleWaves.play('wibble')
+        this.blackHoleWaves.play('wibble');
+        this.blackHole = new Blackhole(this, screenCenterX - 1150, screenCenterY, 'blackHole').setScale(1); //blackHole is the hole itself that rotates for visual sakes
+
         //creating planets that go in fron of the block hole
+        this.deadPlanet = new Planet(this, -200, 500, 'boundingRing');
+        
         let tempString = 'Planet' + String(Math.floor(Math.random() * (22) + 1)) + '.png' //generate random call for a planet
         this.targetPlanet = new Planet(this, 5 * screenWidth / 6, screenHeight / 2, 'planets', tempString);
+        
         tempString = 'Planet' + String(Math.floor(Math.random() * (22) + 1)) + '.png'
         this.orbitPlanet = new Planet(this, screenWidth / 2, screenHeight / 2, 'planets', tempString);
+        
         this.boundingRing = new Planet(this, 5 * screenWidth / 6, screenHeight / 2, 'boundingRing');
         this.boundingRing.tint = 0xFFFFFF;
 
@@ -252,11 +247,21 @@ class Play extends Phaser.Scene {
 
 
             //move everything to reset the world
-            this.deadPlanet.setTranslate(-this.deadPlanet.radius, this.deadPlanet.y, tweenspeed);
             this.targetPlanet.setTranslate(this.targetPlanet.x - screenWidth / 3, this.targetPlanet.y, tweenspeed);
             this.orbitPlanet.setTranslate(this.orbitPlanet.x - screenWidth / 3, this.orbitPlanet.y, tweenspeed);
             this.orbirter.setTranslate(this.orbitPlanet.x - screenWidth / 3, this.orbitPlanet.y, tweenspeed);
             this.boundingRing.setTranslate(this.targetPlanet.x - screenWidth / 3, this.targetPlanet.y, tweenspeed);
+
+            //suck deadplanet into the black hole
+            this.tweens.add({
+                targets: this.deadPlanet,
+                x: -5,
+                y: screenHeight/2,
+                displayHeight: 0,
+                displayWidth: 0,
+                ease: 'Quad',
+                duration: 1000*tweenspeed,
+            });   
 
             //increment socre and decrement min size of planets
             gameScore += 1;
