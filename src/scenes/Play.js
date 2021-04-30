@@ -156,7 +156,6 @@ class Play extends Phaser.Scene {
                 this.crashSound.play(this.sfxConfig);
 
                 this.gameRuningFlag = false
-                //this.orbiter.explode() UNIMPLEMENTED
                 this.add.text(game.config.width / 2, game.config.height / 2, 'GAME OVER', this.textConfig).setOrigin(0.5);
 
                 this.textConfig.fontSize = "100px";

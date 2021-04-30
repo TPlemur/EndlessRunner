@@ -131,6 +131,7 @@ class Orbiter extends Phaser.GameObjects.Sprite {
     checkCollision(planet) {
         if (this.checkDist(planet) <= planet.radius) {
             causeOfDeath = 'Crashed into a planet';
+            this.explode(planet);
             return true;
         }
         return false;
@@ -159,5 +160,23 @@ class Orbiter extends Phaser.GameObjects.Sprite {
         //Move the approprate distance and preportion
         this.x += Math.cos(this.angle*(1/this.degRadConversion))*this.movmentSpeed*globalSpeed
         this.y += Math.sin(this.angle*1/this.degRadConversion)*this.movmentSpeed*globalSpeed
+    }
+
+    //add pretty particles where the ship is
+    explode(planet){
+        let offsetDirx = 1;
+        if(this.x<planet.x){offsetDirx = -1};
+        let offsetDiry = 1;
+        if(this.y<planet.y){offsetDiry = -1};
+
+        this.scene.tweens.add({
+            targets: this,
+            x: planet.x + (this.x-planet.x) - offsetDirx*planet.radius/4,
+            y: planet.y + (this.y-planet.y) - offsetDiry*planet.radius/4,
+            displayHeight: 0,
+            displayWidth: 0,
+            ease:'Quad',
+            duration: tweenspeed*this.milisPerSec,
+        });
     }
 }
