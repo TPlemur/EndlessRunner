@@ -158,8 +158,8 @@ class Orbiter extends Phaser.GameObjects.Sprite {
     //maintain liner motion 
     shoot(){
         //Move the approprate distance and preportion
-        this.x += Math.cos(this.angle*(1/this.degRadConversion))*this.movmentSpeed*globalSpeed
-        this.y += Math.sin(this.angle*1/this.degRadConversion)*this.movmentSpeed*globalSpeed
+        this.x += Math.cos(this.angle*(1/this.degRadConversion))*this.movmentSpeed*globalSpeed*2
+        this.y += Math.sin(this.angle*1/this.degRadConversion)*this.movmentSpeed*globalSpeed*2
     }
 
     //add pretty particles where the ship is

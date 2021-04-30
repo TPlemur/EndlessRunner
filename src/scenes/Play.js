@@ -31,7 +31,6 @@ class Play extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('blackHoleWaves', { frames: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] }),
             frameRate: 10,
             repeat: -1
-
         })
 
         //load background
@@ -133,11 +132,18 @@ class Play extends Phaser.Scene {
         //change textConfig for GAME OVER text
         this.textConfig.fontSize = '200px';
 
+        this.orbitPlanet.rotDir = -1;
 
 
     }
 
     update() {
+
+        //rotate the planets
+        this.deadPlanet.angle -= 0.1*this.deadPlanet.rotDir
+        this.targetPlanet.angle -= 0.1*this.targetPlanet.rotDir
+        this.orbitPlanet.angle -= 0.1*this.orbitPlanet.rotDir
+
         //update the orbiter
         if (this.gameRuningFlag) {
             //run the orbiter

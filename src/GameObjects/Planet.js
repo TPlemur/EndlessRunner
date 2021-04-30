@@ -12,6 +12,7 @@ class Planet extends Phaser.GameObjects.Sprite {
         this.rotation = (2*Math.PI*Math.random())-Math.PI;
         this.tintNum = 0xFFFFFF*Math.random();
         this.tint = this.tintNum
+        this.rotDir = 1;
 
     }
 
@@ -40,6 +41,7 @@ class Planet extends Phaser.GameObjects.Sprite {
         this.y = this.captureRange + this.randomInterval(0,screenHeight-2*this.captureRange);
         this.tintNum = 0xFFFFFF*Math.random();
         this.tint = this.tintNum;
+        this.rotDir = this.randomInterval(1,3) - 2;
     }
 
     //set this planet to be visualy and mechanicly identical to another
@@ -52,6 +54,7 @@ class Planet extends Phaser.GameObjects.Sprite {
         this.tintNum = planet.tintNum;
         this.tint = this.tintNum;
         this.frame = planet.frame;
+        this.rotDir = planet.rotDir;
     }
 
     //TODO: make function that compares ship velocity to max orbital velocity
