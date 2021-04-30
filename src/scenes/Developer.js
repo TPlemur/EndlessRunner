@@ -19,6 +19,11 @@ class Developer extends Phaser.Scene {
     }
 
     create(){
+        //unset default setting buttons and reset the highScore
+        whichButton = 4;
+        highScore = 0;
+
+
         //Min, Max, Increment Values
         this.shipSpeedMax = 800;
         this.shipSpeedMin = 300;

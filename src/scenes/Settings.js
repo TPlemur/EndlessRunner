@@ -227,7 +227,8 @@ class Settings extends Phaser.Scene {
             holeSpeed = 0;         //range: 0-1        default: 0.2    increment: 0.1
             mouseOrbit = false;    //range: bool       default: false
             gameAcceleration = 0;  //range: 1-0.5      default: 0.05   increment: 0.5
-            ringFade = 0;          //range: 0-1        default: 0.1    increment: 0.05            
+            ringFade = 0;          //range: 0-1        default: 0.1    increment: 0.05
+            highScore = 0;         //reset highScore            
             
 
         }
@@ -245,6 +246,7 @@ class Settings extends Phaser.Scene {
             mouseOrbit = false;      //range: bool       default: false
             gameAcceleration = 0.05; //range: 1-0.5      default: 0.05   increment: 0.5
             ringFade = 0.1;          //range: 0-1        default: 0.1    increment: 0.05
+            highScore = 0;         //reset highScore 
         }
         else if(whichButton == 2){
             this.easy.clearTint();
@@ -259,7 +261,8 @@ class Settings extends Phaser.Scene {
             holeSpeed = 1;           //range: 0-1        default: 0.2    increment: 0.1
             mouseOrbit = false;      //range: bool       default: false
             gameAcceleration = 0.05; //range: 1-0.5      default: 0.05   increment: 0.5
-            ringFade = 1;            //range: 0-1        default: 0.1    increment: 0.05            
+            ringFade = 1;            //range: 0-1        default: 0.1    increment: 0.05
+            highScore = 0;         //reset highScore             
         }
     }
 }
