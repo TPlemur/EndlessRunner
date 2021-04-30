@@ -1,17 +1,13 @@
 //Orbiter.js
 //Defines the orbiter class, and implements its functionality
 
-//note: the rocket sprite should point to the right
-
 //functions desingend for outside use:
 
-//update()  required for functionality
-//setOrbit(x,y) orbit around x,y
+//update()  required for functionality - handles keyInput
 //setTranslate(x,y,time) translate origin to x,y over time
-//setShoot() move forward in a straight line
-//checkColision(planet) returns true on collision with planet
-//checkBounds() returns true if the orbiter leaves the screen
+//checkSafe(planet) checks for collision with planet or bounds
 //checkDist(planet) returns the distance to an object
+//explode(planet) causes the ship to shink into planet
 
 
 class Orbiter extends Phaser.GameObjects.Sprite {
@@ -58,7 +54,7 @@ class Orbiter extends Phaser.GameObjects.Sprite {
         //listen for & switch movement modes
         if(Phaser.Input.Keyboard.JustDown(this.switchkey)){
             if(this.isOrbiting){
-                this.setShoot();
+                this.isOrbiting = false;
             }
             else if(mouseOrbit){   //orbit the mouse if mouseOrbit is on
                 this.setOrbit(game.input.mousePointer.x,game.input.mousePointer.y);
@@ -91,7 +87,7 @@ class Orbiter extends Phaser.GameObjects.Sprite {
             Math.sign(deltaRotX) != Math.sign(deltaLinX) &&
             Math.sign(deltaRotY) != Math.sign(deltaLinY)
         ){
-            this.isClockwise = false;
+            this.isClockwise = false; // correct assumption if false
         }
     }
 
@@ -128,17 +124,18 @@ class Orbiter extends Phaser.GameObjects.Sprite {
     }
 
     //checks if orbiter will collide with planet
-    checkCollision(planet) {
+    checkSafe(planet) {
+        //check for planet collision
         if (this.checkDist(planet) <= planet.radius) {
             causeOfDeath = 'Crashed into a planet';
             this.explode(planet);
             return true;
         }
-        return false;
-    }
-    //checs if the orbiter is out of bounds
-    checkBounds(){
-        if(this.x < this.screenOrigin || this.x > screenWidth || this.y < this.screenOrigin || this.y > screenHeight){
+        //check for bounds
+        if(this.x < this.screenOrigin - this.displayWidth || 
+           this.x > screenWidth + this.displayWidth || 
+           this.y < this.screenOrigin - this.displayHeight|| 
+           this.y > screenHeight + this.displayHeight){
             causeOfDeath = 'Drifting endlessly in space';
             return true;
         }
@@ -150,11 +147,6 @@ class Orbiter extends Phaser.GameObjects.Sprite {
         return Math.hypot(this.x-planet.x,this.y-planet.y);
     }
 
-    //start liner motion in the direction the ship is currently pointing
-    setShoot(){
-        this.isOrbiting = false;
-    }
-
     //maintain liner motion 
     shoot(){
         //Move the approprate distance and preportion
@@ -162,7 +154,7 @@ class Orbiter extends Phaser.GameObjects.Sprite {
         this.y += Math.sin(this.angle*1/this.degRadConversion)*this.movmentSpeed*globalSpeed*2
     }
 
-    //add pretty particles where the ship is
+    //shrink the ship into planet
     explode(planet){
         let offsetDirx = 1;
         if(this.x<planet.x){offsetDirx = -1};

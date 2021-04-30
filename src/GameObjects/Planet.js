@@ -1,7 +1,12 @@
-// Class Planet
-let GRAVITY_CONSTANT = 10;
-let DENSITY_CONSTANT = 10;
-let ORBIT_MULTIPLIER = 1.5;
+//Planet.js
+//defines the planet class
+
+//functions for outside use:
+
+//setSize(radius) sets the planet to a certain radius
+//randomize(minSize) randmize the planet, and place it randomly off the screen to the right
+//copyPlanet(planet) make a planet visualy identical to planet and move it to be at the same location
+//setTranslate(x,y,time) move the planet to x,y over time
 
 class Planet extends Phaser.GameObjects.Sprite {
     constructor(scene,x,y,texture,frame) {
@@ -16,14 +21,9 @@ class Planet extends Phaser.GameObjects.Sprite {
 
     }
 
-    update(){
-        
-    }
-
     //set the radius and update everything dependant on that
     setSize(radius) {
         this.radius = radius;
-        this.orbit_radius = radius*ORBIT_MULTIPLIER;
         this.displayWidth = radius*2;
         this.displayHeight = radius*2;
         this.captureRange = this.radius*captureScale;
@@ -34,7 +34,7 @@ class Planet extends Phaser.GameObjects.Sprite {
         return Math.floor(Math.random()*(max-min+1)+ min);
     }
 
-    //size place the planet randomly such that the capture range never goes off the screen
+    //randomize size, texture, tint, and place the planet randomly such that the capture range never goes off the screen
     randomize(minSize){
         this.setSize(this.randomInterval(minSize,maxPlanet));
         this.x = screenWidth + this.captureRange + this.randomInterval(0,screenWidth/3 - 2*this.captureRange);
@@ -42,6 +42,8 @@ class Planet extends Phaser.GameObjects.Sprite {
         this.tintNum = 0xFFFFFF*Math.random();
         this.tint = this.tintNum;
         this.rotDir = this.randomInterval(1,3) - 2;
+        let tempString = 'Planet' + String(Math.floor(Math.random() * (22) + 1)) + '.png'//22 is number of planets, list must index from 1
+        this.setFrame(tempString);
     }
 
     //set this planet to be visualy and mechanicly identical to another
@@ -57,20 +59,7 @@ class Planet extends Phaser.GameObjects.Sprite {
         this.rotDir = planet.rotDir;
     }
 
-    //TODO: make function that compares ship velocity to max orbital velocity
-
-    //orbital vel function
-    //shipHeight is distance from center of planet to center of rocket
-    getOrbitVel(shipHeight) {
-        //mass of planetary body will be determined by radius;
-        //probably pretty janky, will have to work on more soon.
-        return Math.sqrt(GRAVITY_CONSTANT*DENSITY_CONSTANT*Math.PI*Math.pow(this.radius,2)/shipHeight);
-    }
-
-    getRadius() {
-        return this.radius;
-    }
-
+    //move from current position to tx,ty over time
     setTranslate(tx,ty,time){
         this.scene.tweens.add({
             targets: this,

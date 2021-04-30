@@ -1,6 +1,13 @@
 // Blackhole.js
 // Defines the black hole class
 
+//functions and vars for outside use:
+
+//update(whichImage) updates the position and rotation acording to whichImage
+//setTranslate(x) moves the hole back x, to a certain minimum x value
+//consume(target)  shrinks the target into the middle of the black hole
+//collided - set to true end the game
+
 class Blackhole extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, texture){
         super(scene, x, y, texture);
@@ -66,12 +73,6 @@ class Blackhole extends Phaser.GameObjects.Sprite {
         }
     }
 
-    // Sets the speed at which the Black Hole Waves advance
-    setSpeed(speed){
-        this.speed = speed;
-    }
-
-
     // Moves the Black Hole Waves forward
     move(){
         this.x += this.speed*globalSpeed;
@@ -97,11 +98,16 @@ class Blackhole extends Phaser.GameObjects.Sprite {
         }
     }
 
-    setCollision(check){
-        this.collided = check;
-    }
-
-    getCollision(){
-        return this.collided;
+    //shrinks the target into the black hole
+    consume(target){
+        this.scene.tweens.add({
+            targets: target,
+            x: -5,
+            y: screenHeight/2,
+            displayHeight: 0,
+            displayWidth: 0,
+            ease: 'Quad',
+            duration: 1000*3*tweenspeed/4,
+        });  
     }
 }
