@@ -82,6 +82,9 @@ class Settings extends Phaser.Scene {
         this.button(this.easy, this, null, this.sfxConfig);
         this.button(this.medium, this, null, this.sfxConfig);
         this.button(this.impossible, this, null, this.sfxConfig);
+        this.textConfig.fontSize = '40px'
+        this.warningText = this.add.text(screenCenterX,screenCenterY - 270,"changing difficulty resets high score",this.textConfig).setOrigin(0.5);
+        this.textConfig.fontSize = '80px'
 
         this.bgVolumeMinus = this.add.sprite(screenCenterX - 200, screenCenterY - 100, 'minus').setInteractive().setScale(buttonScale);
         this.bgVolumePlus = this.add.sprite(screenCenterX + 200, screenCenterY - 100, 'plus').setInteractive().setScale(buttonScale);
