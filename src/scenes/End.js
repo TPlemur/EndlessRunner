@@ -10,6 +10,7 @@ class End extends Phaser.Scene {
         this.load.image('menuBG', './assets/menu/menuBackground.png');
         this.load.image('menuBGStars', './assets/menu/menuBackgroundStars.png');
         this.load.image('cursorParticles', './assets/menu/cursorParticles.png');
+        this.load.image('extraHole','assets/blackhole/newBlackHole.png')
     }
 
     create(){
@@ -42,7 +43,7 @@ class End extends Phaser.Scene {
         this.cdPLAN = false;
         //display fancy things
         if(causeOfDeath === 'Sucked into a black hole' ){
-            this.blackHole = new Blackhole(this, screenWidth/2, screenHeight/2, 'blackHole').setScale(1);
+            this.blackHole = new Blackhole(this, screenWidth/2, screenHeight/2, 'extraHole').setScale(1);
             this.cdBLACK = true;
         }
         else if(causeOfDeath === 'Drifting endlessly in space'){
@@ -120,7 +121,7 @@ class End extends Phaser.Scene {
     parallaxBackground(){
         this.menuBackground.tilePositionX = this.game.input.mousePointer.x / 20;
         this.menuBackground.tilePositionY = this.game.input.mousePointer.y / 20;
-        this.menuBackgroundStars.tilePositionX = this.game.input.mousePointer.x / 35;
-        this.menuBackgroundStars.tilePositionY = this.game.input.mousePointer.y / 35;
+        this.menuBackgroundStars.tilePositionX = 300 + this.game.input.mousePointer.x / 35;
+        this.menuBackgroundStars.tilePositionY = 300 + this.game.input.mousePointer.y / 35;
     }
 }
