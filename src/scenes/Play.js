@@ -74,13 +74,15 @@ class Play extends Phaser.Scene {
         //background patch for black hole
         this.holeChaser = this.add.rectangle(0, 0, screenWidth, screenHeight, 0x703004).setOrigin(1, 0);
 
-        //Black Hole Creation
+        //Black Hole wave Creation
         this.blackHoleWaves = new Blackhole(this, screenWidth / 1.4, screenCenterY, 'blackHoleWaves').setScale(0.5); //blackHoleWaves are the waves that move and collide with the ship, the waves move up and down for visual sakes randomly
 
         //createing deadPlanet on top of the waves, but behind the main hole so it gets more propperly eaten
         this.deadPlanet = new Planet(this, -200, 500, 'boundingRing');
 
-        this.blackHole = new Blackhole(this, screenCenterX - 1150, screenCenterY, 'blackHole').setScale(1); //blackHole is the hole itself that rotates for visual sakes
+         //place the black hole itself
+         this.blackHole = new Blackhole(this, screenCenterX - 1150, screenCenterY, 'blackHole').setScale(1); //blackHole is the hole itself that rotates for visual sakes
+        
         this.blackHoleWaves.setOrigin(1, 0.5);
         this.blackHoleWaves.play('wibble')
         //creating planets that go in fron of the block hole
@@ -103,6 +105,8 @@ class Play extends Phaser.Scene {
             this.targetPlanet.captureRange, 0, //radious, angle
             'orbiter', keySPACE
         )
+
+
 
         //scale up orbiter by magic numbers can changed for final asset
         this.orbirter.displayWidth = 30;
@@ -193,6 +197,16 @@ class Play extends Phaser.Scene {
         if (this.blackHoleWaves.x > this.orbirter.x + screenWidth / 1.6) { //1.6 is a magic number based on what looks good for where the player dies
             this.blackHoleWaves.setCollision(true);
             causeOfDeath = 'Sucked into a black hole'
+
+            //suck the orbiter into the black hole
+            this.tweens.add({
+                targets: this.orbirter,
+                x: 0,
+                y: screenHeight/2,
+                alpha: 0,
+                ease: 'Quad',
+                duration: 1500,
+            });            
         }
 
         //capture system
