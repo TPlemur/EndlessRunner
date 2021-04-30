@@ -14,8 +14,8 @@ class Settings extends Phaser.Scene {
         this.load.image('easy', './assets/buttons/Easy.png');
         this.load.image('medium', './assets/buttons/Medium.png');
         this.load.image('impossible', './assets/buttons/Impossible.png');
-        this.load.image('plus', './assets/menu/plus.png');
-        this.load.image('minus', './assets/menu/minus.png');
+        this.load.image('plus', './assets/buttons/Plus.png');
+        this.load.image('minus', './assets/buttons/Minus.png');
 
         this.load.audio('click', './assets/menu/operationClick.wav'); //Temporarily adding source here: https://freesound.org/people/JonnyRuss01/sounds/478197/
     }
@@ -55,7 +55,7 @@ class Settings extends Phaser.Scene {
         this.textConfig = {
             fontFamily: 'Courier',
             fontSize: '80px',
-            color: '#9d9db0',
+            color: fontColor,
             backgroundColor: null,
             align: 'center',
             padding: {
@@ -83,21 +83,21 @@ class Settings extends Phaser.Scene {
         this.button(this.medium, this, null, this.sfxConfig);
         this.button(this.impossible, this, null, this.sfxConfig);
 
-        this.bgVolumeMinus = this.add.sprite(screenCenterX - 200, screenCenterY - 100, 'minus').setInteractive().setScale(0.05);
-        this.bgVolumePlus = this.add.sprite(screenCenterX + 200, screenCenterY - 100, 'plus').setInteractive().setScale(0.05);
+        this.bgVolumeMinus = this.add.sprite(screenCenterX - 200, screenCenterY - 100, 'minus').setInteractive().setScale(buttonScale);
+        this.bgVolumePlus = this.add.sprite(screenCenterX + 200, screenCenterY - 100, 'plus').setInteractive().setScale(buttonScale);
         this.bgVolumeText = this.add.text(screenCenterX, screenCenterY - 200, "Background Music", this.textConfig).setOrigin(0.5,0.5)
         this.bgVolumeDisplay = this.add.text(screenCenterX, screenCenterY - 100, Math.round(musicVolume * 10), this.textConfig).setOrigin(0.5,0.5)
         this.button(this.bgVolumeMinus, this, this.bgVolumeDisplay, this.sfxConfig);
         this.button(this.bgVolumePlus, this, this.bgVolumeDisplay, this.sfxConfig);
 
-        this.sfxVolumeMinus = this.add.sprite(screenCenterX - 200, screenCenterY + 120, 'minus').setInteractive().setScale(0.05);
-        this.sfxVolumePlus = this.add.sprite(screenCenterX + 200, screenCenterY + 120, 'plus').setInteractive().setScale(0.05);
+        this.sfxVolumeMinus = this.add.sprite(screenCenterX - 200, screenCenterY + 120, 'minus').setInteractive().setScale(buttonScale);
+        this.sfxVolumePlus = this.add.sprite(screenCenterX + 200, screenCenterY + 120, 'plus').setInteractive().setScale(buttonScale);
         this.sfxVolumeText = this.add.text(screenCenterX, screenCenterY + 20, "SFX Volume", this.textConfig).setOrigin(0.5,0.5)
         this.sfxVolumeDisplay = this.add.text(screenCenterX, screenCenterY + 120, Math.round(sfxVolume * 10), this.textConfig).setOrigin(0.5,0.5)
         this.button(this.sfxVolumeMinus, this, this.sfxVolumeDisplay, this.sfxConfig);
         this.button(this.sfxVolumePlus, this, this.sfxVolumeDisplay, this.sfxConfig);
 
-        this.developer = this.add.sprite(screenCenterX, screenCenterY + 300, 'developer').setInteractive().setScale(0.15).setOrigin(0.5,0.5);
+        this.developer = this.add.sprite(screenCenterX, screenCenterY + 275, 'developer').setInteractive().setScale(0.15).setOrigin(0.5,0.5);
         this.button(this.developer, this, null, this.sfxConfig);
 
     }
@@ -112,6 +112,8 @@ class Settings extends Phaser.Scene {
         }
         
         this.parallaxBackground();
+
+        this.developer.rotation += 0.01;
     }
 
     parallaxBackground(){
@@ -195,7 +197,7 @@ class Settings extends Phaser.Scene {
             button.setScale(0.13);
         }
         else{
-           button.setScale(0.04);
+           button.setScale(buttonScale - 0.05);
         }
     }
 
@@ -209,7 +211,7 @@ class Settings extends Phaser.Scene {
             button.setScale(0.15);
         }
         else{
-            button.setScale(0.05);
+            button.setScale(buttonScale);
         }
     }
         //Sets diffiuclty values and tints

@@ -104,7 +104,7 @@ class Play extends Phaser.Scene {
             'orbiter', keySPACE
         )
 
-        //scale orbiter by magic numbers can changed for final asset
+        //scale up orbiter by magic numbers can changed for final asset
         this.orbirter.displayWidth = 30;
         this.orbirter.displayHeight = 30;
 
@@ -117,7 +117,7 @@ class Play extends Phaser.Scene {
         this.textConfig = {
             fontFamily: 'Courier',
             fontSize: '100px',
-            color: '#707081',
+            color: fontColor,
             backgroundColor: '#000000',
             align: 'center',
             padding: {
