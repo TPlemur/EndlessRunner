@@ -32,7 +32,7 @@ let highScore = 0;
 let highScoreHolder; //if we want to have something like this
 let causeOfDeath = 'Not dead yet';
 let tweenspeed = 2; //time in seconds
-let whichButton = 1; // Game starts off with medium settings 0 = Easy, 1 = Medium, 2 = Hard
+let whichButton = 1; // Game starts off with medium settings 0 = Easy, 1 = Medium, 2 = Hard, 3 = custom
 let buttonScale = 0.35; //Sets the size of the plus and minus buttons
 let fontColor = '#B0BABA';
 

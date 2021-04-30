@@ -20,7 +20,7 @@ class Developer extends Phaser.Scene {
 
     create(){
         //unset default setting buttons and reset the highScore
-        whichButton = 4;
+        whichButton = 3;
         highScore = 0;
 
 
