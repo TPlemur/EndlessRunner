@@ -48,7 +48,7 @@ class Menu extends Phaser.Scene{
         }
 
         //Sets Cursor to a .cur file
-        this.input.setDefaultCursor('url(./assets/menu/spaceshipCursor.cur), pointer'); //Temporary Adding Source Here: http://www.rw-designer.com/licenses
+        this.input.setDefaultCursor('url(./assets/spaceshipCursor.cur), pointer'); //Temporary Adding Source Here: http://www.rw-designer.com/licenses
 
         //Set background that is tileable
         this.menuBackground = this.add.tileSprite(0, 0, game.config.width, game.config.height, "menuBG").setOrigin(0,0).setScrollFactor(0);
@@ -77,17 +77,17 @@ class Menu extends Phaser.Scene{
         this.rocketEmitter = this.rocketParticles.createEmitter().setPosition(-1000,0);
         
         //Buttons
-        this.launchBtn = this.add.sprite(screenCenterX, screenCenterY - 180, 'launchButton').setInteractive().setScale(0.9); //Initialize the button
+        this.launchBtn = this.add.sprite(screenCenterX, screenCenterY - 160, 'launchButton').setInteractive().setScale(0.9); //Initialize the button
         this.launchBtn.on('pointerover', () => this.actionOnHover(this.launchBtn, this.rocketEmitter)); //What happens when you hover over
         this.launchBtn.on('pointerout', () => this.actionOnHoverOut(this.launchBtn, this.rocketEmitter)); //What happens when you hover out
         this.launchBtn.on('pointerdown', () => this.actionOnClick(this.launchBtn, this, this.menuBGMusic, this.mouseFlameEmitter, this.sfxConfig)); //What happens when you click   
         
-        this.creditsBtn = this.add.sprite(screenCenterX, screenCenterY + 40, 'creditsButton').setInteractive().setScale(0.9);
+        this.creditsBtn = this.add.sprite(screenCenterX, screenCenterY + 60, 'creditsButton').setInteractive().setScale(0.9);
         this.creditsBtn.on('pointerover', () => this.actionOnHover(this.creditsBtn, this.rocketEmitter)); 
         this.creditsBtn.on('pointerout', () => this.actionOnHoverOut(this.creditsBtn, this.rocketEmitter)); 
         this.creditsBtn.on('pointerdown', () => this.actionOnClick(this.creditsBtn, this, this.menuBGMusic, this.mouseFlameEmitter, this.sfxConfig));  
 
-        this.settingsBtn = this.add.sprite(screenCenterX, screenCenterY + 260, 'settingsButton').setInteractive().setScale(0.9);
+        this.settingsBtn = this.add.sprite(screenCenterX, screenCenterY + 280, 'settingsButton').setInteractive().setScale(0.9);
         this.settingsBtn.on('pointerover', () => this.actionOnHover(this.settingsBtn, this.rocketEmitter)); 
         this.settingsBtn.on('pointerout', () => this.actionOnHoverOut(this.settingsBtn, this.rocketEmitter)); 
         this.settingsBtn.on('pointerdown', () => this.actionOnClick(this.settingsBtn, this, this.menuBGMusic, this.mouseFlameEmitter, this.sfxConfig));  
@@ -98,7 +98,7 @@ class Menu extends Phaser.Scene{
 
     update(){
         //Shoot flames from the mouse
-        this.mouseFlameEmitter.setPosition(this.game.input.mousePointer.x + 40, this.game.input.mousePointer.y + 30);
+        this.mouseFlameEmitter.setPosition(this.game.input.mousePointer.x + 23, this.game.input.mousePointer.y + 20);
 
         //if the pointer is too close to the edge move the particles way out of sight
         if(this.game.input.mousePointer.x<5||this.game.input.mousePointer.y<3){

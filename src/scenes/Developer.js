@@ -23,7 +23,6 @@ class Developer extends Phaser.Scene {
         whichButton = 3;
         highScore = 0;
 
-
         //Min, Max, Increment Values
         this.shipSpeedMax = 800;
         this.shipSpeedMin = 300;
@@ -208,8 +207,8 @@ class Developer extends Phaser.Scene {
 
     update(){
         //Update Mouse flame location
-        this.mouseFlameEmitter.setPosition(this.game.input.mousePointer.x + 40, this.game.input.mousePointer.y + 30);
-
+        this.mouseFlameEmitter.setPosition(this.game.input.mousePointer.x + 23, this.game.input.mousePointer.y + 20);
+        
         //if the pointer is too close to the edge move the particles way out of sight
         if(this.game.input.mousePointer.x<5||this.game.input.mousePointer.y<3){
             this.mouseFlameEmitter.setPosition(-100,-100);
