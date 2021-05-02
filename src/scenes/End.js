@@ -11,6 +11,9 @@ class End extends Phaser.Scene {
         this.load.image('menuBGStars', './assets/menu/menuBackgroundStars.png');
         this.load.image('cursorParticles', './assets/menu/cursorParticles.png');
         this.load.image('extraHole','assets/blackhole/newBlackHole.png')
+        this.load.image('playButton', './assets/buttons/Launch.png');
+        this.load.image('menuButton', './assets/buttons/Back.png');
+
     }
 
     create(){
@@ -83,6 +86,23 @@ class End extends Phaser.Scene {
         this.textConfig.fontSize = '100px';
         this.add.text(screenWidth/2,screenHeight,'space to replay, esc for menu',this.textConfig).setOrigin(0.5,1)
         this.add.text(screenWidth/2,0, causeOfDeath ,this.textConfig).setOrigin(0.5,0);
+
+        //Menu and Play Button
+        this.buttonSound = this.sound.add('launchButtonSound');
+        this.sfxConfig ={
+            volume: sfxVolume,
+            loop: false,
+        }
+
+        this.playBtn = this.add.sprite(screenCenterX + 375, screenCenterY + 300, 'playButton').setInteractive().setScale(0.6); //Initialize the button
+        this.playBtn.on('pointerover', this.actionOnHover); //What happens when you hover over
+        this.playBtn.on('pointerout', this.actionOnHoverOut); //What happens when you hover out
+        this.playBtn.on('pointerdown', () => this.actionOnClick(this, this.sfxConfig, this.playBtn)); //What happens when you click   
+
+        this.menuBtn = this.add.sprite(screenCenterX - 375, screenCenterY + 300, 'menuButton').setInteractive().setScale(0.6); //Initialize the button
+        this.menuBtn.on('pointerover', this.actionOnHover); //What happens when you hover over
+        this.menuBtn.on('pointerout', this.actionOnHoverOut); //What happens when you hover out
+        this.menuBtn.on('pointerdown', () => this.actionOnClick(this, this.sfxConfig, this.menuBtn)); //What happens when you click   
     }
 
     update(){
@@ -123,5 +143,27 @@ class End extends Phaser.Scene {
         this.menuBackground.tilePositionY = this.game.input.mousePointer.y / 20;
         this.menuBackgroundStars.tilePositionX = 300 + this.game.input.mousePointer.x / 35;
         this.menuBackgroundStars.tilePositionY = 300 + this.game.input.mousePointer.y / 35;
+    }
+
+    actionOnClick(Scene, sfxConfig, button){
+        //Plays Sound effect and go to menu
+        this.buttonSound.play(sfxConfig);
+
+        if(button == this.playBtn){
+            Scene.scene.start("playScene");
+        } 
+        else if(button == this.menuBtn){
+            Scene.scene.start("menuScene");
+        } 
+    }
+
+    actionOnHover(){
+        //Scale Button
+        this.setScale(0.5); 
+    }
+
+    actionOnHoverOut(){
+        //Scale Button
+        this.setScale(0.6);
     }
 }
