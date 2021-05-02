@@ -44,9 +44,9 @@ class Credits extends Phaser.Scene {
         //Main text
         this.peopleHeading = this.add.text(screenCenterX, 30, "A game By:", this.textConfig).setOrigin(0.5,0);
         this.assetHeading  = this.add.text(screenCenterX, screenCenterY - 190, "Assets and Librarys:", this.textConfig).setOrigin(0.5,0);
-        this.textConfig.fontSize = '60px'
+        this.textConfig.fontSize = '45px'
         this.people = this.add.text(screenCenterX, screenCenterY - 380, "Thomas Price, Danny Baghdasarians, \nJacqueline Castro, and Quinn Satow", this.textConfig).setOrigin(0.5,0.5);
-        this.assets = this.add.text(screenCenterX, screenCenterY - 120, "Phaser\nother Things...", this.textConfig).setOrigin(0.5,0);
+        this.assets = this.add.text(screenCenterX, screenCenterY - 120, "Phaser\nGame Music\nhttps://www.bensound.com/royalty-free-music/track/sci-fi\nCrash Sound\nhttps://freesound.org/people/soneproject/sounds/346425/\nSuccessful Orbit\nhttps://freesound.org/people/soneproject/sounds/345271/", this.textConfig).setOrigin(0.5,0);
 
 
         this.backBtn = this.add.sprite(screenCenterX, screenCenterY + 450, 'backButton').setInteractive().setScale(0.5); //Initialize the button
