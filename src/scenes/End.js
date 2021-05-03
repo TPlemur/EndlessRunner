@@ -11,8 +11,8 @@ class End extends Phaser.Scene {
         this.load.image('menuBGStars', './assets/menu/menuBackgroundStars.png');
         this.load.image('cursorParticles', './assets/menu/cursorParticles.png');
         this.load.image('extraHole','assets/blackhole/newBlackHole.png')
-        this.load.image('playButton', './assets/buttons/Launch.png');
-        this.load.image('menuButton', './assets/buttons/Back.png');
+        this.load.image('playButton', './assets/buttons/Replay.png');
+        this.load.image('menuButton', './assets/buttons/Menu.png');
 
     }
 
