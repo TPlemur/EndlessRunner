@@ -220,7 +220,7 @@ class Play extends Phaser.Scene {
             this.add.text(game.config.width / 2, game.config.height / 2, 'GAME OVER', this.textConfig).setOrigin(0.5);
 
             this.textConfig.fontSize = "100px";
-            this.add.text(screenWidth / 2, screenHeight - 20, "space to replay", this.textConfig).setOrigin(0.5, 1)
+            this.add.text(screenWidth / 2, screenHeight - 20, "click or space to replay", this.textConfig).setOrigin(0.5, 1)
             //update highscore if necessasary
             if (gameScore >= highScore) {
                 highScore = gameScore;
