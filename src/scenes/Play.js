@@ -34,7 +34,7 @@ class Play extends Phaser.Scene {
         })
 
         //load background
-        this.bg = this.add.tileSprite(0, 0, screenWidth, screenHeight, 'background').setOrigin(0, 0);
+        this.bg = this.add.sprite(0, 0, 'background').setOrigin(0, 0);
         this.bgStars00 = this.add.tileSprite(0, 0, screenWidth, screenHeight, 'stars').setOrigin(0, 0);
         this.bgStars01 = this.add.tileSprite(0, 0, screenWidth, screenHeight, 'menuBGStars').setOrigin(0, 0).setScale(1.3);
 
@@ -127,7 +127,7 @@ class Play extends Phaser.Scene {
         //display the score in the top right corner
         this.scoreDisplay = this.add.text(screenWidth, 0, '0', this.textConfig).setOrigin(1, 0)
         this.textConfig.backgroundColor = null;
-        this.instructions = this.add.text(screenWidth / 2, 0, 'space to launch\naim for the circle\navoid hitting the planet directly', this.textConfig).setOrigin(0.5, 0)
+        this.instructions = this.add.text(screenWidth / 2, 0, 'space or click to launch\naim for the circle\navoid hitting the planet directly', this.textConfig).setOrigin(0.5, 0)
 
         //change textConfig for GAME OVER text
         this.textConfig.fontSize = '200px';
@@ -154,6 +154,7 @@ class Play extends Phaser.Scene {
 
             //run the orbiter
             this.orbirter.update();
+            this.input.on('pointerdown',() => {this.orbirter.isOrbiting = false});//click to shoot
             //remove the instruction text after the first launch
             if (!this.orbirter.isOrbiting) {
                 this.instructions.destroy();
@@ -166,6 +167,10 @@ class Play extends Phaser.Scene {
             if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
                 this.scene.start('playScene');
             }
+            this.input.on('pointerdown', () => {
+                this.scene.start('playScene');
+                console.log('ping');
+            });
         }
 
         //quickskip to endScene
@@ -276,6 +281,7 @@ class Play extends Phaser.Scene {
             duration: 1000*tweenspeed,
         });
     }//end capture()
+
 
 
 }
