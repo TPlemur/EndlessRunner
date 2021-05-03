@@ -17,10 +17,13 @@ class Play extends Phaser.Scene {
         this.load.image('menuBGStars', './assets/menu/menuBackgroundStars.png');
         this.load.image('stars', 'assets/background/BackgroundS2.png');
         this.load.atlas('planets', 'assets/planets/planets.png', 'assets/planets/planets.json');
+        this.load.image('cursorParticles', './assets/menu/cursorParticles.png');
+
         //audio
         this.load.audio('bgm', 'assets/planets/background.mp3');
         this.load.audio('success', 'assets/planets/success.wav');
         this.load.audio('crash', 'assets/planets/crash.wav');
+        this.load.audio('launch', 'assets/launch.wav');
     }
 
     create() {
@@ -49,8 +52,14 @@ class Play extends Phaser.Scene {
         //sound effects
         this.crashSound = this.sound.add('crash');
         this.successSound = this.sound.add('success');
+        this.launchSound = this.sound.add('launch');
         this.sfxConfig = {
             volume: sfxVolume,
+            loop: false,
+        }
+        //Makes launch sound louder
+        this.flameConfig = {
+            volume: sfxVolume * 2,
             loop: false,
         }
 
@@ -100,8 +109,6 @@ class Play extends Phaser.Scene {
             'orbiter', keySPACE
         )
 
-
-
         //scale up orbiter by magic numbers can changed for final asset
         this.orbirter.displayWidth = 30;
         this.orbirter.displayHeight = 30;
@@ -110,6 +117,17 @@ class Play extends Phaser.Scene {
         this.blackHoleWaves.displayWidth = screenWidth;
         this.blackHoleWaves.displayHeight = screenHeight * 1.5;
         this.blackHoleWaves.alpha = 1;
+
+        //Flames out the back of the ship when launching
+        this.flameSoundLock = false;
+        this.flameEmitter = this.add.particles('cursorParticles').createEmitter({
+            speed: 10,
+            scale: {start: 0, end: 0.5},
+            alpha: { start: 1, end: 0, ease: 'Expo.easeOut' },
+            blendMode: 'ADD',
+            lifespan: 200
+        });
+        this.flameEmitter.startFollow(this.orbirter);
 
         //text configuration
         this.textConfig = {
@@ -137,6 +155,7 @@ class Play extends Phaser.Scene {
     }
 
     update() {
+        this.flameEmitter.startFollow(this.orbirter);
 
         //rotate the things
         this.deadPlanet.angle -= 0.1*this.deadPlanet.rotDir
@@ -178,6 +197,28 @@ class Play extends Phaser.Scene {
                     this.scene.start('playScene');
                 }
             });
+        }
+
+        //Flames out the back of the ship
+        if(this.orbirter.isOrbiting == false) {
+            this.time.addEvent({
+                delay: 20,
+                callback: ()=>{
+                    this.flameEmitter.setAlpha(1);
+                    this.flameEmitter.setSpeed(20);
+                    if(this.flameSoundLock == false) {
+                        this.launchSound.play(this.flameConfig);
+                        this.flameSoundLock = true;
+                    }
+                },
+            })
+            
+        }
+        else {
+            this.flameEmitter.setAlpha(0);
+            this.flameEmitter.setSpeed(0);
+            this.flameSoundLock = false;
+
         }
 
         //quickskip to endScene
