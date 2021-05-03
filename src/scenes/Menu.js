@@ -94,23 +94,7 @@ class Menu extends Phaser.Scene{
         this.settingsBtn.on('pointerdown', () => this.actionOnClick(this.settingsBtn, this, this.menuBGMusic, this.mouseFlameEmitter, this.sfxConfig));  
 
         //fullScreen Button
-<<<<<<< HEAD
-        this.textConfig = {
-            fontFamily: font,
-            fontSize: '30px',
-            color: fontColor,
-            align: 'center',
-            padding: {
-                top: 5,
-                bottom: 5,
-            },
-            fixedWidth: 0
-        }
-        this.fullScreen = this.add.sprite(0,0, 'developer').setInteractive().setScale(0.15).setOrigin(0.5,0.5);
-        this.fullScreenText = this.add.text(this.fullScreen.displayWidth/2,10,'Fullscreen',this.textConfig).setOrigin(0);
-=======
         this.fullScreen = this.add.sprite(screenWidth-5,5, 'fullscreen').setInteractive().setScale(0.15).setOrigin(1,0);
->>>>>>> e50c481ce4b51f4e8c7156e1bbd59e17eacc8b36
         this.fullScreen.on('pointerdown',()=> { 
             if(this.scale.isFullscreen){
                 this.scale.stopFullscreen()}
@@ -139,7 +123,7 @@ class Menu extends Phaser.Scene{
 
         //Will Launch the Menu up like a rocket
         if(this.launchMe == true){
-            this.launchMenu(this.blackScreen, this.title, this.launchBtn, this.creditsBtn, this.settingsBtn, this, this.rocketEmitter, this.bgPlanet, this.fullScreen, this.fullScreenText);
+            this.launchMenu(this.blackScreen, this.title, this.launchBtn, this.creditsBtn, this.settingsBtn, this, this.rocketEmitter, this.bgPlanet, this.fullScreen);
         }
     }
 
@@ -219,7 +203,7 @@ class Menu extends Phaser.Scene{
         }
     }
 
-    launchMenu(blackScreen, title, launchButton, creditsButton, settingsButton, menuScene, emitter, planet, fullScreen, fullScreenText) {
+    launchMenu(blackScreen, title, launchButton, creditsButton, settingsButton, menuScene, emitter, planet, fullScreen) {
         //Moves elements up
         blackScreen.y -= 20;
         title.y -= 20;
@@ -228,7 +212,6 @@ class Menu extends Phaser.Scene{
         settingsButton.y -= 20;
         planet.y -= 20;
         fullScreen.y -= 20;
-        fullScreenText.y -= 20;
 
         //Get rid of the emitter to make it look more clean
         emitter.setAlpha(0);
