@@ -17,6 +17,15 @@
     <script src="src/scenes/End.js"></script>
     <script src="src/main.js"></script>
 
+    <!-- fullscreen button credit to https://developers.google.com/web/fundamentals/native-hardware/fullscreen/ -->
+    <button id="goFS">Go fullscreen</button>
+<script>
+  var goFS = document.getElementById("goFS");
+  goFS.addEventListener("click", function() {
+      document.body.requestFullscreen();
+  }, false);
+</script>
+
     <style media='screen' type='text/css'>
         @font-face {
           font-family: font1;
