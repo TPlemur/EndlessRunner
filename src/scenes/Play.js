@@ -152,6 +152,8 @@ class Play extends Phaser.Scene {
         //gameState dependant updates
         if (this.gameRuningFlag) {
 
+            //used to prevent page reloading
+            mouseBool = true;
             //run the orbiter
             this.orbirter.update();
             this.input.on('pointerdown',() => {this.orbirter.isOrbiting = false});//click to shoot
@@ -165,17 +167,24 @@ class Play extends Phaser.Scene {
         }
         else {//enable quick restart on game end
             if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
+                this.playBGMusic.stop();
                 this.scene.start('playScene');
             }
+            //click to restart
             this.input.on('pointerdown', () => {
-                this.scene.start('playScene');
-                console.log('ping');
+                if(mouseBool){
+                    this.playBGMusic.stop();
+                    mouseBool = false; //stops this code from being run as the scene is reloaded
+                    this.scene.start('playScene');
+                }
             });
         }
 
         //quickskip to endScene
         if (Phaser.Input.Keyboard.JustDown(keyESC)) {
-            this.scene.start('endScene')
+            this.scene.start('endScene');
+            this.playBGMusic.stop();
+            this.crashSound.play(this.sfxConfig);
         }
 
         //check if a capture is necessasary and execute it if it is

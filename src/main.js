@@ -61,7 +61,7 @@ let config= {
 let game = new Phaser.Game(config);
 
 //define keys
-let keySPACE, keyESC;
+let keySPACE, keyESC, mouseBool;
 
 //global variabl
 let globalSpeed = 1;
