@@ -1,6 +1,15 @@
 //main.js
 //declairs global variables and creates the phaser game object
 //Thomas, jacqueline, Danny, Quinn
+//
+//Sources: 
+//Menu Music: https://freesound.org/people/szegvari/sounds/560736/
+//Music: https://www.bensound.com/royalty-free-music/track/sci-fi
+//Button Sound: https://freesound.org/people/pan14/sounds/263129/
+//Launch Noise: https://freesound.org/people/MATRIXXX_/sounds/444855/
+//Crash Sound: https://freesound.org/people/soneproject/sounds/346425/
+//SuccessSound: https://freesound.org/people/soneproject/sounds/345271/
+//Font: https://www.dafont.com/futured.font
 
 //config for the phaser game
 const screenWidth = 1920;
