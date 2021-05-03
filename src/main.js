@@ -32,7 +32,8 @@
 // Button Sound: https://freesound.org/people/pan14/sounds/263129/
 // Launch Noise: https://freesound.org/people/MATRIXXX_/sounds/444855/
 // Crash Sound: https://freesound.org/people/soneproject/sounds/346425/
-// SuccessSound: https://freesound.org/people/soneproject/sounds/345271/
+// Success Sound: https://freesound.org/people/soneproject/sounds/345271/
+// Ship Launch Sound: https://freesound.org/people/jorgerosa/sounds/458669/
 // Font: https://www.dafont.com/futured.font
 //
 //
