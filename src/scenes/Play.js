@@ -201,6 +201,7 @@ class Play extends Phaser.Scene {
 
         //Flames out the back of the ship
         if(this.orbirter.isOrbiting == false) {
+
             this.time.addEvent({
                 delay: 20,
                 callback: ()=>{
@@ -215,10 +216,10 @@ class Play extends Phaser.Scene {
             
         }
         else {
+            this.launchSound.stop();
             this.flameEmitter.setAlpha(0);
             this.flameEmitter.setSpeed(0);
             this.flameSoundLock = false;
-
         }
 
         //quickskip to endScene

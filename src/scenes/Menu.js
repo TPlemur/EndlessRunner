@@ -96,7 +96,7 @@ class Menu extends Phaser.Scene{
         //fullScreen Button
         this.textConfig = {
             fontFamily: font,
-            fontSize: '20px',
+            fontSize: '30px',
             color: fontColor,
             align: 'center',
             padding: {
@@ -106,7 +106,7 @@ class Menu extends Phaser.Scene{
             fixedWidth: 0
         }
         this.fullScreen = this.add.sprite(0,0, 'developer').setInteractive().setScale(0.15).setOrigin(0.5,0.5);
-        this.add.text(this.fullScreen.displayWidth/2,10,'Fullscreen',this.textConfig).setOrigin(0);
+        this.fullScreenText = this.add.text(this.fullScreen.displayWidth/2,10,'Fullscreen',this.textConfig).setOrigin(0);
         this.fullScreen.on('pointerdown',()=> { 
             if(this.scale.isFullscreen){
                 this.scale.stopFullscreen()}
@@ -139,7 +139,7 @@ class Menu extends Phaser.Scene{
 
         //Will Launch the Menu up like a rocket
         if(this.launchMe == true){
-            this.launchMenu(this.blackScreen, this.title, this.launchBtn, this.creditsBtn, this.settingsBtn, this, this.rocketEmitter, this.bgPlanet);
+            this.launchMenu(this.blackScreen, this.title, this.launchBtn, this.creditsBtn, this.settingsBtn, this, this.rocketEmitter, this.bgPlanet, this.fullScreen, this.fullScreenText);
         }
 
         if(this.rotFS){
@@ -223,7 +223,7 @@ class Menu extends Phaser.Scene{
         }
     }
 
-    launchMenu(blackScreen, title, launchButton, creditsButton, settingsButton, menuScene, emitter, planet) {
+    launchMenu(blackScreen, title, launchButton, creditsButton, settingsButton, menuScene, emitter, planet, fullScreen, fullScreenText) {
         //Moves elements up
         blackScreen.y -= 20;
         title.y -= 20;
@@ -231,6 +231,8 @@ class Menu extends Phaser.Scene{
         creditsButton.y -= 20;
         settingsButton.y -= 20;
         planet.y -= 20;
+        fullScreen.y -= 20;
+        fullScreenText.y -= 20;
 
         //Get rid of the emitter to make it look more clean
         emitter.setAlpha(0);
