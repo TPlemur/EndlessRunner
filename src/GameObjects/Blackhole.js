@@ -15,12 +15,15 @@ class Blackhole extends Phaser.GameObjects.Sprite {
 
         this.rotation = 0; //Rotation of the black hole
         this.collided = false;
-        
+        this.minxRatio = 1.4;
+        this.milisPerSec = 1000;
+
         //Following used for Black Hole Waves random movement
         this.randomY; 
         this.movementSpeed = 0.5;
         this.lockRandom = false;
         this.lockDirection = false;
+
 
         //Following used for Black Hole/Black Hole Waves Movement to the Right
         this.speed = holeSpeed;
@@ -80,12 +83,12 @@ class Blackhole extends Phaser.GameObjects.Sprite {
 
     // Moves Black Hole waves backwards if traveled to new planet
     setTranslate(tx){
-        if(tx <= screenWidth/1.4) {
+        if(tx <= screenWidth/this.minxRatio) {
             this.scene.tweens.add({
                 targets: this,
                x: {from: this.x, to: screenWidth/1.4},
                ease:'Quad',
-               duration: 1000*tweenspeed,
+               duration: this.milisPerSec*tweenspeed,
             });
         }
         else{
@@ -93,7 +96,7 @@ class Blackhole extends Phaser.GameObjects.Sprite {
                 targets: this,
                x: {from: this.x, to: tx},
                ease:'Quad',
-               duration: 1000*tweenspeed,
+               duration: this.milisPerSec*tweenspeed,
             });
         }
     }
@@ -102,12 +105,12 @@ class Blackhole extends Phaser.GameObjects.Sprite {
     consume(target){
         this.scene.tweens.add({
             targets: target,
-            x: -5,
-            y: screenHeight/2,
-            displayHeight: 0,
-            displayWidth: 0,
+            x: -5,                                      //just off screen to the left
+            y: screenHeight/2,                          // ceneter of the screen
+            displayHeight: 0,                           //shirnk to nothing
+            displayWidth: 0,                            //shrink to nothing
             ease: 'Quad',
-            duration: 1000*3*tweenspeed/4,
+            duration: this.milisPerSec*tweenspeed*3/4,  //finish before scene change
         });  
     }
 }

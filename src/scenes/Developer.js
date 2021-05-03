@@ -1,5 +1,5 @@
 //Developer.js
-//Developer Screen
+//Developer Options Screen
 
 class Developer extends Phaser.Scene {
     constructor(){

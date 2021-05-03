@@ -110,8 +110,8 @@ class Play extends Phaser.Scene {
         )
 
         //scale up orbiter by magic numbers can changed for final asset
-        this.orbirter.displayWidth = 30;
-        this.orbirter.displayHeight = 30;
+        this.orbirter.displayWidth = 40;
+        this.orbirter.displayHeight = 40;
 
         //scale up black hole waves by a magic number
         this.blackHoleWaves.displayWidth = screenWidth;
@@ -200,7 +200,7 @@ class Play extends Phaser.Scene {
         }
 
         //Flames out the back of the ship
-        if(this.orbirter.isOrbiting == false) {
+        if(!this.orbirter.isOrbiting) {
 
             this.time.addEvent({
                 delay: 20,

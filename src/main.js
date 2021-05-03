@@ -25,6 +25,7 @@
 // We believe we are trying something unique in the endless runner form as our game utilizes space travel in many different directions as well as orbiting planets. This new take on
 // endless runners we hope will be refreshing and uniquely stand out.
 //
+// The game is also compatible with mobile browsers, although the scale makes it more difficult.
 //
 // Sources: 
 // Menu Music: https://freesound.org/people/szegvari/sounds/560736/

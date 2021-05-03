@@ -18,6 +18,8 @@ class Planet extends Phaser.GameObjects.Sprite {
         this.tintNum = 0xFFFFFF*Math.random();
         this.tint = this.tintNum
         this.rotDir = 1;
+        this.numPlanets = 22;
+        this.milisPerSecond = 1000;
 
     }
 
@@ -41,8 +43,8 @@ class Planet extends Phaser.GameObjects.Sprite {
         this.y = this.captureRange + this.randomInterval(0,screenHeight-2*this.captureRange);
         this.tintNum = 0xFFFFFF*Math.random();
         this.tint = this.tintNum;
-        this.rotDir = this.randomInterval(1,3) - 2;
-        let tempString = 'Planet' + String(Math.floor(Math.random() * (22) + 1)) + '.png'//22 is number of planets, list must index from 1
+        this.rotDir = this.randomInterval(1,3) - 2; //-1,0,1 determines rotation direction
+        let tempString = 'Planet' + String(Math.floor(Math.random() * (this.numPlanets) + 1)) + '.png'
         this.setFrame(tempString);
     }
 
@@ -65,13 +67,13 @@ class Planet extends Phaser.GameObjects.Sprite {
             targets: this,
             y: {from: this.y, to: ty},
             ease:'Quad',
-            duration: time*1000,
+            duration: time*this.milisPerSecond,
         });
         this.scene.tweens.add({
             targets: this,
             x: {from: this.x, to: tx},
             ease:'Quad',
-            duration: time*1000,
+            duration: time*this.milisPerSecond,
         });
     }
 
