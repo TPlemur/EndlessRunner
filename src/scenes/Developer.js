@@ -162,7 +162,7 @@ class Developer extends Phaser.Scene {
         this.ringFadeMinus = this.add.sprite(screenCenterX - 150, screenCenterY, 'minus').setInteractive().setScale(this.buttonScale);
         this.ringFadePlus = this.add.sprite(screenCenterX + 150, screenCenterY, 'plus').setInteractive().setScale(this.buttonScale);
         this.ringFadeText = this.add.text(screenCenterX, screenCenterY- 100, "Ring Fade Scale", this.textConfig).setOrigin(0.5,0.5)
-        this.ringFadeDisplay = this.add.text(screenCenterX, screenCenterY, Math.round(ringFade * 100)/ 10, this.textConfig).setOrigin(0.5,0.5)
+        this.ringFadeDisplay = this.add.text(screenCenterX, screenCenterY, Math.round(ringFade * 100)/ 100, this.textConfig).setOrigin(0.5,0.5)
         this.button(this.ringFadeMinus, this, this.ringFadeDisplay, this.sfxConfig);
         this.button(this.ringFadePlus, this, this.ringFadeDisplay, this.sfxConfig);
 
@@ -184,7 +184,7 @@ class Developer extends Phaser.Scene {
         this.accelerationMinus = this.add.sprite(screenWidth - screenCenterX/2, screenCenterY - screenCenterY/2, 'minus').setInteractive().setScale(this.buttonScale);
         this.accelerationPlus = this.add.sprite(screenWidth - screenCenterX/2 + 300, screenCenterY - screenCenterY/2, 'plus').setInteractive().setScale(this.buttonScale);
         this.accelerationText = this.add.text(screenWidth - screenCenterX/2 + 150, screenCenterY - screenCenterY/2 - 100, "Game Acceleration", this.textConfig).setOrigin(0.5,0.5)
-        this.accelerationDisplay = this.add.text(screenWidth - screenCenterX/2 + 150, screenCenterY - screenCenterY/2, Math.round(gameAcceleration * 100) / 10, this.textConfig).setOrigin(0.5,0.5)
+        this.accelerationDisplay = this.add.text(screenWidth - screenCenterX/2 + 150, screenCenterY - screenCenterY/2, Math.round(gameAcceleration * 100) / 100, this.textConfig).setOrigin(0.5,0.5)
         this.button(this.accelerationMinus, this, this.accelerationDisplay, this.sfxConfig);
         this.button(this.accelerationPlus, this, this.accelerationDisplay, this.sfxConfig);
 
