@@ -17,9 +17,9 @@ class Menu extends Phaser.Scene{
         this.load.image('cursorParticles', './assets/menu/cursorParticles.png');
 
         //Load Audio
-        this.load.audio('menuBGMusic', './assets/menu/menuMusic.wav'); //Temporarily Adding Source Here: https://freesound.org/people/szegvari/sounds/560736/
-        this.load.audio('launchButtonSound', './assets/menu/menuLaunchButtonSound.wav'); //Temporarily Adding Source Here: https://freesound.org/people/pan14/sounds/263129/
-        this.load.audio('launchNoise', './assets/menu/launchNoise.wav'); //Temporarily Adding Source Here: https://freesound.org/people/MATRIXXX_/sounds/444855/
+        this.load.audio('menuBGMusic', './assets/menu/menuMusic.wav'); 
+        this.load.audio('launchButtonSound', './assets/menu/menuLaunchButtonSound.wav'); 
+        this.load.audio('launchNoise', './assets/menu/launchNoise.wav'); 
     }
 
     create(){
@@ -48,7 +48,7 @@ class Menu extends Phaser.Scene{
         }
 
         //Sets Cursor to a .cur file
-        this.input.setDefaultCursor('url(./assets/spaceshipCursor.cur), pointer'); //Temporary Adding Source Here: http://www.rw-designer.com/licenses
+        this.input.setDefaultCursor('url(./assets/spaceshipCursor.cur), pointer'); 
 
         //Set background that is tileable
         this.menuBackground = this.add.tileSprite(0, 0, game.config.width, game.config.height, "menuBG").setOrigin(0,0).setScrollFactor(0);

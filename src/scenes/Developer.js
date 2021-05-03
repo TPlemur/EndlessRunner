@@ -111,7 +111,7 @@ class Developer extends Phaser.Scene {
 
         //Text configuration
         this.textConfig = {
-            fontFamily: 'Courier',
+            fontFamily: font,
             fontSize: '60px',
             color: fontColor,
             backgroundColor: null,

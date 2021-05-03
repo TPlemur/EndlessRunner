@@ -23,18 +23,7 @@ class End extends Phaser.Scene {
         this.menuBackground = this.add.tileSprite(0, 0, game.config.width, game.config.height, "menuBG").setOrigin(0,0).setScrollFactor(0);
         this.menuBackgroundStars = this.add.tileSprite(0, 0, game.config.width, game.config.height, "menuBGStars").setOrigin(0,0).setScrollFactor(0);
 
-        //Create a particle emitter to shoot flames out of the mouse
-        this.mouseFlameEmitter = this.add.particles('cursorParticles').createEmitter({
-            x: -3000,
-            y: -3000,
-            speed: { min: -100, max: 100 },
-            angle: { min: 360, max: 360 },
-            scale: { start: 0, end: 0.4 },
-            alpha: { start: 1, end: 0, ease: 'Expo.easeIn' },
-            blendMode: 'SCREEN',
-            gravityY: 500,
-            lifespan: 900
-        });
+        
 
         //define Keys (potentialy temparary) used for navigation
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -63,12 +52,22 @@ class End extends Phaser.Scene {
             this.cdPLAN = true;
         }
 
-
-
+        //Create a particle emitter to shoot flames out of the mouse
+        this.mouseFlameEmitter = this.add.particles('cursorParticles').createEmitter({
+            x: -3000,
+            y: -3000,
+            speed: { min: -100, max: 100 },
+            angle: { min: 360, max: 360 },
+            scale: { start: 0, end: 0.4 },
+            alpha: { start: 1, end: 0, ease: 'Expo.easeIn' },
+            blendMode: 'SCREEN',
+            gravityY: 500,
+            lifespan: 900
+        });
 
         //text configuration
         this.textConfig = {
-            fontFamily: 'Courier',
+            fontFamily: font,
             fontSize: '200px',
             color: fontColor,
             backgroundColor: null,
@@ -84,7 +83,7 @@ class End extends Phaser.Scene {
         this.add.text(screenWidth/2,screenHeight/2,"High Score:" + highScore,this.textConfig).setOrigin(0.5,0)
 
         this.textConfig.fontSize = '100px';
-        this.add.text(screenWidth/2,screenHeight,'space to replay, esc for menu',this.textConfig).setOrigin(0.5,1)
+        this.add.text(screenWidth/2,screenHeight - 20,'space to replay, esc for menu',this.textConfig).setOrigin(0.5,1)
         this.add.text(screenWidth/2,0, causeOfDeath ,this.textConfig).setOrigin(0.5,0);
 
         //Menu and Play Button

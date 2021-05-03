@@ -53,7 +53,7 @@ class Settings extends Phaser.Scene {
 
         //Text configuration
         this.textConfig = {
-            fontFamily: 'Courier',
+            fontFamily: font,
             fontSize: '80px',
             color: fontColor,
             backgroundColor: null,

@@ -113,7 +113,7 @@ class Play extends Phaser.Scene {
 
         //text configuration
         this.textConfig = {
-            fontFamily: 'Courier',
+            fontFamily: font,
             fontSize: '100px',
             color: fontColor,
             backgroundColor: '#000000',
@@ -127,7 +127,7 @@ class Play extends Phaser.Scene {
         //display the score in the top right corner
         this.scoreDisplay = this.add.text(screenWidth, 0, '0', this.textConfig).setOrigin(1, 0)
         this.textConfig.backgroundColor = null;
-        this.instructions = this.add.text(screenWidth / 2, 0, 'space to launch\naim for the circle', this.textConfig).setOrigin(0.5, 0)
+        this.instructions = this.add.text(screenWidth / 2, 0, 'space to launch\naim for the circle\navoid hitting the planet directly', this.textConfig).setOrigin(0.5, 0)
 
         //change textConfig for GAME OVER text
         this.textConfig.fontSize = '200px';
@@ -206,7 +206,7 @@ class Play extends Phaser.Scene {
             this.add.text(game.config.width / 2, game.config.height / 2, 'GAME OVER', this.textConfig).setOrigin(0.5);
 
             this.textConfig.fontSize = "100px";
-            this.add.text(screenWidth / 2, screenHeight, "space to replay", this.textConfig).setOrigin(0.5, 1)
+            this.add.text(screenWidth / 2, screenHeight - 20, "space to replay", this.textConfig).setOrigin(0.5, 1)
             //update highscore if necessasary
             if (gameScore >= highScore) {
                 highScore = gameScore;

@@ -35,6 +35,7 @@ let tweenspeed = 2; //time in seconds
 let whichButton = 1; // Game starts off with medium settings 0 = Easy, 1 = Medium, 2 = Hard, 3 = custom
 let buttonScale = 0.35; //Sets the size of the plus and minus buttons
 let fontColor = '#B0BABA';
+let font = 'font1';
 
 //contol variables
 let shipMoveSpeed = 500;     //range: 300-800    default: 500    increment: 100                                 IMPLEMENTED SETTINGS DONE
