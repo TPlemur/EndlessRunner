@@ -15,7 +15,7 @@ class Menu extends Phaser.Scene{
         this.load.image('menuBGStars', './assets/menu/menuBackgroundStars.png');
         this.load.image('title', './assets/menu/menuTitle.png');
         this.load.image('cursorParticles', './assets/menu/cursorParticles.png');
-        this.load.image('developer', './assets/buttons/Gear.png');
+        this.load.image('fullscreen', './assets/buttons/fullscreen.png');
 
         //Load Audio
         this.load.audio('menuBGMusic', './assets/menu/menuMusic.wav'); 
@@ -94,29 +94,13 @@ class Menu extends Phaser.Scene{
         this.settingsBtn.on('pointerdown', () => this.actionOnClick(this.settingsBtn, this, this.menuBGMusic, this.mouseFlameEmitter, this.sfxConfig));  
 
         //fullScreen Button
-        this.textConfig = {
-            fontFamily: font,
-            fontSize: '20px',
-            color: fontColor,
-            align: 'center',
-            padding: {
-                top: 5,
-                bottom: 5,
-            },
-            fixedWidth: 0
-        }
-        this.fullScreen = this.add.sprite(0,0, 'developer').setInteractive().setScale(0.15).setOrigin(0.5,0.5);
-        this.add.text(this.fullScreen.displayWidth/2,10,'Fullscreen',this.textConfig).setOrigin(0);
+        this.fullScreen = this.add.sprite(screenWidth-5,5, 'fullscreen').setInteractive().setScale(0.15).setOrigin(1,0);
         this.fullScreen.on('pointerdown',()=> { 
             if(this.scale.isFullscreen){
                 this.scale.stopFullscreen()}
             else{
                 this.scale.startFullscreen();
         }});
-        this.rotFS = false;
-        this.fullScreen.on('pointerover',() => {this.rotFS = true;});
-        this.fullScreen.on('pointerout',() => {this.rotFS = false});
-
 
         // Black Screen used for Transitioning between Scenes
         this.blackScreen = this.add.rectangle(screenCenterX, (screenCenterY + screenHeight) * 2, screenWidth, screenHeight * 3, 0x000000);
@@ -140,10 +124,6 @@ class Menu extends Phaser.Scene{
         //Will Launch the Menu up like a rocket
         if(this.launchMe == true){
             this.launchMenu(this.blackScreen, this.title, this.launchBtn, this.creditsBtn, this.settingsBtn, this, this.rocketEmitter, this.bgPlanet);
-        }
-
-        if(this.rotFS){
-            this.fullScreen.angle +=1;
         }
     }
 
