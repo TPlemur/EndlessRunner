@@ -1,15 +1,44 @@
-//main.js
-//declairs global variables and creates the phaser game object
-//Thomas, jacqueline, Danny, Quinn
 //
-//Sources: 
-//Menu Music: https://freesound.org/people/szegvari/sounds/560736/
-//Music: https://www.bensound.com/royalty-free-music/track/sci-fi
-//Button Sound: https://freesound.org/people/pan14/sounds/263129/
-//Launch Noise: https://freesound.org/people/MATRIXXX_/sounds/444855/
-//Crash Sound: https://freesound.org/people/soneproject/sounds/346425/
-//SuccessSound: https://freesound.org/people/soneproject/sounds/345271/
-//Font: https://www.dafont.com/futured.font
+// Quasar Escape
+// Thomas Price, Jacqueline Castro, Danny Baghdasarians, Quinn Satow
+// Date Completed: 5/3/21
+//
+//
+// __Creative_Tilt_Justification__
+//
+// What our endless runner does that is techincally interesting is the games utilization of orbiting a planet. By doing so we take the endless runner from running on the ground
+// to orbiting planets in order to escape a giant black hole that is chasing you. 
+//
+// We are particularly proud of how controllable our variables for gameplay are. With the amount of variables that we implemented, the games pace and difficulty can be changed
+// and catered to the users needs. Planets, ships, blackholes, music, etc., each have various variables attached to them that are completely changeable. In addition, we are proud
+// of how our ship orbits a planet, and captures the next planet so effortlessly and without any Phaser physics at all!
+//
+// We utilized the Phaser 3 API and documentation straight from their website to help us understand concepts and implement things that we have not learned yet but wanted to go out of
+// our way to add to the game to make it all the more enjoyable to play. Particle systems and Texture atlas's were 2 of the many things that we had to go out and do our own research on
+// to understand how to use them and manipulate them to fit our game.
+//
+// Our visual style was created by our artist Jacqueline and really emphasizes a space theme that is not too complex but enough so that players can feel the polish that it adds to the game.
+//
+// We are proud of our art assets as they are all created by our arists and no outside sources. Our music is fantastic and matches the game and we have aquired it from sources that allow free
+// usage of their works.
+//
+// We believe we are trying something unique in the endless runner form as our game utilizes space travel in many different directions as well as orbiting planets. This new take on
+// endless runners we hope will be refreshing and uniquely stand out.
+//
+//
+// Sources: 
+// Menu Music: https://freesound.org/people/szegvari/sounds/560736/
+// Music: https://www.bensound.com/royalty-free-music/track/sci-fi
+// Button Sound: https://freesound.org/people/pan14/sounds/263129/
+// Launch Noise: https://freesound.org/people/MATRIXXX_/sounds/444855/
+// Crash Sound: https://freesound.org/people/soneproject/sounds/346425/
+// SuccessSound: https://freesound.org/people/soneproject/sounds/345271/
+// Font: https://www.dafont.com/futured.font
+//
+//
+// main.js
+// Declairs global variables and creates the phaser game object
+//
 
 //config for the phaser game
 const screenWidth = 1920;
