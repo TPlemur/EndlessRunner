@@ -20,7 +20,6 @@ class Planet extends Phaser.GameObjects.Sprite {
         this.rotDir = 1;
         this.numPlanets = 22;
         this.milisPerSecond = 1000;
-
     }
 
     //set the radius and update everything dependant on that
@@ -76,5 +75,4 @@ class Planet extends Phaser.GameObjects.Sprite {
             duration: time*this.milisPerSecond,
         });
     }
-
 }

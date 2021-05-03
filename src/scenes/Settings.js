@@ -38,7 +38,6 @@ class Settings extends Phaser.Scene {
         this.backBtn = this.add.sprite(screenCenterX, screenCenterY + 450, 'backButton').setInteractive().setScale(0.5); //Initialize the button
         this.button(this.backBtn, this, null, this.sfxConfig);
 
-
         this.mouseFlameEmitter = this.add.particles('cursorParticles').createEmitter({
             x: -3000,
             y: -3000,
@@ -102,7 +101,6 @@ class Settings extends Phaser.Scene {
 
         this.developer = this.add.sprite(screenCenterX, screenCenterY + 275, 'developer').setInteractive().setScale(0.15).setOrigin(0.5,0.5);
         this.button(this.developer, this, null, this.sfxConfig);
-
     }
 
     update(){
@@ -233,9 +231,7 @@ class Settings extends Phaser.Scene {
             mouseOrbit = false;    //range: bool       default: false
             gameAcceleration = 0;  //range: 1-0.5      default: 0.05   increment: 0.5
             ringFade = 0;          //range: 0-1        default: 0.1    increment: 0.05
-            highScore = 0;         //reset highScore            
-            
-
+            highScore = 0;         //reset highScore              
         }
         else if(whichButton == 1){
             this.easy.clearTint();

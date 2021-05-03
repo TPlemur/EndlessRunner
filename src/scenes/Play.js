@@ -35,7 +35,6 @@ class Play extends Phaser.Scene {
             frameRate: 10,
             repeat: -1
         })
-
         //load background
         this.bg = this.add.sprite(0, 0, 'background').setOrigin(0, 0);
         this.bgStars00 = this.add.tileSprite(0, 0, screenWidth, screenHeight, 'stars').setOrigin(0, 0);
@@ -238,7 +237,6 @@ class Play extends Phaser.Scene {
         else {//update lastdist if no captue happens
             this.lastDist = this.orbirter.checkDist(this.targetPlanet);
         }
-
     }//end update()
 
     //checks if the game should end and executes the approprate ending
@@ -267,7 +265,6 @@ class Play extends Phaser.Scene {
             if (gameScore >= highScore) {
                 highScore = gameScore;
             }
-            
 
             //When game ends jump to End Screen after 2 seconds
             this.clock = this.time.delayedCall(1500, () => { this.scene.start('endScene') }, null, this);
@@ -276,7 +273,6 @@ class Play extends Phaser.Scene {
 
     //executes capturing of orbiter to new planet
     capture(){ 
-
         //accelerate the game
         globalSpeed += gameAcceleration;
 
@@ -332,7 +328,4 @@ class Play extends Phaser.Scene {
             duration: 1000*tweenspeed,
         });
     }//end capture()
-
-
-
 }

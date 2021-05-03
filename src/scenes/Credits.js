@@ -7,13 +7,13 @@ class Credits extends Phaser.Scene {
     }
 
     preload(){
-        this.load.image('menuBG', './assets/menu/menuBackground.png');
-        this.load.image('menuBGStars', './assets/menu/menuBackgroundStars.png');
-        this.load.image('backButton', './assets/buttons/Back.png');
-        this.load.image('thomas', './assets/credits/thomas.png');
-        this.load.image('danny', './assets/credits/danny.png');
-        this.load.image('jacqueline', './assets/credits/jacqueline.png');
-        this.load.image('quinn', './assets/credits/quinn.png');
+            this.load.image('menuBG', './assets/menu/menuBackground.png');
+            this.load.image('menuBGStars', './assets/menu/menuBackgroundStars.png');
+            this.load.image('backButton', './assets/buttons/Back.png');
+            this.load.image('thomas', './assets/credits/thomas.png');
+            this.load.image('danny', './assets/credits/danny.png');
+            this.load.image('jacqueline', './assets/credits/jacqueline.png');
+            this.load.image('quinn', './assets/credits/quinn.png');
         }
 
     create(){
@@ -44,7 +44,6 @@ class Credits extends Phaser.Scene {
 
         this.menuBackground = this.add.tileSprite(0, 0, game.config.width, game.config.height, "menuBG").setOrigin(0,0).setScrollFactor(0);
         this.menuBackgroundStars = this.add.tileSprite(0, 0, game.config.width, game.config.height, "menuBGStars").setOrigin(0,0).setScrollFactor(0);
-
 
         //Main text
         this.peopleHeading = this.add.text(screenCenterX, screenCenterY - screenHeight, "A Game By:", this.textConfig).setOrigin(0.5,0);
@@ -104,7 +103,7 @@ class Credits extends Phaser.Scene {
         if(this.game.input.mousePointer.x<5||this.game.input.mousePointer.y<3){
             this.mouseFlameEmitter.setPosition(-100,-100);
         }
-
+        
         this.parallaxBackground();
     }
 

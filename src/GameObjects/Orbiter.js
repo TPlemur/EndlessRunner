@@ -31,8 +31,6 @@ class Orbiter extends Phaser.GameObjects.Sprite {
         this.quarterTurn = 90;      // rotates things 90 degrees
         this.milisPerSec = 1000;    // converts between miliseconds and seconds
         this.degRadConversion = 180/Math.PI // converts between degrees and radians
-
-
     }
 
     update(){
