@@ -125,7 +125,6 @@ class Developer extends Phaser.Scene {
         //Developer Options Text
         this.holeSpeedText = this.add.text(screenCenterX, screenCenterY - screenCenterY/2 - 230, "{ Developer Options }", this.textConfig).setOrigin(0.5,0.5)
 
-
         //Ship Speed
         this.shipSpeedMinus = this.add.sprite(screenWidth/6 - 150, screenCenterY - screenCenterY/2, 'minus').setInteractive().setScale(this.buttonScale);
         this.shipSpeedPlus = this.add.sprite(screenWidth/6 + 150, screenCenterY - screenCenterY/2, 'plus').setInteractive().setScale(this.buttonScale);

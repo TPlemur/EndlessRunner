@@ -13,7 +13,6 @@ class End extends Phaser.Scene {
         this.load.image('extraHole','assets/blackhole/newBlackHole.png')
         this.load.image('playButton', './assets/buttons/Replay.png');
         this.load.image('menuButton', './assets/buttons/Menu.png');
-
     }
 
     create(){
@@ -22,9 +21,7 @@ class End extends Phaser.Scene {
         
         this.menuBackground = this.add.tileSprite(0, 0, game.config.width, game.config.height, "menuBG").setOrigin(0,0).setScrollFactor(0);
         this.menuBackgroundStars = this.add.tileSprite(0, 0, game.config.width, game.config.height, "menuBGStars").setOrigin(0,0).setScrollFactor(0);
-
         
-
         //define Keys (potentialy temparary) used for navigation
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
@@ -112,7 +109,6 @@ class End extends Phaser.Scene {
         if(this.game.input.mousePointer.x<5||this.game.input.mousePointer.y<3){
             this.mouseFlameEmitter.setPosition(-100,-100);
         }
-        
 
         this.parallaxBackground();
 
@@ -134,7 +130,6 @@ class End extends Phaser.Scene {
         if(this.cdPLAN){
             this.endPlanet.angle += 0.5;
         }
-
     }
 
     parallaxBackground(){

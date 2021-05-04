@@ -202,7 +202,6 @@ class Menu extends Phaser.Scene{
             }
         }
     }
-
     launchMenu(blackScreen, title, launchButton, creditsButton, settingsButton, menuScene, emitter, planet, fullScreen) {
         //Moves elements up
         blackScreen.y -= 20;
