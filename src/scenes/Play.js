@@ -10,7 +10,7 @@ class Play extends Phaser.Scene {
         //loading assets
         this.load.image('orbiter', 'assets/newShip.png');
         this.load.image('blackHole', './assets/blackhole/blackHole.png');
-        this.load.spritesheet('blackHoleWaves', './assets/blackhole/newSwarmSpriteSheet(compressedDoubled).png', { frameWidth: 1439, frameHeight: 1080, startFrame: 0, endFrame: 9 });
+        //this.load.spritesheet('blackHoleWaves', './assets/blackhole/newSwarmSpriteSheet.png', { frameWidth: 1439, frameHeight: 1080, startFrame: 0, endFrame: 9 });
         this.load.image('boundingRing', 'assets/planets/dottedRing.png');
         this.load.image('background', 'assets/background/BackgroundB1.png');
         this.load.image('menuBG', './assets/menu/menuBackground.png');
@@ -18,6 +18,18 @@ class Play extends Phaser.Scene {
         this.load.image('stars', 'assets/background/BackgroundS2.png');
         this.load.atlas('planets', 'assets/planets/planets.png', 'assets/planets/planets.json');
         this.load.image('cursorParticles', './assets/menu/cursorParticles.png');
+
+        //blackHole broken into separate images to comply with webgl's 4096px max resolution for images
+        this.load.image('swarm01','assets/blackhole/swarmFrame01.png');
+        this.load.image('swarm02','assets/blackhole/swarmFrame02.png');
+        this.load.image('swarm03','assets/blackhole/swarmFrame03.png');
+        this.load.image('swarm04','assets/blackhole/swarmFrame04.png');
+        this.load.image('swarm05','assets/blackhole/swarmFrame05.png');
+        this.load.image('swarm06','assets/blackhole/swarmFrame06.png');
+        this.load.image('swarm07','assets/blackhole/swarmFrame07.png');
+        this.load.image('swarm08','assets/blackhole/swarmFrame08.png');
+        this.load.image('swarm09','assets/blackhole/swarmFrame09.png');
+        this.load.image('swarm10','assets/blackhole/swarmFrame10.png');
 
         //audio
         this.load.audio('bgm', 'assets/planets/background.mp3');
@@ -29,12 +41,29 @@ class Play extends Phaser.Scene {
     create() {
 
         //black hole wibble animation
+        // this.anims.create({
+        //     key: 'wibble',
+        //     frames: this.anims.generateFrameNumbers('blackHoleWaves', { frames: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] }),
+        //     frameRate: 10,
+        //     repeat: -1
+        // })
         this.anims.create({
             key: 'wibble',
-            frames: this.anims.generateFrameNumbers('blackHoleWaves', { frames: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] }),
+            frames: [
+                { key: 'swarm01'},
+                { key: 'swarm02'},
+                { key: 'swarm03'},
+                { key: 'swarm04'},
+                { key: 'swarm05'},
+                { key: 'swarm06'},
+                { key: 'swarm07'},
+                { key: 'swarm08'},
+                { key: 'swarm09'},
+                { key: 'swarm10'}],
             frameRate: 10,
             repeat: -1
         })
+
         //load background
         this.bg = this.add.sprite(0, 0, 'background').setOrigin(0, 0);
         this.bgStars00 = this.add.tileSprite(0, 0, screenWidth, screenHeight, 'stars').setOrigin(0, 0);
